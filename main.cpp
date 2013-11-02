@@ -6,10 +6,11 @@
 #include <pcl/surface/impl/organized_fast_mesh.hpp>
 #include <pcl/io/vtk_io.h>
 
-//typedef pcl::PointXYZ PointType;
+typedef pcl::PointXYZ PointType;
 typedef pcl::Normal Normal;
-typedef pcl::PointXYZRGB PointType;
-typedef pcl::PointXYZRGBNormal PointTypeN;
+typedef pcl::PointNormal PointTypeN;
+//typedef pcl::PointXYZRGB PointType;
+//typedef pcl::PointXYZRGBNormal PointTypeN;
 
 int main(int argc, char *argv[])
 {
@@ -17,8 +18,8 @@ int main(int argc, char *argv[])
     // Load input file into a PointCloud<T> with an appropriate type
     pcl::PointCloud<PointType>::Ptr cloud (new pcl::PointCloud<PointType>);
     pcl::PCLPointCloud2 cloud_blob;
-    pcl::io::loadPCDFile ("pointcloud-ascii-downsampled-inliers.pcd", cloud_blob);
-    //pcl::io::loadPCDFile ("bun0.pcd", cloud_blob);
+    //pcl::io::loadPCDFile ("pointcloud-ascii-downsampled-inliers.pcd", cloud_blob);
+    pcl::io::loadPCDFile ("bun0.pcd", cloud_blob);
     pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
     //* the data should be available in cloud
     std::cout << "bun0 loaded " << std::endl;
