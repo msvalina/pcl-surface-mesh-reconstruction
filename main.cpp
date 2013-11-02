@@ -55,25 +55,6 @@ int main(int argc, char *argv[])
     ofm.setSearchMethod(tree2);
     ofm.setInputCloud(cloud_with_normals);
     ofm.reconstruct (triangles);
-    // Set the maximum distance between connected points (maximum edge length)
-    // gp3.setSearchRadius (0.125);
-
-    // // Set typical values for the parameters
-    // gp3.setMu (2.5);
-    // gp3.setMaximumNearestNeighbors (50);
-    // gp3.setMaximumSurfaceAngle(M_PI/4); // 45 degrees
-    // gp3.setMinimumAngle(M_PI/18); // 10 degrees
-    // gp3.setMaximumAngle(2*M_PI/3); // 120 degrees
-    // gp3.setNormalConsistency(true);
-
-    // // Get result
-    // gp3.setInputCloud (cloud_with_normals);
-    // gp3.setSearchMethod (tree2);
-    // gp3.reconstruct (triangles);
-
-    // // Additional vertex information
-    // std::vector<int> parts = gp3.getPartIDs();
-    // std::vector<int> states = gp3.getPointStates();
 
     pcl::io::saveVTKFile ("mesh-ofm.vtk", triangles);
     return 0;
