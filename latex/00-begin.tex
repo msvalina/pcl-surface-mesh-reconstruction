@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[croatian]{babel} % For Croatian 
+\usepackage[T1]{fontenc} % Better hyphenation for words with digraphs čćžšđ
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float} % For manualy figure postioning
+\usepackage{listings} % Support for .txt listings w/o begin{verbatim}
+\usepackage[usenames,dvipsnames]{xcolor} % Enabling more defined colors
+\usepackage{datetime}
+\usepackage{tocloft} % For Toc with dots
+\usepackage[left=2.5cm,top=2.5cm,right=2cm,bottom=2.5cm]{geometry} 
+\usepackage{fancyhdr} % For fancy headers and footers
+\usepackage[nottoc]{tocbibind} % For adding Bibliography in TOC
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{pdfpages}
+
+% Fancy header definition
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} % Removes default rule in header
+\fancyhf{}
+% Set page number in down-right corner of the page
+\rfoot{\thepage}
+
+\begin{document}
+
+% Section, figure, table numbering
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} 
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+
+\include{01-title}
+% \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
+% \includepdf[pages={1}]{izjava_o_originalnosti}
+\include{02-toc}
+\include{03-introduction}
+\include{08-bibliography}
+% \include{01_uvod}
+% 
+% \include{05_zakljucak}
+% 
+% \include{06_literatura}
+%  
+% \include{07_sazetak}
+% 
+% \include{08_zivotopis}
+% 
+% \include{09_prilozi}
+
+\end{document}
