@@ -15,8 +15,8 @@ typedef pcl::PointXYZRGBNormal PointTypeN;
 
 int main(int argc, char *argv[])
 {
-    pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2 ());
-    pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2 ());
+    pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+    pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
 
     // Fill in the cloud data
     pcl::PCDReader reader;
@@ -25,8 +25,9 @@ int main(int argc, char *argv[])
     }
     else reader.read(argv[1], *cloud);
 
-    std::cerr << "PointCloud before filtering: " << cloud->width * cloud->height
-       << " data points (" << pcl::getFieldsList (*cloud) << ")." << std::endl;
+    std::cout << "PointCloud before filtering: " << cloud->width *
+        cloud->height << " data points (" << pcl::getFieldsList (*cloud)
+        << ")." << std::endl;
 
     // Create the filtering object
     pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
@@ -34,19 +35,25 @@ int main(int argc, char *argv[])
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*cloud_filtered);
 
-    std::cerr << "PointCloud after filtering: " << cloud_filtered->width * cloud_filtered->height
-       << " data points (" << pcl::getFieldsList (*cloud_filtered) << ")." << std::endl;
+    std::cout << "PointCloud after filtering: " << 
+            cloud_filtered->width * cloud_filtered->height 
+            << " data points (" << pcl::getFieldsList (*cloud_filtered)
+            << ")." << std::endl;
 
     pcl::PCDWriter writer;
     writer.write ("pointcloud-ascii-downsampled.pcd", *cloud_filtered,
-         Eigen::Vector4f::Zero (), Eigen::Quaternionf::Identity (), false);
+            Eigen::Vector4f::Zero(), Eigen::Quaternionf::Identity(),
+            false);
 
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud2 (new pcl::PointCloud<pcl::PointXYZRGB>);
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered2 (new pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud2 (new
+            pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered2 (new
+            pcl::PointCloud<pcl::PointXYZRGB>);
 
     // Fill in the cloud data
     // Replace the path below with the path where you saved your file
-    reader.read<pcl::PointXYZRGB> ("pointcloud-ascii-downsampled.pcd", *cloud2);
+    reader.read<pcl::PointXYZRGB> ("pointcloud-ascii-downsampled.pcd",
+            *cloud2);
 
     std::cerr << "Cloud before filtering: " << std::endl;
     std::cerr << *cloud2 << std::endl;
@@ -58,19 +65,25 @@ int main(int argc, char *argv[])
     sor2.setStddevMulThresh (1.0);
     sor2.filter (*cloud_filtered2);
 
-    std::cerr << "Cloud after filtering: " << std::endl;
-    std::cerr << *cloud_filtered2 << std::endl;
+    std::cout << "Cloud after filtering: " << std::endl;
+    std::cout << *cloud_filtered2 << std::endl;
 
-    writer.write<pcl::PointXYZRGB> ("pointcloud-ascii-downsampled-inliers.pcd", *cloud_filtered2, false);
+    writer.write<pcl::PointXYZRGB>
+        ("pointcloud-ascii-downsampled-inliers.pcd", *cloud_filtered2,
+         false);
 
     sor2.setNegative (true);
     sor2.filter (*cloud_filtered2);
-    writer.write<pcl::PointXYZRGB> ("pointcloud-ascii-downsampled-outliers.pcd", *cloud_filtered2, false);
+    writer.write<pcl::PointXYZRGB>
+        ("pointcloud-ascii-downsampled-outliers.pcd", *cloud_filtered2,
+         false);
 
     // Load input file into a PointCloud<T> with an appropriate type
-    pcl::PointCloud<PointType>::Ptr cloud3 (new pcl::PointCloud<PointType>);
+    pcl::PointCloud<PointType>::Ptr cloud3 (new
+            pcl::PointCloud<PointType>);
     pcl::PCLPointCloud2 cloud_blob;
-    pcl::io::loadPCDFile ("pointcloud-ascii-downsampled-inliers.pcd", cloud_blob);
+    pcl::io::loadPCDFile ("pointcloud-ascii-downsampled-inliers.pcd",
+            cloud_blob);
     //pcl::io::loadPCDFile ("bun0.pcd", cloud_blob);
     pcl::fromPCLPointCloud2 (cloud_blob, *cloud3);
     //* the data should be available in cloud
@@ -80,21 +93,25 @@ int main(int argc, char *argv[])
     // Normal estimation*
     pcl::NormalEstimation<PointType, Normal> normEst;
     pcl::PointCloud<Normal>::Ptr normals (new pcl::PointCloud<Normal>);
-    pcl::search::KdTree<PointType>::Ptr tree (new pcl::search::KdTree<PointType>);
+    pcl::search::KdTree<PointType>::Ptr tree (new
+            pcl::search::KdTree<PointType>);
     tree->setInputCloud (cloud3);
     normEst.setInputCloud (cloud3);
     normEst.setSearchMethod (tree);
     normEst.setKSearch (20);
     normEst.compute (*normals);
-    //* normals should not contain the point normals + surface curvatures
+    //* normals should not contain the point normals + surface
+    //curvatures
 
     // Concatenate the XYZ and normal fields*
-    pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new pcl::PointCloud<PointTypeN>);
+    pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
+            pcl::PointCloud<PointTypeN>);
     pcl::concatenateFields (*cloud3, *normals, *cloud_with_normals);
     //* cloud_with_normals = cloud + normals
 
     // Create search tree*
-    pcl::search::KdTree<PointTypeN>::Ptr tree2 (new pcl::search::KdTree<PointTypeN>);
+    pcl::search::KdTree<PointTypeN>::Ptr tree2 (new
+            pcl::search::KdTree<PointTypeN>);
     tree2->setInputCloud (cloud_with_normals);
 
     // Initialize objects
