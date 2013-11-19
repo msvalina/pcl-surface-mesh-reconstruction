@@ -1,25 +1,42 @@
 \documentclass[12pt,a4paper]{article}
+% Internationalization 
 \usepackage[utf8]{inputenc}
-\usepackage[croatian]{babel} % For Croatian 
-\usepackage[T1]{fontenc} % Better hyphenation for words with digraphs čćžšđ
+% Better hyphenation for words with digraphs čćžšđ
+\usepackage[T1]{fontenc} 
+% Set Croatian as active language
+\usepackage[croatian]{babel}
+% For importing images - .jpg, .png, .pdf, .svg, .eps
 \usepackage{graphicx}
+% For manualy figure postioning
+\usepackage{float} 
+% For adding colors to text
 \usepackage{color}
-\usepackage{float} % For manualy figure postioning
-\usepackage{listings} % Support for .txt listings w/o begin{verbatim}
-\usepackage[usenames,dvipsnames]{xcolor} % Enabling more defined colors
+% Enabling more defined colors
+\usepackage[usenames,dvipsnames]{xcolor}
+% Support for .txt listings w/o begin{verbatim}
+\usepackage{listings} 
+% Pro­vides diffrent formats for \today
 \usepackage{datetime}
-\usepackage{tocloft} % For Toc with dots
+% For Toc with dots
+\usepackage{tocloft} 
+% Define geometry
 \usepackage[left=2.5cm,top=2.5cm,right=2cm,bottom=2.5cm]{geometry} 
-\usepackage{fancyhdr} % For fancy headers and footers
-\usepackage[nottoc]{tocbibind} % For adding Bibliography in TOC
-\usepackage{amsmath}
-\usepackage{listings}
+% For fancy headers and footers
+\usepackage{fancyhdr} 
+% For adding Bibliography in TOC
+\usepackage[nottoc]{tocbibind} 
+% LaTex has support for simple math formulas 
+% For advance mathematical formulas we use
+\usepackage{mathtools}
+% For setting line spacing e.g. \dobulespacing
 \usepackage{setspace}
+% Simplifies including multi-page PDF or PS docs
 \usepackage{pdfpages}
 
 % Fancy header definition
 \pagestyle{fancy}
-\renewcommand{\headrulewidth}{0pt} % Removes default rule in header
+% Removes default rule in header
+\renewcommand{\headrulewidth}{0pt} 
 \fancyhf{}
 % Set page number in down-right corner of the page
 \rfoot{\thepage}
