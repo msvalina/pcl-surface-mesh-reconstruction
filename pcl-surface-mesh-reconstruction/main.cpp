@@ -33,10 +33,12 @@ void downsample (int argc, char* argv[])
 
     // Fill in the cloud data
     pcl::PCDReader reader;
-    if (argc < 1){
+    if (argc < 2){
         reader.read ("pointcloud.pcd", *cloud);
     }
-    else reader.read (argv[1], *cloud);
+    else {
+        reader.read (argv[1], *cloud);
+    }
 
     std::cout << "PointCloud before filtering: " << cloud->width *
         cloud->height << " data points (" << pcl::getFieldsList (*cloud)
@@ -54,7 +56,7 @@ void downsample (int argc, char* argv[])
             << ")." << std::endl;
 
     pcl::PCDWriter writer;
-    if (argc < 1){
+    if (argc < 2){
         writer.write ("pointcloud-downsampled.pcd",
                 *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
@@ -77,7 +79,7 @@ void remove_outliers (int argc, char* argv[])
 
     // Fill in the cloud data
     pcl::PCDReader reader;
-    if (argc < 1){
+    if (argc < 2){
         reader.read<pcl::PointXYZRGB> ("pointcloud-downsampled.pcd",
                 *cloud2);
     }
@@ -103,7 +105,7 @@ void remove_outliers (int argc, char* argv[])
 
     pcl::PCDWriter writer;
 
-    if (argc < 1){
+    if (argc < 2){
         writer.write<pcl::PointXYZRGB>
             ("pointcloud-downsampled-inliers.pcd",
              *cloud_filtered2, false);
@@ -135,9 +137,9 @@ void reconstruct_mesh (int argc, char* argv[])
             pcl::PointCloud<PointType>);
     pcl::PCLPointCloud2 cloud_blob;
 
-    if (argc < 1) {
+    if (argc < 2) {
         pcl::io::loadPCDFile
-            ("pointcloud-ascii-downsampled-inliers.pcd", cloud_blob);
+            ("pointcloud-downsampled-inliers.pcd", cloud_blob);
     }
     else {
         std::string str;
@@ -185,7 +187,7 @@ void reconstruct_mesh (int argc, char* argv[])
     poissn.reconstruct (triangles);
     poissn.setOutputPolygons(false);
 
-    if (argc < 1){
+    if (argc < 2){
         pcl::io::saveVTKFile
             ("pointcloud-downsampled-outliers-mesh.vtk",
              triangles);
