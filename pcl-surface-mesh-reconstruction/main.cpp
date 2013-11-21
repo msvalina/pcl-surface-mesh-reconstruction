@@ -26,6 +26,12 @@ int main (int argc, char *argv[])
     return 0;
 }
 
+/* Downsampling with VoxelGrid class.
+ * Voxel grid is a set of tiny 3D boxes in space.
+ * In each voxel (i.e. 3D box) all points present will be approximated
+ * (i.e. downsampled) with their centeroid.
+ */
+
 void downsample (int argc, char* argv[])
 {
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
@@ -47,6 +53,7 @@ void downsample (int argc, char* argv[])
     // Create the filtering object
     pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
     sor.setInputCloud (cloud);
+    // voxel size to be 1cm^3
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*cloud_filtered);
 
@@ -70,9 +77,13 @@ void downsample (int argc, char* argv[])
 
 }
 
+/* Removing noisy data (i.e. outliers) from measurements using statistical
+ * analysis technique
+ */
+
 void remove_outliers (int argc, char* argv[])
 {
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud2 (new
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new
             pcl::PointCloud<pcl::PointXYZRGB>);
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered2 (new
             pcl::PointCloud<pcl::PointXYZRGB>);
@@ -81,21 +92,22 @@ void remove_outliers (int argc, char* argv[])
     pcl::PCDReader reader;
     if (argc < 2){
         reader.read<pcl::PointXYZRGB> ("pointcloud-downsampled.pcd",
-                *cloud2);
+                *cloud);
     }
     else {
         std::string str;
         str.append(argv[1]).append("-downsampled.pcd");
-        reader.read (str, *cloud2);
+        reader.read (str, *cloud);
     }
 
 
-    std::cerr << "Cloud before filtering: " << std::endl;
-    std::cerr << *cloud2 << std::endl;
+    std::cout << "Cloud before filtering: " << std::endl;
+    std::cout << *cloud << std::endl;
 
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor2;
-    sor2.setInputCloud (cloud2);
+    sor2.setInputCloud (cloud);
+    // Set number of neighbors to analyze
     sor2.setMeanK (50);
     sor2.setStddevMulThresh (1.0);
     sor2.filter (*cloud_filtered2);
@@ -105,6 +117,7 @@ void remove_outliers (int argc, char* argv[])
 
     pcl::PCDWriter writer;
 
+    // Write both inliers and outliers 
     if (argc < 2){
         writer.write<pcl::PointXYZRGB>
             ("pointcloud-downsampled-inliers.pcd",
@@ -130,10 +143,14 @@ void remove_outliers (int argc, char* argv[])
 
 }
 
+/* Construct mesh of triangles from input pointcloud using Poisson's
+ * surface reconstruction algorithm
+ */
+
 void reconstruct_mesh (int argc, char* argv[])
 {
     // Load input file into a PointCloud<T> with an appropriate type
-    pcl::PointCloud<PointType>::Ptr cloud3 (new
+    pcl::PointCloud<PointType>::Ptr cloud (new
             pcl::PointCloud<PointType>);
     pcl::PCLPointCloud2 cloud_blob;
 
@@ -147,46 +164,53 @@ void reconstruct_mesh (int argc, char* argv[])
         pcl::io::loadPCDFile (str, cloud_blob);
     }
 
-    pcl::fromPCLPointCloud2 (cloud_blob, *cloud3);
-    //* the data should be available in cloud
+    pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
+    // the data should be available in cloud
     std::cout << "cloud loaded " << std::endl;
-    std::cout << cloud3->size() << std::endl;
+    std::cout << cloud->size() << std::endl;
 
-    // Normal estimation*
+    // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
     pcl::PointCloud<Normal>::Ptr normals (new pcl::PointCloud<Normal>);
+    
+    // Create kdtree representation of cloud, 
+    // and pass it to the normal estimation object. 
     pcl::search::KdTree<PointType>::Ptr tree (new
             pcl::search::KdTree<PointType>);
-    tree->setInputCloud (cloud3);
-    normEst.setInputCloud (cloud3);
+    tree->setInputCloud (cloud);
+    normEst.setInputCloud (cloud);
     normEst.setSearchMethod (tree);
+    // Use 20 neighbor points for estimating normal
     normEst.setKSearch (20);
     normEst.compute (*normals);
-    //* normals should not contain the point normals + surface
-    //curvatures
+    // normals should not contain the point normals + surface
+    // curvatures
 
-    // Concatenate the XYZ and normal fields*
+    // Concatenate the XYZ and normal fields
     pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
             pcl::PointCloud<PointTypeN>);
-    pcl::concatenateFields (*cloud3, *normals, *cloud_with_normals);
-    //* cloud_with_normals = cloud + normals
+    pcl::concatenateFields (*cloud, *normals, *cloud_with_normals);
+    // cloud_with_normals = cloud + normals
 
-    // Create search tree*
+    // Create search tree 
     pcl::search::KdTree<PointTypeN>::Ptr tree2 (new
             pcl::search::KdTree<PointTypeN>);
     tree2->setInputCloud (cloud_with_normals);
 
-    // Initialize objects
-    pcl::Poisson<PointTypeN> poissn;
+    // Initialize objects 
+    // psn - for surface reconstruction algorithm
+    // triangles - for storage of reconstructed triangles
+    pcl::Poisson<PointTypeN> psn;
     pcl::PolygonMesh triangles;
 
     std::cout << cloud_with_normals->size() << std::endl;
 
-    poissn.setInputCloud(cloud_with_normals);
-    poissn.setSearchMethod(tree2);
-    poissn.reconstruct (triangles);
-    poissn.setOutputPolygons(false);
+    psn.setInputCloud(cloud_with_normals);
+    psn.setSearchMethod(tree2);
+    psn.reconstruct (triangles);
+    psn.setOutputPolygons(false);
 
+    // Write reconstructed mesh
     if (argc < 2){
         pcl::io::saveVTKFile
             ("pointcloud-downsampled-outliers-mesh.vtk",
