@@ -83,16 +83,13 @@ void downsample (int argc, char* argv[])
 
 void remove_outliers (int argc, char* argv[])
 {
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new
-            pcl::PointCloud<pcl::PointXYZRGB>);
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered2 (new
-            pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+    pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
 
     // Fill in the cloud data
     pcl::PCDReader reader;
     if (argc < 2){
-        reader.read<pcl::PointXYZRGB> ("pointcloud-downsampled.pcd",
-                *cloud);
+        reader.read ("pointcloud-downsampled.pcd", *cloud);
     }
     else {
         std::string str;
@@ -100,45 +97,50 @@ void remove_outliers (int argc, char* argv[])
         reader.read (str, *cloud);
     }
 
-
-    std::cout << "Cloud before filtering: " << std::endl;
-    std::cout << *cloud << std::endl;
+    std::cout << "PointCloud before filtering: " << 
+            cloud->width * cloud->height
+            << " data points (" << pcl::getFieldsList (*cloud)
+            << ")." << std::endl;
 
     // Create the filtering object
-    pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor2;
+    pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor2;
     sor2.setInputCloud (cloud);
     // Set number of neighbors to analyze
     sor2.setMeanK (50);
     sor2.setStddevMulThresh (1.0);
-    sor2.filter (*cloud_filtered2);
+    sor2.filter (*cloud_filtered);
 
-    std::cout << "Cloud after filtering: " << std::endl;
-    std::cout << *cloud_filtered2 << std::endl;
+    std::cout << "PointCloud after filtering: " << 
+            cloud_filtered->width * cloud_filtered->height 
+            << " data points (" << pcl::getFieldsList (*cloud_filtered)
+            << ")." << std::endl;
 
     pcl::PCDWriter writer;
 
     // Write both inliers and outliers 
     if (argc < 2){
-        writer.write<pcl::PointXYZRGB>
-            ("pointcloud-downsampled-inliers.pcd",
-             *cloud_filtered2, false);
+        writer.write ("pointcloud-downsampled-inliers.pcd",
+                *cloud_filtered, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
 
         sor2.setNegative (true);
-        sor2.filter (*cloud_filtered2);
-        writer.write<pcl::PointXYZRGB>
-            ("pointcloud-downsampled-outliers.pcd",
-             *cloud_filtered2, false);
+        sor2.filter (*cloud_filtered);
+        writer.write ("pointcloud-downsampled-outliers.pcd",
+                *cloud_filtered, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
     }
     else {
         std::string str1;
         str1.append(argv[1]).append("-downsampled.pcd-inliers.pcd");
         std::string str2;
         str2.append(argv[1]).append("-downsampled.pcd-outliers.pcd");
-        writer.write<pcl::PointXYZRGB> (str1, *cloud_filtered2, false);
+        writer.write (str1, *cloud_filtered, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
 
         sor2.setNegative (true);
-        sor2.filter (*cloud_filtered2);
-        writer.write<pcl::PointXYZRGB> (str2, *cloud_filtered2, false);
+        sor2.filter (*cloud_filtered);
+        writer.write (str2, *cloud_filtered, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
     }
 
 }
@@ -149,22 +151,21 @@ void remove_outliers (int argc, char* argv[])
 
 void reconstruct_mesh (int argc, char* argv[])
 {
-    // Load input file into a PointCloud<T> with an appropriate type
+    pcl::PCLPointCloud2::Ptr cloud_blob (new pcl::PCLPointCloud2());
     pcl::PointCloud<PointType>::Ptr cloud (new
             pcl::PointCloud<PointType>);
-    pcl::PCLPointCloud2 cloud_blob;
 
+    pcl::PCDReader reader;
     if (argc < 2) {
-        pcl::io::loadPCDFile
-            ("pointcloud-downsampled-inliers.pcd", cloud_blob);
+        reader.read ("pointcloud-downsampled-inliers.pcd", *cloud_blob);
     }
     else {
         std::string str;
         str.append(argv[1]).append("-downsampled.pcd-inliers.pcd");
-        pcl::io::loadPCDFile (str, cloud_blob);
+        reader.read (str, *cloud_blob);
     }
 
-    pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
+    pcl::fromPCLPointCloud2 (*cloud_blob, *cloud);
     // the data should be available in cloud
     std::cout << "cloud loaded " << std::endl;
     std::cout << cloud->size() << std::endl;
