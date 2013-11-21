@@ -34,6 +34,8 @@ int main (int argc, char *argv[])
 
 void downsample (int argc, char* argv[])
 {
+    std::cout << "Started - downsample() with VoxelGrid" << std::endl;
+
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
     pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
 
@@ -46,9 +48,9 @@ void downsample (int argc, char* argv[])
         reader.read (argv[1], *cloud);
     }
 
-    std::cout << "PointCloud before filtering: " << cloud->width *
-        cloud->height << " data points (" << pcl::getFieldsList (*cloud)
-        << ")." << std::endl;
+    std::cout << "PointCloud before filtering: "; 
+    std::cout << cloud->width * cloud->height << " data points (" ;
+    std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
 
     // Create the filtering object
     pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
@@ -57,10 +59,9 @@ void downsample (int argc, char* argv[])
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*cloud_filtered);
 
-    std::cout << "PointCloud after filtering: " << 
-            cloud_filtered->width * cloud_filtered->height 
-            << " data points (" << pcl::getFieldsList (*cloud_filtered)
-            << ")." << std::endl;
+    std::cout << "PointCloud after filtering: "; 
+    std::cout << cloud_filtered->width * cloud_filtered->height;
+    std::cout << " data points ("  << pcl::getFieldsList (*cloud) << ").\n";
 
     pcl::PCDWriter writer;
     if (argc < 2){
@@ -75,6 +76,8 @@ void downsample (int argc, char* argv[])
                 Eigen::Quaternionf::Identity(), false);
     }
 
+    std::cout << "Finished - downsample() with VoxelGrid\n" << std::endl;
+
 }
 
 /* Removing noisy data (i.e. outliers) from measurements using statistical
@@ -83,6 +86,9 @@ void downsample (int argc, char* argv[])
 
 void remove_outliers (int argc, char* argv[])
 {
+    std::cout << "Started - remove_outliers() with " << 
+        "StatisticalOutlierRemoval" << std::endl;
+
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
     pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
 
@@ -97,10 +103,9 @@ void remove_outliers (int argc, char* argv[])
         reader.read (str, *cloud);
     }
 
-    std::cout << "PointCloud before filtering: " << 
-            cloud->width * cloud->height
-            << " data points (" << pcl::getFieldsList (*cloud)
-            << ")." << std::endl;
+    std::cout << "PointCloud before filtering: "; 
+    std::cout << cloud->width * cloud->height << " data points (" ;
+    std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
 
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor2;
@@ -110,10 +115,9 @@ void remove_outliers (int argc, char* argv[])
     sor2.setStddevMulThresh (1.0);
     sor2.filter (*cloud_filtered);
 
-    std::cout << "PointCloud after filtering: " << 
-            cloud_filtered->width * cloud_filtered->height 
-            << " data points (" << pcl::getFieldsList (*cloud_filtered)
-            << ")." << std::endl;
+    std::cout << "PointCloud after filtering: "; 
+    std::cout << cloud_filtered->width * cloud_filtered->height;
+    std::cout << " data points ("  << pcl::getFieldsList (*cloud) << ").\n";
 
     pcl::PCDWriter writer;
 
@@ -143,6 +147,9 @@ void remove_outliers (int argc, char* argv[])
                 Eigen::Quaternionf::Identity(), false);
     }
 
+    std::cout << "Finished - remove_outliers() with " << 
+        "StatisticalOutlierRemoval\n" << std::endl;
+
 }
 
 /* Construct mesh of triangles from input pointcloud using Poisson's
@@ -151,6 +158,9 @@ void remove_outliers (int argc, char* argv[])
 
 void reconstruct_mesh (int argc, char* argv[])
 {
+    std::cout << "Started - reconstruct_mesh() with " << 
+        "Poisson" << std::endl;
+
     pcl::PCLPointCloud2::Ptr cloud_blob (new pcl::PCLPointCloud2());
     pcl::PointCloud<PointType>::Ptr cloud (new
             pcl::PointCloud<PointType>);
@@ -167,8 +177,7 @@ void reconstruct_mesh (int argc, char* argv[])
 
     pcl::fromPCLPointCloud2 (*cloud_blob, *cloud);
     // the data should be available in cloud
-    std::cout << "cloud loaded " << std::endl;
-    std::cout << cloud->size() << std::endl;
+    std::cout << "PointCloud loaded: " << cloud->size() << " data points\n";
 
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
@@ -204,8 +213,6 @@ void reconstruct_mesh (int argc, char* argv[])
     pcl::Poisson<PointTypeN> psn;
     pcl::PolygonMesh triangles;
 
-    std::cout << cloud_with_normals->size() << std::endl;
-
     psn.setInputCloud(cloud_with_normals);
     psn.setSearchMethod(tree2);
     psn.reconstruct (triangles);
@@ -222,5 +229,7 @@ void reconstruct_mesh (int argc, char* argv[])
         str.append(argv[1]).append("-mesh.vtk");
         pcl::io::saveVTKFile (str, triangles);
     }
+    std::cout << "Finshed - reconstruct_mesh() with " << 
+        "Poisson" << std::endl;
 }
 
