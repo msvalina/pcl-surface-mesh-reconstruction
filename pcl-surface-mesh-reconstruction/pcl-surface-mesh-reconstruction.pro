@@ -33,6 +33,7 @@ LIBS += -lOpenNI \
         -lpcl_features \
         -lpcl_surface \
         -lpcl_search \
+        -lpcl_visualization \
         -lboost_system \
         -lvtkCommon \
         -lvtksys \
@@ -47,5 +48,6 @@ LIBS += -lOpenNI \
         -lvtkDICOMParser \ 
         -lvtkmetaio \
         -lvtkexoIIc \
-        -lvtkHybrid 
+        -lvtkHybrid \
+        -lboost_thread
 
