@@ -6,6 +6,9 @@
 #include <pcl/features/normal_3d.h>
 #include <pcl/surface/poisson.h>
 #include <pcl/io/vtk_io.h>
+#include <boost/thread/thread.hpp>
+#include <pcl/common/common_headers.h>
+#include <pcl/visualization/pcl_visualizer.h>
 
 typedef pcl::Normal Normal;
 //typedef pcl::PointXYZ PointType;
@@ -16,6 +19,8 @@ typedef pcl::PointXYZRGBNormal PointTypeN;
 void downsample (int argc, char* argv[]);
 void remove_outliers (int argc, char* argv[]);
 void reconstruct_mesh (int argc, char* argv[]);
+boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
+(pcl::PolygonMesh mesh);
 
 int main (int argc, char *argv[])
 {
@@ -231,5 +236,24 @@ void reconstruct_mesh (int argc, char* argv[])
     }
     std::cout << "Finshed - reconstruct_mesh() with " << 
         "Poisson" << std::endl;
+
+    // Create viewer and show mesh 
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    viewer = simple_visualiser (triangles);
+    while (!viewer->wasStopped ())
+    {
+        viewer->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
 }
 
+boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
+(pcl::PolygonMesh mesh) 
+{
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
+          pcl::visualization::PCLVisualizer ("3D Viewer"));
+    viewer->setBackgroundColor (0, 0, 0);
+    viewer->addPolygonMesh (mesh, "sample mesh");
+    viewer->initCameraParameters (); 
+    return (viewer); 
+}
