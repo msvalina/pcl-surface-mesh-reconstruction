@@ -16,18 +16,28 @@ typedef pcl::Normal Normal;
 typedef pcl::PointXYZRGB PointType;
 typedef pcl::PointXYZRGBNormal PointTypeN;
 
-void downsample (int argc, char* argv[]);
-void remove_outliers (int argc, char* argv[]);
-void reconstruct_mesh (int argc, char* argv[]);
+void downsample (int, char*);
+void remove_outliers (int, char*);
+void reconstruct_mesh (int, char*, pcl::PolygonMesh&);
 boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
-(pcl::PolygonMesh mesh);
+(pcl::PolygonMesh);
 
 int main (int argc, char *argv[])
 {
     downsample (argc, argv);
     remove_outliers (argc, argv);
-    reconstruct_mesh (argc, argv);
 
+    pcl::PolygonMesh mesh_of_triangles;
+    reconstruct_mesh (argc, argv, mesh_of_triangles);
+
+    // Create viewer object and show mesh
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    viewer = simple_visualiser (mesh_of_triangles);
+    while (!viewer->wasStopped ())
+    {
+        viewer->spinOnce (100); boost::this_thread::sleep
+            (boost::posix_time::microseconds (100000));
+    }
     return 0;
 }
 
@@ -161,7 +171,7 @@ void remove_outliers (int argc, char* argv[])
  * surface reconstruction algorithm
  */
 
-void reconstruct_mesh (int argc, char* argv[])
+void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
 {
     std::cout << "Started - reconstruct_mesh() with " << 
         "Poisson" << std::endl;
@@ -216,7 +226,7 @@ void reconstruct_mesh (int argc, char* argv[])
     // psn - for surface reconstruction algorithm
     // triangles - for storage of reconstructed triangles
     pcl::Poisson<PointTypeN> psn;
-    pcl::PolygonMesh triangles;
+    //pcl::PolygonMesh triangles;
 
     psn.setInputCloud(cloud_with_normals);
     psn.setSearchMethod(tree2);
@@ -237,18 +247,14 @@ void reconstruct_mesh (int argc, char* argv[])
     std::cout << "Finshed - reconstruct_mesh() with " << 
         "Poisson" << std::endl;
 
-    // Create viewer and show mesh 
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
-    viewer = simple_visualiser (triangles);
-    while (!viewer->wasStopped ())
-    {
-        viewer->spinOnce (100);
-        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
-    }
 }
 
+/* Simple use of PCLVisualizer class (same class is used for pcl_viewer)
+ * for displaying constructed mesh
+ */
+
 boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
-(pcl::PolygonMesh mesh) 
+(pcl::PolygonMesh mesh)
 {
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
           pcl::visualization::PCLVisualizer ("3D Viewer"));
