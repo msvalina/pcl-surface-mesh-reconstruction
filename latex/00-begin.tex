@@ -27,7 +27,7 @@
 \usepackage[nottoc]{tocbibind} 
 % LaTex has support for simple math formulas 
 % For advance mathematical formulas we use
-\usepackage{mathtools}
+\usepackage{amsmath}
 % For setting line spacing e.g. \dobulespacing
 \usepackage{setspace}
 % Simplifies including multi-page PDF or PS docs
@@ -43,11 +43,19 @@
 
 \begin{document}
 
-% Section, figure, table numbering
+% Change section, subsection figure, table. listing numbering
 \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} 
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}} 
+
+% Change figure name prefix 
+\addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
+
+% Change listing name
+\renewcommand\lstlistingname{Primjer} 
+\renewcommand\lstlistlistingname{Primjer}
 
 \include{01-title}
 % \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
