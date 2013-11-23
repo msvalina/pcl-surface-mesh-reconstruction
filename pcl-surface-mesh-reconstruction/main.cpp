@@ -16,28 +16,21 @@ typedef pcl::Normal Normal;
 typedef pcl::PointXYZRGB PointType;
 typedef pcl::PointXYZRGBNormal PointTypeN;
 
-void downsample (int, char*);
-void remove_outliers (int, char*);
-void reconstruct_mesh (int, char*, pcl::PolygonMesh&);
+void downsample (int, char*[]);
+void remove_outliers (int, char* []);
+void reconstruct_mesh (int, char* [], pcl::PolygonMesh&);
 boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
 (pcl::PolygonMesh);
+void show_mesh (const pcl::PolygonMesh&);
 
 int main (int argc, char *argv[])
 {
     downsample (argc, argv);
     remove_outliers (argc, argv);
-
     pcl::PolygonMesh mesh_of_triangles;
     reconstruct_mesh (argc, argv, mesh_of_triangles);
+    show_mesh (mesh_of_triangles);
 
-    // Create viewer object and show mesh
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
-    viewer = simple_visualiser (mesh_of_triangles);
-    while (!viewer->wasStopped ())
-    {
-        viewer->spinOnce (100); boost::this_thread::sleep
-            (boost::posix_time::microseconds (100000));
-    }
     return 0;
 }
 
@@ -262,4 +255,19 @@ boost::shared_ptr<pcl::visualization::PCLVisualizer> simple_visualiser
     viewer->addPolygonMesh (mesh, "sample mesh");
     viewer->initCameraParameters (); 
     return (viewer); 
+}
+
+/* Function for creating viewer object and making sure it runs */
+
+void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
+{
+    // Create viewer object and show mesh
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    viewer = simple_visualiser (mesh_of_triangles);
+    while (!viewer->wasStopped ())
+    {
+        viewer->spinOnce (100); boost::this_thread::sleep
+            (boost::posix_time::microseconds (100000));
+    }
+
 }
