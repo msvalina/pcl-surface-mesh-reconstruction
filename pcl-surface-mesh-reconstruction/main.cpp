@@ -236,7 +236,7 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
         pcl::io::saveVTKFile (str, triangles);
     }
     std::cout << "Finshed - reconstruct_mesh() with " << 
-        "Poisson" << std::endl;
+        "Poisson\n" << std::endl;
 
 }
 
@@ -246,6 +246,7 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
 
 void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
 {
+    std::cout << "Started - show_mesh() with PCLVisualizer\n";
     // Create viewer object and show mesh
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
           pcl::visualization::PCLVisualizer ("3D Viewer"));
@@ -257,5 +258,6 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
         viewer->spinOnce (100); boost::this_thread::sleep
             (boost::posix_time::microseconds (100000));
     }
+    std::cout << "Finshed - show_mesh() with PCLVisualizer\n";
 
 }
