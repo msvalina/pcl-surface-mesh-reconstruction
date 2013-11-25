@@ -8,7 +8,7 @@ QT       += core
 
 QT       -= gui
 
-TARGET = pcl-surface-mesh-reconstruction
+TARGET = mesh-reconstruction
 CONFIG   += console
 CONFIG   -= app_bundle
 
