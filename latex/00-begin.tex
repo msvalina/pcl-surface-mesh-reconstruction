@@ -32,6 +32,8 @@
 \usepackage{setspace}
 % Simplifies including multi-page PDF or PS docs
 \usepackage{pdfpages}
+% For changing title styls with \titleformat
+\usepackage[explicit]{titlesec}
 
 % Fancy header definition
 \pagestyle{fancy}
@@ -57,13 +59,17 @@
 \renewcommand\lstlistingname{Primjer} 
 \renewcommand\lstlistlistingname{Primjer}
 
+% Change section format
+\titleformat{\section}
+  {\Large\bfseries}{\thesection}{1em}{\MakeUppercase{#1}}
+
 \include{01-title}
 % \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
 % \includepdf[pages={1}]{izjava_o_originalnosti}
 \include{02-toc}
 \include{03-introduction}
 \include{04-theory}
-\include{05-program-description}
+\include{05-mesh-reconstruction}
 \include{06-results}
 \include{07-conclusion}
 \include{08-bibliography}
