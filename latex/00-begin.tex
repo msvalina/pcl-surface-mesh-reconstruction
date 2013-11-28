@@ -43,17 +43,17 @@
 % Set page number in down-right corner of the page
 \rfoot{\thepage}
 
+% Change figure name prefix - has to be before \begin{document}
+\addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
+
 \begin{document}
 
 % Change section, subsection figure, table. listing numbering
 \renewcommand{\thesection}{\arabic{section}.}
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
-\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} 
-\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
-\renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}} 
-
-% Change figure name prefix 
-\addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}.} 
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}.}
+\renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}.} 
 
 % Change listing name
 \renewcommand\lstlistingname{Primjer} 
@@ -68,7 +68,7 @@
 % \includepdf[pages={1}]{izjava_o_originalnosti}
 \include{02-toc}
 \include{03-introduction}
-\include{04-theory}
+\include{04-technologies-and-algorithms}
 \include{05-mesh-reconstruction}
 \include{06-results}
 \include{07-conclusion}
