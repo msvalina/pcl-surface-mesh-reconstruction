@@ -59,11 +59,11 @@ void downsample (int argc, char* argv[])
     std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
 
     // Create the filtering object
-    pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
-    sor.setInputCloud (cloud);
+    pcl::VoxelGrid<pcl::PCLPointCloud2> vg;
+    vg.setInputCloud (cloud);
     // voxel size to be 1cm^3
-    sor.setLeafSize (0.01f, 0.01f, 0.01f);
-    sor.filter (*cloud_filtered);
+    vg.setLeafSize (0.01f, 0.01f, 0.01f);
+    vg.filter (*cloud_filtered);
 
     std::cout << "PointCloud after filtering: "; 
     std::cout << cloud_filtered->width * cloud_filtered->height;
@@ -114,12 +114,12 @@ void remove_outliers (int argc, char* argv[])
     std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
 
     // Create the filtering object
-    pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor2;
-    sor2.setInputCloud (cloud);
+    pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
+    sor.setInputCloud (cloud);
     // Set number of neighbors to analyze
-    sor2.setMeanK (50);
-    sor2.setStddevMulThresh (1.0);
-    sor2.filter (*cloud_filtered);
+    sor.setMeanK (50);
+    sor.setStddevMulThresh (1.0);
+    sor.filter (*cloud_filtered);
 
     std::cout << "PointCloud after filtering: "; 
     std::cout << cloud_filtered->width * cloud_filtered->height;
@@ -133,8 +133,8 @@ void remove_outliers (int argc, char* argv[])
                 *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
 
-        sor2.setNegative (true);
-        sor2.filter (*cloud_filtered);
+        sor.setNegative (true);
+        sor.filter (*cloud_filtered);
         writer.write ("pointcloud-downsampled-outliers.pcd",
                 *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
@@ -147,8 +147,8 @@ void remove_outliers (int argc, char* argv[])
         writer.write (str1, *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
 
-        sor2.setNegative (true);
-        sor2.filter (*cloud_filtered);
+        sor.setNegative (true);
+        sor.filter (*cloud_filtered);
         writer.write (str2, *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
     }
