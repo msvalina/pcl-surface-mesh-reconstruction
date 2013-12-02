@@ -40,8 +40,35 @@ funkcija:
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
 izlazu iz funkcije kako bih prije i poslije svake operacije bio dostupan
-oblak točaka.
+oblak točaka. Za to koristi \textit{PCDReader} i \textit{PCDWriter} klase.
+Primjer takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
+
+\begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Izvorni kod za učitavanje oblaka
+točaka}]
+    // Init cloud variables 
+    pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+    pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
+
+    // Fill in the cloud data
+    pcl::PCDReader reader;
+    reader.read ("pointcloud.pcd", *cloud);
+    /* 
+     * Do something with cloud
+     */
+    // Write cloud to a file
+    pcl::PCDWriter writer;
+    writer.write ("pointcloud-downsampled.pcd",
+            *cloud_filtered, Eigen::Vector4f::Zero(),
+            Eigen::Quaternionf::Identity(), false);
+\end{lstlisting}
+
 % subsubsection Učitavanje oblaka točaka (end)
+
+\subsubsection{Reduciranje oblaka točaka} % (fold)
+\label{ssub:Reduciranje oblaka točaka}
+
+
+% subsubsection Reduciranje oblaka točaka (end)
 
 % subsection Izgradnja 3D modela scene pomoću mreže trokuta (end)
 
