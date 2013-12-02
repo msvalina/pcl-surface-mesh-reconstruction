@@ -7,13 +7,13 @@
 \label{sub:Snimanje scene 3D kamerom i RGBDSlam programom}
 
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
-%
+
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} % (fold)
 \label{sub:Izgradnja 3D modela scene pomoću mreže trokuta}
 
 Izgradnja 3D modela scene pomoću mreže trokuta je implementirana u
-programu nazvanom \textit{mesh-reconstruction}.\footnote{
-Program \textit{mesh-reconstruction} je slobodan program dostupan pod
+programu nazvanom \texttt{mesh-reconstruction}.\footnote{
+Program \texttt{mesh-reconstruction} je slobodan program dostupan pod
 uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
 http://github.com/msvalina/}      
 Program se intenzivno oslanja na biblioteku PointCloud koja je opisana u
@@ -21,30 +21,33 @@ potpoglavlju \ref{sub:Biblioteka Pointcloud} Kao što je vidljivo iz
 grafikona \ref{fig:flowchart} program je podijeljen u pet osnovnih
 funkcija:
 \begin{itemize}
-    \item učitavanje oblaka točaka snimljenih RGBDSlam programom
-    \item reduciranje oblaka točaka 
-    \item uklanjanje pogrešaka pri mjerenju
-    \item izrađivanje i zapisivanje mreže trokuta
-    \item prikaz mreže trokuta
+    \item Učitavanje oblaka točaka snimljenih RGBDSlam programom.
+    \item Reduciranje oblaka točaka.
+    \item Uklanjanje pogrešaka pri mjerenju.
+    \item Izrađivanje i zapisivanje mreže trokuta.
+    \item Prikaz mreže trokuta.
 \end{itemize}
 
 \begin{figure}[h]
 \renewcommand{\figurename}{Grafikon}
 \centering
 \includegraphics[scale=0.5]{figures/flowchart.pdf}
-\caption{Dijagram toka programa \textit{mesh-reconstruction} }
+\caption{Dijagram toka programa \texttt{mesh-reconstruction} }
 \label{fig:flowchart}
 \end{figure}
+
+U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
+se baziraju.
 
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
 izlazu iz funkcije kako bih prije i poslije svake operacije bio dostupan
-oblak točaka. Za to koristi \textit{PCDReader} i \textit{PCDWriter} klase.
+oblak točaka. Za to koristi \texttt{PCDReader} i \texttt{PCDWriter} klase.
 Primjer takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
 
-\begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Izvorni kod za učitavanje oblaka
-točaka}]
+\begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Primjer izvornog
+koda za učitavanje oblaka točaka}]
     // Init cloud variables 
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
     pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
@@ -66,9 +69,72 @@ točaka}]
 
 \subsubsection{Reduciranje oblaka točaka} % (fold)
 \label{ssub:Reduciranje oblaka točaka}
+Reduciranje obalaka ne unosi gubitak informacija, a izvodi se zbog lakše
+daljnje obrade oblaka. Izvodi se pomoću \texttt{VoxelGrid} klase i
+implementirano je u \texttt{downsample()} funkciji. Dijelovi funkcije
+prikazani su u ispisu koda~\ref{lstReduciranje}
+\texttt{VoxelGrid} dolazi od riječi \textit{volume pixel grid} i
+predstavlja niz malih kocaka u prostoru.
 
+\begin{lstlisting}[label=lstReduciranje, caption={Dio izvornog koda za
+reduciranje točaka iz funkcije \texttt{downsample()} }]
+    // Create the filtering object
+    pcl::VoxelGrid<pcl::PCLPointCloud2> vg;
+    vg.setInputCloud (cloud);
+    // voxel size to be 1cm^3
+    vg.setLeafSize (0.01f, 0.01f, 0.01f);
+    vg.filter (*cloud_filtered);
+\end{lstlisting}
+
+Kao što se vidi iz ispisa koda~\ref{lstReduciranje} nakon kreiranja
+objekta \texttt{vg} predaje mu se oblak točaka nad kojim se vrši
+reduciranje. Postavlja se veličina kocke (\textit{voxel}) u našem
+slučaju to je 3cm\textsuperscript{3}. Nad tim oblakom prilikom
+filtriranja će se kreirati mreža kocaka te će se sve točke unutar jedne
+kocke zamjeniti centralnom točkom. Tim postupkom se značajno smanjuje
+broj točaka u oblaku.
 
 % subsubsection Reduciranje oblaka točaka (end)
+
+\subsubsection{Uklanjanje pogrešaka pri mjerenju} % (fold)
+\label{ssub:Uklanjanje pogrešaka pri mjerenju}
+Šum pri mjerenju je sastavni dio svakog mjernog uređaja pa tako i
+Kineckt kamere. PointCloud biblioteka ima ugrađenu
+\texttt{StatisticalOutlierRemoval} klasu koja uklanja šum te je
+implementirana u funkciji \texttt{remove\_outlieres()}.
+Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
+
+% minipage ensures that listing won't be split between pages
+\begin{minipage}{\textwidth}
+\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda za
+uklanjanje pogrešaka pri mjerenju iz funkcije \texttt{remove\_outliers()} }]
+    // Create the filtering object
+    pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
+    sor.setInputCloud (cloud);
+    // Set number of neighbors to analyze
+    sor.setMeanK (50);
+    sor.setStddevMulThresh (1.0);
+    sor.filter (*cloud_filtered);
+\end{lstlisting}
+\end{minipage}
+
+Nakon kreiranja objekta \texttt{sor} i predavanja oblaka postavljena su
+još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
+će filter analizirat. Drugi \texttt{setStddevMulThresh} pak kaže da će
+sve točke u okolini ispitane točke čije su udaljenosti veće od jedne
+standardne devijacije očekivane udaljenosti biti označne kao šum
+(\textit{outlier}) i odbačene.
+
+% subsubsection Uklanjanje pogrešaka pri mjerenju (end)
+
+\subsubsection{Izrađivanje i zapisivanje mreže trokuta} % (fold)
+\label{ssub:Izradivanje i zapisivanje mreže trokuta}
+
+Nakon pripreme oblaka točaka funkcijama \texttt{downsample()} i
+\texttt{remove\_outliers()} slijedi izrađivanje mreže trokuta unutar
+funkcije \texttt{mesh\_reconstruction()}. 
+
+% subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
 
 % subsection Izgradnja 3D modela scene pomoću mreže trokuta (end)
 
