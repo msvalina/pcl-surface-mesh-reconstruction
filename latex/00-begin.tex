@@ -55,13 +55,48 @@
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}.}
 \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}.} 
 
-% Change listing name
-\renewcommand\lstlistingname{Primjer} 
-\renewcommand\lstlistlistingname{Primjer}
-
-% Change section format
+% Change section format style
 \titleformat{\section}
   {\Large\bfseries}{\thesection}{1em}{\MakeUppercase{#1}}
+
+% Change listing name
+\renewcommand\lstlistingname{Ispis koda} 
+\renewcommand\lstlistlistingname{Ispis koda}
+
+\definecolor{myyellow}{HTML}{FFB902}
+\definecolor{mygreen}{HTML}{009B57}
+\definecolor{myred}{HTML}{D13D29}
+\definecolor{myblue}{HTML}{1469EA}
+
+\lstset{ %
+    backgroundcolor=\color{white},   
+    basicstyle=\footnotesize,        
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    % captionpos=b,                    
+    commentstyle=\color{mygreen},    
+    deletekeywords={...},            
+    escapeinside={\%*}{*)}, 
+    extendedchars=true,              
+    frame=single,                    
+    keepspaces=true,                 
+    keywordstyle=\color{myblue},       
+    keywordstyle=[2]\color{myred},
+    language=C,
+    morekeywords={new},            
+    keywords=[2]{pcl, PCLPointCloud2, ptr, PCDReader, PCDWriter},
+    numbers=left,                    
+    numbersep=5pt,                   
+    numberstyle=\tiny\color{myyellow}, 
+    rulecolor=\color{black},         
+    showspaces=false,                
+    showstringspaces=false,          
+    showtabs=false,                  
+    stepnumber=2,                    
+    stringstyle=\color{myred},     
+    tabsize=2,                       
+    title=\lstname                   
+}
 
 \include{01-title}
 % \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
