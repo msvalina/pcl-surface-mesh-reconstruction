@@ -132,7 +132,89 @@ standardne devijacije očekivane udaljenosti biti označne kao šum
 
 Nakon pripreme oblaka točaka funkcijama \texttt{downsample()} i
 \texttt{remove\_outliers()} slijedi izrađivanje mreže trokuta unutar
-funkcije \texttt{mesh\_reconstruction()}. 
+funkcije \texttt{mesh\_reconstruction()}. Izrađivanje mreže trokuta se
+može podijeliti u tri koraka. Prvi je estimiranje normala nad oblakom
+točaka. Drugi je spajanje estimiranih normala i oblaka točaka u
+zajedniči oblak točaka s normalama. Treći korak je pozivanje algoritma
+za izrađivanje mreže nad novo stvorenim oblakom.
+
+\begin{lstlisting}[label=lstIzradivanje1, caption={Dio izvornog koda iz
+funkcije \texttt{reconstruct\_mesh()} }]
+    // Normal estimation
+    pcl::NormalEstimation<PointType, Normal> normEst;
+    pcl::PointCloud<Normal>::Ptr normals (new pcl::PointCloud<Normal>);
+    
+    // Create kdtree representation of cloud, 
+    // and pass it to the normal estimation object. 
+    pcl::search::KdTree<PointType>::Ptr tree (new
+            pcl::search::KdTree<PointType>);
+    tree->setInputCloud (cloud);
+    normEst.setInputCloud (cloud);
+    normEst.setSearchMethod (tree);
+    // Use 20 neighbor points for estimating normal
+    normEst.setKSearch (20);
+    normEst.compute (*normals);
+\end{lstlisting}
+
+Prije estimiranja normala nad oblakom točaka potrebno je inicijalizirati
+objekt za spremanje normala i za estimaciju. Nakon toga definira se
+stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnote{K
+dimenzionalno stablo je detaljno objašnjeno u **stavit link iz
+literature**} Stablu se tada predaje oblak za pretraživanje. Objektu za
+estimaciju \texttt{normEst} tada se predaje oblak i stablo te broj
+susjednih točaka nad kojima se vrši estimacija
+normala.\footnote{Estimacija normala je detaljnije objašnjena **stavit
+link iz literature**}
+\\
+Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
+novi oblak točaka s normalama. Kao što je prikazano u ispisu
+koda~\ref{lstIzradivanje2}
+\begin{lstlisting}[label=lstIzradivanje2,caption={Dio izvornog koda iz
+funkcije \texttt{reconstruct\_mesh()} }]
+    // Concatenate the XYZ and normal fields
+    pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
+            pcl::PointCloud<PointTypeN>);
+    pcl::concatenateFields (*cloud, *normals, *cloud_with_normals);
+    // cloud_with_normals = cloud + normals
+
+    // Create search tree 
+    pcl::search::KdTree<PointTypeN>::Ptr tree2 (new
+            pcl::search::KdTree<PointTypeN>);
+    tree2->setInputCloud (cloud_with_normals);
+
+    // Initialize objects 
+    // psn - for surface reconstruction algorithm
+    // triangles - for storage of reconstructed triangles
+    pcl::Poisson<PointTypeN> psn;
+    pcl::PolygonMesh triangles;
+
+    psn.setInputCloud(cloud_with_normals);
+    psn.setSearchMethod(tree2);
+    psn.reconstruct (triangles);
+    psn.setOutputPolygons(false);
+\end{lstlisting}
+Nad stvorenim oblakom s normalama stvara se stablo za pretraživanje.
+Zatim se inicijaliziraju objekti \texttt{psn} i \texttt{triangles}.
+\texttt{psn} predstavlja \texttt{Poisson} algoritam za izrađivanje mreže
+trokuta. \texttt{triangles} je objekt tipa \texttt{PolygonMesh} za
+spremanje izražunatih koordinata trokuta. Algoritmu se sada predaje
+ulazni oblak, stablo pretraživanja i poziva se rekonstrukcija.
+
+
+\begin{lstlisting}[label=lstIzradivanje3,caption={Dio izvornog koda iz
+funkcije \texttt{reconstruct\_mesh()} }]
+    // Write reconstructed mesh
+    if (argc < 2){
+        pcl::io::saveVTKFile
+            ("pointcloud-downsampled-outliers-mesh.vtk",
+             triangles);
+    }
+    else {
+        std::string str;
+        str.append(argv[1]).append("-mesh.vtk");
+        pcl::io::saveVTKFile (str, triangles);
+    }
+\end{lstlisting}
 
 % subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
 
