@@ -39,6 +39,25 @@ funkcija:
 U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
 se baziraju.
 
+\subsubsection{Pregled \texttt{main()} funkcije} % (fold)
+\label{ssub:Pregled main funkcije}
+\begin{lstlisting}[label=lstMain,caption={Izvorni kod
+\texttt{main() funkcije} }]
+int main (int argc, char *argv[])
+{
+    downsample (argc, argv);
+    remove_outliers (argc, argv);
+    pcl::PolygonMesh mesh_of_triangles;
+    reconstruct_mesh (argc, argv, mesh_of_triangles);
+    show_mesh (mesh_of_triangles);
+    return 0;
+}
+\end{lstlisting}
+Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
+što manja te da se iz nje samo pozivaju druge funkcije.
+
+% subsubsection Pregled tt (end)
+
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
@@ -105,6 +124,7 @@ implementirana u funkciji \texttt{remove\_outlieres()}.
 Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 
 % minipage ensures that listing won't be split between pages
+% but it seams like it's pushing whole box slightly to the right
 \begin{minipage}{\textwidth}
 \begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda 
 iz funkcije \texttt{remove\_outliers()} }]
