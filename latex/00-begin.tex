@@ -51,6 +51,7 @@
 % Change section, subsection figure, table. listing numbering
 \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}.} 
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}.}
 \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}.} 
@@ -63,14 +64,14 @@
 \renewcommand\lstlistingname{Ispis koda} 
 \renewcommand\lstlistlistingname{Ispis koda}
 
-\definecolor{myyellow}{HTML}{FFB902}
+\definecolor{myyellow}{HTML}{CC9402}
 \definecolor{mygreen}{HTML}{009B57}
 \definecolor{myred}{HTML}{D13D29}
 \definecolor{myblue}{HTML}{1469EA}
 
 \lstset{ %
     backgroundcolor=\color{white},   
-    basicstyle=\footnotesize,        
+    basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     % captionpos=b,                    
@@ -84,16 +85,22 @@
     keywordstyle=[2]\color{myred},
     language=C,
     morekeywords={new},            
-    keywords=[2]{pcl, PCLPointCloud2, ptr, PCDReader, PCDWriter},
+    keywords=[2]{pcl, PCLPointCloud2, ptr, PCDReader, PCDWriter,
+    VoxelGrid, StatisticalOutlierRemoval, search, KdTree, Normal,
+    NormalEstimation, PointXYZRGB, PointXYZRGBNormal, PointCloud, Ptr,
+    PolygonMesh, Poisson, std, string, io, saveVTKFile, boost, cout,
+    concatenateFields, visualization, PCLVisualizer, shared\_ptr,
+    posix\_time, microseconds, this\_thread, sleep, PointType,
+    PointTypeN},
     numbers=left,                    
     numbersep=5pt,                   
-    numberstyle=\tiny\color{myyellow}, 
+    numberstyle=\textbf\tiny\color{myyellow}, 
     rulecolor=\color{black},         
     showspaces=false,                
     showstringspaces=false,          
     showtabs=false,                  
     stepnumber=2,                    
-    stringstyle=\color{myred},     
+    stringstyle=\color{myyellow},     
     tabsize=2,                       
     title=\lstname                   
 }
