@@ -106,8 +106,8 @@ Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 
 % minipage ensures that listing won't be split between pages
 \begin{minipage}{\textwidth}
-\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda za
-uklanjanje pogrešaka pri mjerenju iz funkcije \texttt{remove\_outliers()} }]
+\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda 
+iz funkcije \texttt{remove\_outliers()} }]
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
     sor.setInputCloud (cloud);
@@ -193,6 +193,7 @@ funkcije \texttt{reconstruct\_mesh()} }]
     psn.reconstruct (triangles);
     psn.setOutputPolygons(false);
 \end{lstlisting}
+
 Nad stvorenim oblakom s normalama stvara se stablo za pretraživanje.
 Zatim se inicijaliziraju objekti \texttt{psn} i \texttt{triangles}.
 \texttt{psn} predstavlja \texttt{Poisson} algoritam za izrađivanje mreže
@@ -200,6 +201,10 @@ trokuta. \texttt{triangles} je objekt tipa \texttt{PolygonMesh} za
 spremanje izražunatih koordinata trokuta. Algoritmu se sada predaje
 ulazni oblak, stablo pretraživanja i poziva se rekonstrukcija.
 
+
+Ispis koda~\ref{lstIzradivanje3} prikazuje korištenje klase
+\texttt{saveVTKFile} za spremanje objekta \texttt{triangles} u datoteku
+s vtk ekstenzijom.
 
 \begin{lstlisting}[label=lstIzradivanje3,caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
@@ -217,6 +222,38 @@ funkcije \texttt{reconstruct\_mesh()} }]
 \end{lstlisting}
 
 % subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
+
+\subsubsection{Prikazivanje mreže trokuta} % (fold)
+\label{ssub:Prikazivanje mreže trokuta}
+Prikazivanje mreže trokuta omogućava \texttt{PCLVisualizer} klasa. Ista
+klasa se koristi u komandono linijskom programu za prikaza oblaka točaka
+\texttt{pcl\_vieweru}. U ispisu koda~\ref{lstPrikaz} se vidi
+jednostavnost upotrebe klase. Nakon kreiranja objekta \texttt{viewer} i
+postavljanja parametara poziva se beskonačna petlja unutar koje se
+pokrene prozor s prikazom mreže trokuta. Klikom na tipku \texttt{q}
+izlazi se iz petlje i program završava.
+
+\begin{lstlisting}[label=lstPrikaz,caption={Izvorni kod funkcije
+\texttt{show\_mesh()} }]
+void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
+{
+    std::cout << "Started - show_mesh() with PCLVisualizer\n";
+    // Create viewer object and show mesh
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
+          pcl::visualization::PCLVisualizer ("3D Viewer"));
+    viewer->setBackgroundColor (0, 0, 0);
+    viewer->addPolygonMesh (mesh_of_triangles, "sample mesh");
+    viewer->initCameraParameters (); 
+    while (!viewer->wasStopped ())
+    {
+        viewer->spinOnce (100); boost::this_thread::sleep
+            (boost::posix_time::microseconds (100000));
+    }
+    std::cout << "Finshed - show_mesh() with PCLVisualizer\n";
+}
+\end{lstlisting}
+
+% subsubsection Prikazivanje mreže trokuta (end)
 
 % subsection Izgradnja 3D modela scene pomoću mreže trokuta (end)
 
