@@ -44,12 +44,18 @@
 \rfoot{\thepage}
 
 % Change figure name prefix - has to be before \begin{document}
-\addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
+% \addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
+
+% Make new type of float called graphic
+\floatstyle{plain}
+\newfloat{graphic}{thp}{lop}[section]
+\floatname{graphic}{Grafikon}
 
 \begin{document}
 
 % Change section, subsection figure, table. listing numbering
-\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
+% \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
 \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}.} 
