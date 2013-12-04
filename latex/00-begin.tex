@@ -34,10 +34,12 @@
 \usepackage{pdfpages}
 % For changing title styls with \titleformat
 \usepackage[explicit]{titlesec}
+% For using hyperlinks 
+\usepackage{hyperref}
 
 % Fancy header definition
 \pagestyle{fancy}
-% Removes default rule in header
+% Remove default rule in header
 \renewcommand{\headrulewidth}{0pt} 
 \fancyhf{}
 % Set page number in down-right corner of the page
@@ -51,11 +53,32 @@
 \newfloat{graphic}{thp}{lop}[section]
 \floatname{graphic}{Grafikon}
 
+\definecolor{myyellow}{HTML}{CC9402}
+\definecolor{mygreen}{HTML}{009B57}
+\definecolor{myred}{HTML}{D13D29}
+\definecolor{myblue}{HTML}{1469EA}
+
+% Links style definitions
+\hypersetup{
+    % fits the width of the page to the window
+    pdfstartview={FitH},    
+    pdftitle={Izgradnja 3D modela scene pomoću 3D kamere},    
+    pdfauthor={Marijan Svalina},
+    pdfkeywords={PCL} {Kincekt} {RGBDSLam},
+    % false: boxed links; true: colored links
+    colorlinks=true,
+    pdfborder={0,0,0},
+    linkcolor=black,          
+    citecolor=mygreen,       
+    filecolor=myred,    
+    urlcolor=myblue,
+}
+
 \begin{document}
 
 % Change section, subsection figure, table. listing numbering
-\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
-% \renewcommand{\thesection}{\arabic{section}.}
+% \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
+\renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
 \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}.} 
@@ -70,10 +93,6 @@
 \renewcommand\lstlistingname{Ispis koda} 
 \renewcommand\lstlistlistingname{Ispis koda}
 
-\definecolor{myyellow}{HTML}{CC9402}
-\definecolor{mygreen}{HTML}{009B57}
-\definecolor{myred}{HTML}{D13D29}
-\definecolor{myblue}{HTML}{1469EA}
 
 \lstset{ %
     backgroundcolor=\color{white},   
@@ -110,6 +129,7 @@
     tabsize=2,                       
     title=\lstname                   
 }
+
 
 \include{01-title}
 % \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
