@@ -12,10 +12,7 @@
 \label{sub:Izgradnja 3D modela scene pomoću mreže trokuta}
 
 Izgradnja 3D modela scene pomoću mreže trokuta je implementirana u
-programu nazvanom \texttt{mesh-reconstruction}.\footnote{
-Program \texttt{mesh-reconstruction} je slobodan program dostupan pod
-uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
-http://github.com/msvalina/}      
+programu nazvanom \texttt{mesh-reconstruction}.\footnotemark[1]
 Program se intenzivno oslanja na biblioteku PointCloud koja je opisana u
 potpoglavlju \ref{sub:Biblioteka Pointcloud} Kao što je vidljivo iz
 grafikona \ref{fig:flowchart} program je podijeljen u pet osnovnih
@@ -27,6 +24,11 @@ funkcija:
     \item Izrađivanje i zapisivanje mreže trokuta.
     \item Prikaz mreže trokuta.
 \end{itemize}
+
+\footnotetext[1]{%
+Program \texttt{mesh-reconstruction} je slobodan program dostupan pod
+uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
+http://github.com/msvalina/}
 
 % \begin{figure}[h]
 % \renewcommand{\figurename}{Grafikon}
@@ -116,15 +118,23 @@ objekta \texttt{vg} predaje mu se oblak točaka nad kojim se vrši
 reduciranje. Postavlja se veličina kocke (\textit{voxel}) u našem
 slučaju to je 3cm\textsuperscript{3}. Nad tim oblakom prilikom
 filtriranja će se kreirati mreža kocaka te će se sve točke unutar jedne
-kocke zamjeniti centralnom točkom. Tim postupkom se značajno smanjuje
-broj točaka u oblaku.
+kocke zamjeniti centralnom točkom. Tim postupkom značajno se smanjuje
+broj točaka u oblaku kao što je vidljivo iz
+slike~\ref{fig:tablescene-downsample}
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/tablescene-downsampling-example.png}
-\caption{Oblak točaka prije i poslije \texttt{downsample()} funkcije}
-\label{fig:{tablescene.png}}
+% If there is \footnote in caption brackets [] must be used
+\caption[description for List of Figures]{%
+    Oblak točaka \textit{table\_scene}\footnotemark[3] prije i poslije %
+    \texttt{downsample()} funkcije}
+\label{fig:tablescene-downsample}
 \end{figure}
+
+\footnotetext[3]{Oblak točaka \texttt{table\_scene\_lms400.pcd} je
+objavljen pod uvijetima BSD licence - 
+\href{https://github.com/PointCloudLibrary/data/blob/master/tutorials/table\_scene\_lms400.pcd}{izvor}}
 
 % subsubsection Reduciranje oblaka točaka (end)
 
@@ -138,7 +148,7 @@ Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 
 % minipage ensures that listing won't be split between pages
 % but it seams like it's pushing whole box slightly to the right
-\begin{minipage}{\textwidth}
+% \begin{minipage}{\textwidth}
 \begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda 
 iz funkcije \texttt{remove\_outliers()} }]
     // Create the filtering object
@@ -149,20 +159,22 @@ iz funkcije \texttt{remove\_outliers()} }]
     sor.setStddevMulThresh (1.0);
     sor.filter (*cloud_filtered);
 \end{lstlisting}
-\end{minipage}
+% \end{minipage}
 
 Nakon kreiranja objekta \texttt{sor} i predavanja oblaka postavljena su
 još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
 će filter analizirat. Drugi \texttt{setStddevMulThresh} pak kaže da će
 sve točke u okolini ispitane točke čije su udaljenosti veće od jedne
 standardne devijacije očekivane udaljenosti biti označne kao šum
-(\textit{outlier}) i odbačene.
+(\textit{outlier}) i odbačene. Rezultati rada funkcije se vide na
+slici~\ref{fig:tablescene-outliers}
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/tablescene-remove-outliers-example.png}
-\caption{}
-\label{fig:{tablescene-remove-outliers-example.png}}
+\caption{Oblak točaka: lijevo poslije \texttt{downsample()} i desno poslije
+\texttt{remove\_outliers()} }
+\label{fig:tablescene-outliers}
 \end{figure}
 
 % subsubsection Uklanjanje pogrešaka pri mjerenju (end)
@@ -196,8 +208,9 @@ funkcije \texttt{reconstruct\_mesh()} }]
     normEst.compute (*normals);
 \end{lstlisting}
 
-Prije estimiranja normala nad oblakom točaka potrebno je inicijalizirati
-objekt za spremanje normala i za estimaciju. Nakon toga definira se
+Iz ispisa koda~\ref{lstIzradivanje1} se vidi da je prije estimiranja
+normala nad oblakom točaka potrebno je inicijalizirati objekt za
+spremanje normala i za estimaciju. Nakon toga definira se
 stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnote{K
 dimenzionalno stablo je detaljno objašnjeno u **stavit link iz
 literature**} Stablu se tada predaje oblak za pretraživanje. Objektu za
