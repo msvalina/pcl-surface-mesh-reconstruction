@@ -28,13 +28,19 @@ funkcija:
     \item Prikaz mreže trokuta.
 \end{itemize}
 
-\begin{figure}[h]
-\renewcommand{\figurename}{Grafikon}
-\centering
-\includegraphics[scale=0.5]{figures/flowchart.pdf}
-\caption{Dijagram toka programa \texttt{mesh-reconstruction} }
-\label{fig:flowchart}
-\end{figure}
+% \begin{figure}[h]
+% \renewcommand{\figurename}{Grafikon}
+% \centering
+% \includegraphics[scale=0.5]{figures/flowchart.pdf}
+% \caption{Dijagram toka programa \texttt{mesh-reconstruction} }
+% \label{fig:flowchart}
+% \end{figure}
+\begin{graphic}
+    \centering
+    \includegraphics[scale=0.5]{figures/flowchart.pdf}
+    \caption{Dijagram toka programa \texttt{mesh-reconstruction} }
+    \label{fig:flowchart}
+\end{graphic}
 
 U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
 se baziraju.
@@ -113,6 +119,13 @@ filtriranja će se kreirati mreža kocaka te će se sve točke unutar jedne
 kocke zamjeniti centralnom točkom. Tim postupkom se značajno smanjuje
 broj točaka u oblaku.
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/tablescene-downsampling-example.png}
+\caption{Oblak točaka prije i poslije \texttt{downsample()} funkcije}
+\label{fig:{tablescene.png}}
+\end{figure}
+
 % subsubsection Reduciranje oblaka točaka (end)
 
 \subsubsection{Uklanjanje pogrešaka pri mjerenju} % (fold)
@@ -144,6 +157,13 @@ još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
 sve točke u okolini ispitane točke čije su udaljenosti veće od jedne
 standardne devijacije očekivane udaljenosti biti označne kao šum
 (\textit{outlier}) i odbačene.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/tablescene-remove-outliers-example.png}
+\caption{}
+\label{fig:{tablescene-remove-outliers-example.png}}
+\end{figure}
 
 % subsubsection Uklanjanje pogrešaka pri mjerenju (end)
 
