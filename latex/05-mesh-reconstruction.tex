@@ -1,4 +1,5 @@
 \newpage
+\setcounter{figure}{0}
 
 \section{Izgradnja 3D modela scene} % (fold)
 \label{sec:Izgradnja 3D modela scene}
@@ -29,21 +30,16 @@ funkcija:
 \footnotetext[1]{%
 Program \texttt{mesh-reconstruction} je slobodan program dostupan pod
 uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
-http://github.com/msvalina/}
+\href{http://github.com/msvalina/}%
+{github.com/msvalina/}}
 
-% \begin{figure}[h]
-% \renewcommand{\figurename}{Grafikon}
-% \centering
-% \includegraphics[scale=0.5]{figures/flowchart.pdf}
-% \caption{Dijagram toka programa \texttt{mesh-reconstruction} }
-% \label{fig:flowchart}
-% \end{figure}
-\begin{graphic}
-    \centering
-    \includegraphics[scale=0.5]{figures/flowchart.pdf}
-    \caption{Dijagram toka programa \texttt{mesh-reconstruction} }
-    \label{fig:flowchart}
-\end{graphic}
+\begin{figure}[h]
+\renewcommand{\figurename}{Grafikon}
+\centering
+\includegraphics[scale=0.5]{figures/flowchart.pdf}
+\caption{Dijagram toka programa \texttt{mesh-reconstruction} }
+\label{fig:flowchart}
+\end{figure}
 
 U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
 se baziraju.
@@ -222,13 +218,13 @@ susjednih točaka nad kojima se vrši estimacija
 normala.\footnotemark[4]
 
 \footnotetext[3]{%
-K dimenzionalno stablo je detaljno objašnjeno na PCL \href{http://%
+K dimenzionalno stablo je detaljno objašnjeno na stranici \href{http://%
 pointclouds.org/documentation/tutorials/kdtree\_search.php}%
-{stranicama}}
+{pointclouds.org/documentation}}
 \footnotetext[4]{%
-Estimacija normala detaljno je objašnjena na PCL \href{http://%
+Estimacija normala detaljno je objašnjena na stranici \href{http://%
 pointclouds.org/documentation/tutorials/normal\_estimation.php}%
-{stranicama}}
+{pointclouds.org/documentation}}
 
 Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
 novi oblak točaka s normalama. Kao što je prikazano u ispisu
@@ -261,10 +257,16 @@ funkcije \texttt{reconstruct\_mesh()} }]
 
 Nad stvorenim oblakom s normalama stvara se stablo za pretraživanje.
 Zatim se inicijaliziraju objekti \texttt{psn} i \texttt{triangles}.
-\texttt{psn} predstavlja \texttt{Poisson} algoritam za izrađivanje mreže
-trokuta. \texttt{triangles} je objekt tipa \texttt{PolygonMesh} za
-spremanje izražunatih koordinata trokuta. Algoritmu se sada predaje
-ulazni oblak, stablo pretraživanja i poziva se rekonstrukcija.
+\texttt{psn} predstavlja \texttt{Poisson}\footnotemark[5] algoritam za
+izrađivanje mreže trokuta. \texttt{triangles} je objekt tipa
+\texttt{PolygonMesh} za spremanje izražunatih koordinata trokuta.
+Algoritmu se sada predaje ulazni oblak, stablo pretraživanja i poziva se
+rekonstrukcija.
+
+\footnotetext[5]{%
+Poisson algoritam su razvili Michael Kazhdan i Matthew Bolitho,
+objavljen je pod BSD licencom. \href{http://www.cs.jhu.edu/~misha/Code/%
+PoissonRecon/Version5.5/}{Službena stranica.}}
 
 
 Ispis koda~\ref{lstIzradivanje3} prikazuje korištenje klase
