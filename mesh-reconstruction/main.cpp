@@ -33,8 +33,8 @@ int main (int argc, char *argv[])
         }
     }
 
-    //downsample (argc, argv);
-    //remove_outliers (argc, argv);
+    downsample (argc, argv);
+    remove_outliers (argc, argv);
     pcl::PolygonMesh mesh_of_triangles;
     reconstruct_mesh (argc, argv, mesh_of_triangles);
     show_mesh (mesh_of_triangles);
@@ -234,16 +234,24 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
     psn.reconstruct (triangles);
     psn.setOutputPolygons(false);
 
+    pcl::PCDWriter writer;
+    pcl::PCLPointCloud2::Ptr cwn (new pcl::PCLPointCloud2());
+    pcl::toPCLPointCloud2 (*cloud_with_normals, *cwn);
     // Write reconstructed mesh
     if (argc < 2){
         pcl::io::saveVTKFile
-            ("pointcloud-downsampled-outliers-mesh.vtk",
-             triangles);
+            ("pointcloud-downsampled-outliers-mesh.vtk", triangles);
+        writer.write ("pointcloud-with-normals.pcd", *cwn,
+                Eigen::Vector4f::Zero(), Eigen::Quaternionf::Identity(),
+                false);
     }
     else {
-        std::string str;
+        std::string str, str2;
         str.append(argv[1]).append("-mesh.vtk");
         pcl::io::saveVTKFile (str, triangles);
+        str2.append(argv[1]).append("cloud_with_normals.pcd");
+        writer.write (str2, *cwn, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
     }
     std::cout << "Finshed - reconstruct_mesh() with " << 
         "Poisson\n" << std::endl;
