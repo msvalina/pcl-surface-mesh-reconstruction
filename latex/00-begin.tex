@@ -48,11 +48,6 @@
 % Change figure name prefix - has to be before \begin{document}
 % \addto\captionscroatian{\renewcommand{\figurename}{Sl.}}
 
-% Make new type of float called graphic
-\floatstyle{plain}
-\newfloat{graphic}{thp}{lop}[section]
-\floatname{graphic}{Grafikon}
-
 \definecolor{myyellow}{HTML}{CC9402}
 \definecolor{mygreen}{HTML}{009B57}
 \definecolor{myred}{HTML}{D13D29}
@@ -77,10 +72,10 @@
 \begin{document}
 
 % Change section, subsection figure, table. listing numbering
-% \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
 \renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
-\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.%
+\arabic{subsubsection}.}
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}.} 
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}.}
 \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}.} 
@@ -92,7 +87,6 @@
 % Change listing name
 \renewcommand\lstlistingname{Ispis koda} 
 \renewcommand\lstlistlistingname{Ispis koda}
-
 
 \lstset{ %
     backgroundcolor=\color{white},   
@@ -129,7 +123,6 @@
     tabsize=2,                       
     title=\lstname                   
 }
-
 
 \include{01-title}
 % \includepdf[pages={1}]{Obrazac_Z1_04.pdf}
