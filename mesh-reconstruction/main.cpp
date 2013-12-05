@@ -23,8 +23,18 @@ void show_mesh (const pcl::PolygonMesh&);
 
 int main (int argc, char *argv[])
 {
-    downsample (argc, argv);
-    remove_outliers (argc, argv);
+    // If there is no file pointcloud.pcd and no cloud is given through
+    // argument vector exit nicely
+    if (argc < 2) {
+        pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+        if(pcl::io::loadPCDFile ("pointcloud", *cloud) == -1){
+            std::cout << "There is no pointcloud\n";
+            return -1;
+        }
+    }
+
+    //downsample (argc, argv);
+    //remove_outliers (argc, argv);
     pcl::PolygonMesh mesh_of_triangles;
     reconstruct_mesh (argc, argv, mesh_of_triangles);
     show_mesh (mesh_of_triangles);
@@ -252,7 +262,10 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
           pcl::visualization::PCLVisualizer ("3D Viewer"));
     viewer->setBackgroundColor (0, 0, 0);
     viewer->addPolygonMesh (mesh_of_triangles, "sample mesh");
-    viewer->initCameraParameters (); 
+    viewer->initCameraParameters ();
+    // viewer->setRepresentationToSurfaceForAllActors ();
+    // viewer->setRepresentationToPointsForAllActors ();
+    viewer->setRepresentationToWireframeForAllActors ();
     while (!viewer->wasStopped ())
     {
         viewer->spinOnce (100); boost::this_thread::sleep
