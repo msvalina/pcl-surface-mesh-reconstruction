@@ -8,6 +8,7 @@
 
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
 
+\newpage
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} % (fold)
 \label{sub:Izgradnja 3D modela scene pomoću mreže trokuta}
 
@@ -47,6 +48,7 @@ http://github.com/msvalina/}
 U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
 se baziraju.
 
+\newpage
 \subsubsection{Pregled \texttt{main()} funkcije} % (fold)
 \label{ssub:Pregled main funkcije}
 \begin{lstlisting}[label=lstMain,caption={Izvorni kod
@@ -180,6 +182,7 @@ slici~\ref{fig:tablescene-outliers}
 
 % subsubsection Uklanjanje pogrešaka pri mjerenju (end)
 
+\newpage
 \subsubsection{Izrađivanje i zapisivanje mreže trokuta} % (fold)
 \label{ssub:Izradivanje i zapisivanje mreže trokuta}
 
@@ -217,7 +220,7 @@ Stablu se tada predaje oblak za pretraživanje. Objektu za
 estimaciju \texttt{normEst} tada se predaje oblak i stablo te broj
 susjednih točaka nad kojima se vrši estimacija
 normala.\footnotemark[4]
-\\
+
 \footnotetext[3]{%
 K dimenzionalno stablo je detaljno objašnjeno na PCL \href{http://%
 pointclouds.org/documentation/tutorials/kdtree\_search.php}%
@@ -230,6 +233,7 @@ pointclouds.org/documentation/tutorials/normal\_estimation.php}%
 Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
 novi oblak točaka s normalama. Kao što je prikazano u ispisu
 koda~\ref{lstIzradivanje2}
+\newpage
 \begin{lstlisting}[label=lstIzradivanje2,caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
     // Concatenate the XYZ and normal fields
@@ -284,6 +288,7 @@ funkcije \texttt{reconstruct\_mesh()} }]
 
 % subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
 
+\newpage
 \subsubsection{Prikazivanje mreže trokuta} % (fold)
 \label{ssub:Prikazivanje mreže trokuta}
 Prikazivanje mreže trokuta omogućava \texttt{PCLVisualizer} klasa. Ista
