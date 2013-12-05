@@ -268,6 +268,13 @@ Poisson algoritam su razvili Michael Kazhdan i Matthew Bolitho,
 objavljen je pod BSD licencom. \href{http://www.cs.jhu.edu/~misha/Code/%
 PoissonRecon/Version5.5/}{Službena stranica.}}
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/tablescene-normals.png}
+\caption{Prikaz oblaka točaka \texttt{tablescene} s estimiranim
+normalama }
+\label{fig:tablescene-normals}
+\end{figure}
 
 Ispis koda~\ref{lstIzradivanje3} prikazuje korištenje klase
 \texttt{saveVTKFile} za spremanje objekta \texttt{triangles} u datoteku
@@ -290,7 +297,6 @@ funkcije \texttt{reconstruct\_mesh()} }]
 
 % subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
 
-\newpage
 \subsubsection{Prikazivanje mreže trokuta} % (fold)
 \label{ssub:Prikazivanje mreže trokuta}
 Prikazivanje mreže trokuta omogućava \texttt{PCLVisualizer} klasa. Ista
@@ -320,6 +326,13 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
     std::cout << "Finshed - show_mesh() with PCLVisualizer\n";
 }
 \end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/tablescene-mesh1.png}
+\caption{Prikaz mreže trokuta nakon \texttt{reconstruct\_mesh()} }
+\label{fig:tablesecne-mesh1.png}
+\end{figure}
 
 % subsubsection Prikazivanje mreže trokuta (end)
 
