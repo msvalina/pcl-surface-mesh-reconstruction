@@ -42,9 +42,21 @@ uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
 \end{figure}
 
 U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
-se baziraju.
+se baziraju. Također na slici~\ref{fig:running-mesh-reconstruction} se
+vidi kako izgleda pokretanje programa, što sve ispisuje na standardni
+izlaz te kako prikazuje mrežu trokuta.
 
 \newpage
+% Reset counter becouse Grafikon and figures should have diff counters
+\setcounter{figure}{0}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/running-mesh-reconstruction.png}
+\caption{Prikaz pokretanja programa \texttt{mesh-reconstruction} iz
+terminala}
+\label{fig:running-mesh-reconstruction}
+\end{figure}
+
 \subsubsection{Pregled \texttt{main()} funkcije} % (fold)
 \label{ssub:Pregled main funkcije}
 \begin{lstlisting}[label=lstMain,caption={Izvorni kod
@@ -60,10 +72,11 @@ int main (int argc, char *argv[])
 }
 \end{lstlisting}
 Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
-što manja te da se iz nje samo pozivaju druge funkcije.
+što manja te da se iz nje samo pozivaju druge funkcije. 
 
 % subsubsection Pregled tt (end)
 
+\newpage
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
@@ -308,7 +321,7 @@ jednostavnost upotrebe klase. Nakon kreiranja objekta \texttt{viewer} i
 postavljanja parametara poziva se beskonačna petlja unutar koje se
 pokrene prozor s prikazom mreže trokuta. Klikom na tipku \texttt{q}
 izlazi se iz petlje i program završava.
-Slika~\ref{fig:tablescene-mesh-perspectives} prikazuje izgled mreže iz
+Slika~\ref{fig:tablesecne-mesh-perspectives} prikazuje izgled mreže iz
 četiri pogleda.
 
 \begin{figure}[h]
