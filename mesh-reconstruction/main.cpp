@@ -20,6 +20,10 @@ void downsample (int, char*[]);
 void remove_outliers (int, char* []);
 void reconstruct_mesh (int, char* [], pcl::PolygonMesh&);
 void show_mesh (const pcl::PolygonMesh&);
+void help ()
+{
+    cout << " Usage: ./mesh-reconstruction <name-of-pointcloud.pcd>\n";
+}
 
 int main (int argc, char *argv[])
 {
@@ -28,7 +32,7 @@ int main (int argc, char *argv[])
     if (argc < 2) {
         pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
         if(pcl::io::loadPCDFile ("pointcloud", *cloud) == -1){
-            std::cout << "There is no pointcloud\n";
+            help ();
             return -1;
         }
     }
@@ -249,7 +253,7 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
         std::string str, str2;
         str.append(argv[1]).append("-mesh.vtk");
         pcl::io::saveVTKFile (str, triangles);
-        str2.append(argv[1]).append("cloud_with_normals.pcd");
+        str2.append(argv[1]).append("-cloud_with_normals.pcd");
         writer.write (str2, *cwn, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
     }
@@ -282,3 +286,5 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
     std::cout << "Finshed - show_mesh() with PCLVisualizer\n";
 
 }
+
+
