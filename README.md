@@ -1,10 +1,10 @@
 ## PCL - surface - mesh reconstruction
 
 This is a repository for my master's thesis. Here you can find program
-```mesh-reconstruction``` which uses ```PCL``` [Point Cloud Library][1]
+```mesh-reconstruction``` which uses PCL [Point Cloud Library][1]
 to construct mesh of triangles from pointcloud obtained with Microsoft
 Kineckt camera and [RGBDSlam][2] program. [RGBDSlam][3] is installed as
-part of ```ROS``` [Robot operating system][4]
+part of ROS [Robot operating system][4]
 
 This is a draft version of thesis and working version of program.
 
