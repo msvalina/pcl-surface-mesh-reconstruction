@@ -215,7 +215,7 @@ stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnotemark[3]
 Stablu se tada predaje oblak za pretraživanje. Objektu za
 estimaciju \texttt{normEst} tada se predaje oblak i stablo te broj
 susjednih točaka nad kojima se vrši estimacija
-normala.\footnotemark[4]
+normala\footnotemark[4]. 
 
 \footnotetext[3]{%
 K dimenzionalno stablo je detaljno objašnjeno na stranici \href{http://%
@@ -228,7 +228,9 @@ pointclouds.org/documentation/tutorials/normal\_estimation.php}%
 
 Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
 novi oblak točaka s normalama. Kao što je prikazano u ispisu
-koda~\ref{lstIzradivanje2}
+koda~\ref{lstIzradivanje2} Taj oblak točaka je prikazan na 
+slici~\ref{fig:tablescene-normals}
+
 \newpage
 \begin{lstlisting}[label=lstIzradivanje2,caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
@@ -306,7 +308,17 @@ jednostavnost upotrebe klase. Nakon kreiranja objekta \texttt{viewer} i
 postavljanja parametara poziva se beskonačna petlja unutar koje se
 pokrene prozor s prikazom mreže trokuta. Klikom na tipku \texttt{q}
 izlazi se iz petlje i program završava.
+Slika~\ref{fig:tablescene-mesh-perspectives} prikazuje izgled mreže iz
+četiri pogleda.
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/tablescene-mesh-perspectives.png}
+\caption{Prikaz mreže trokuta funkcijom \texttt{show\_mesh()} }
+\label{fig:tablesecne-mesh-perspectives}
+\end{figure}
+
+\newpage
 \begin{lstlisting}[label=lstPrikaz,caption={Izvorni kod funkcije
 \texttt{show\_mesh()} }]
 void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
@@ -327,12 +339,6 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
 }
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{figures/tablescene-mesh1.png}
-\caption{Prikaz mreže trokuta nakon \texttt{reconstruct\_mesh()} }
-\label{fig:tablesecne-mesh1.png}
-\end{figure}
 
 % subsubsection Prikazivanje mreže trokuta (end)
 
