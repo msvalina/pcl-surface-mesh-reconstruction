@@ -6,8 +6,10 @@ to construct mesh of triangles from pointcloud obtained with Microsoft
 Kineckt camera and [RGBDSlam][2] program. [RGBDSlam][3] is installed as
 part of ```ROS``` [Robot operating system][4]
 
-This is a draft version of thesis and almost complete version of
-program.
+This is a draft version of thesis and working version of program.
+
+*First* *draft* version of thesis after 89 days and 87 commits can be
+[downloaded here][5]
 
 ### Project description 
 ![alt text][project-description]
@@ -24,4 +26,5 @@ is to evaluate functionality and quality of described process.
 [2]: http://openslam.org/rgbdslam.html
 [3]: http://wiki.ros.org/rgbdslam/
 [4]: http://wiki.ros.org/
+[5]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-01.pdf?raw=true
 
