@@ -49,7 +49,7 @@ funkcija:
     \item Učitavanje oblaka točaka snimljenih RGBDSlam programom.
     \item Reduciranje oblaka točaka.
     \item Uklanjanje pogrešaka pri mjerenju.
-    \item Izrađivanje i zapisivanje mreže trokuta.
+    \item Stvaranje i zapisivanje mreže trokuta.
     \item Prikaz mreže trokuta.
 \end{itemize}
 
@@ -67,7 +67,7 @@ uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
 \label{fig:flowchart}
 \end{figure}
 
-U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa nad kojim
+U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa na kojima
 se baziraju. Također na slici~\ref{fig:running-mesh-reconstruction} se
 vidi kako izgleda pokretanje programa, što sve ispisuje na standardni
 izlaz te kako prikazuje mrežu trokuta.
@@ -106,7 +106,7 @@ Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
-izlazu iz funkcije kako bih prije i poslije svake operacije bio dostupan
+izlazu iz funkcije kako bi prije i poslije svake operacije bio dostupan
 oblak točaka. Za to koristi \texttt{PCDReader} i \texttt{PCDWriter} klase.
 Primjer takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
 
@@ -133,10 +133,10 @@ koda za učitavanje oblaka točaka}]
 
 \subsubsection{Reduciranje oblaka točaka} % (fold)
 \label{ssub:Reduciranje oblaka točaka}
-Reduciranje obalaka ne unosi gubitak informacija, a izvodi se zbog lakše
-daljnje obrade oblaka. Izvodi se pomoću \texttt{VoxelGrid} klase i
-implementirano je u \texttt{downsample()} funkciji. Dijelovi funkcije
-prikazani su u ispisu koda~\ref{lstReduciranje}
+Reduciranje obalaka ne unosi bitnih gubitaka informacija, a izvodi se
+zbog lakše daljnje obrade oblaka. Izvodi se pomoću \texttt{VoxelGrid}
+klase i implementirano je u \texttt{downsample()} funkciji. Dijelovi
+funkcije prikazani su u ispisu koda~\ref{lstReduciranje}
 \texttt{VoxelGrid} dolazi od riječi \textit{volume pixel grid} i
 predstavlja niz malih kocaka u prostoru.
 
@@ -153,7 +153,7 @@ reduciranje točaka iz funkcije \texttt{downsample()} }]
 Kao što se vidi iz ispisa koda~\ref{lstReduciranje} nakon kreiranja
 objekta \texttt{vg} predaje mu se oblak točaka nad kojim se vrši
 reduciranje. Postavlja se veličina kocke (\textit{voxel}) u našem
-slučaju to je 3cm\textsuperscript{3}. Nad tim oblakom prilikom
+slučaju to je 1cm\textsuperscript{3}. Nad tim oblakom prilikom
 filtriranja će se kreirati mreža kocaka te će se sve točke unutar jedne
 kocke zamjeniti centralnom točkom. Tim postupkom značajno se smanjuje
 broj točaka u oblaku kao što je vidljivo iz
@@ -180,8 +180,8 @@ objavljen pod uvijetima BSD licence -
 \label{ssub:Uklanjanje pogrešaka pri mjerenju}
 Šum pri mjerenju je sastavni dio svakog mjernog uređaja pa tako i
 Kineckt kamere. PointCloud biblioteka ima ugrađenu
-\texttt{StatisticalOutlierRemoval} klasu koja uklanja šum te je
-implementirana u funkciji \texttt{remove\_outlieres()}.
+\texttt{StatisticalOutlierRemoval} klasu koja uklanja šum a 
+implementirana je u funkciji \texttt{remove\_outlieres()}.
 Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 
 % minipage ensures that listing won't be split between pages
@@ -201,7 +201,7 @@ iz funkcije \texttt{remove\_outliers()} }]
 
 Nakon kreiranja objekta \texttt{sor} i predavanja oblaka postavljena su
 još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
-će filter analizirat. Drugi \texttt{setStddevMulThresh} pak kaže da će
+će filter analizirati. Drugi \texttt{setStddevMulThresh} pak kaže da će
 sve točke u okolini ispitane točke čije su udaljenosti veće od jedne
 standardne devijacije očekivane udaljenosti biti označne kao šum
 (\textit{outlier}) i odbačene. Rezultati rada funkcije se vide na
@@ -218,18 +218,18 @@ slici~\ref{fig:tablescene-outliers}
 % subsubsection Uklanjanje pogrešaka pri mjerenju (end)
 
 \newpage
-\subsubsection{Izrađivanje i zapisivanje mreže trokuta} % (fold)
-\label{ssub:Izradivanje i zapisivanje mreže trokuta}
+\subsubsection{Stvaranje i zapisivanje mreže trokuta} % (fold)
+\label{ssub:Stvaranje i zapisivanje mreže trokuta}
 
 Nakon pripreme oblaka točaka funkcijama \texttt{downsample()} i
-\texttt{remove\_outliers()} slijedi izrađivanje mreže trokuta unutar
-funkcije \texttt{mesh\_reconstruction()}. Izrađivanje mreže trokuta se
+\texttt{remove\_outliers()} slijedi stvaranje mreže trokuta unutar
+funkcije \texttt{mesh\_reconstruction()}. Stvaranje mreže trokuta se
 može podijeliti u tri koraka. Prvi je estimiranje normala nad oblakom
 točaka. Drugi je spajanje estimiranih normala i oblaka točaka u
 zajedniči oblak točaka s normalama. Treći korak je pozivanje algoritma
-za izrađivanje mreže nad novo stvorenim oblakom.
+za stvaranje mreže nad novo stvorenim oblakom.
 
-\begin{lstlisting}[label=lstIzradivanje1, caption={Dio izvornog koda iz
+\begin{lstlisting}[label=lstStvaranje1, caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
@@ -247,8 +247,8 @@ funkcije \texttt{reconstruct\_mesh()} }]
     normEst.compute (*normals);
 \end{lstlisting}
 
-Iz ispisa koda~\ref{lstIzradivanje1} se vidi da je prije estimiranja
-normala nad oblakom točaka potrebno je inicijalizirati objekt za
+Iz ispisa koda~\ref{lstStvaranje1} se vidi da je prije estimiranja
+normala nad oblakom točaka potrebno inicijalizirati objekt za
 spremanje normala i za estimaciju. Nakon toga definira se
 stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnotemark[3]
 Stablu se tada predaje oblak za pretraživanje. Objektu za
@@ -267,11 +267,11 @@ pointclouds.org/documentation/tutorials/normal\_estimation.php}%
 
 Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
 novi oblak točaka s normalama. Kao što je prikazano u ispisu
-koda~\ref{lstIzradivanje2} Taj oblak točaka je prikazan na 
+koda~\ref{lstStvaranje2} Taj oblak točaka je prikazan na 
 slici~\ref{fig:tablescene-normals}
 
 \newpage
-\begin{lstlisting}[label=lstIzradivanje2,caption={Dio izvornog koda iz
+\begin{lstlisting}[label=lstStvaranje2,caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
     // Concatenate the XYZ and normal fields
     pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
@@ -299,8 +299,8 @@ funkcije \texttt{reconstruct\_mesh()} }]
 Nad stvorenim oblakom s normalama stvara se stablo za pretraživanje.
 Zatim se inicijaliziraju objekti \texttt{psn} i \texttt{triangles}.
 \texttt{psn} predstavlja \texttt{Poisson}\footnotemark[5] algoritam za
-izrađivanje mreže trokuta. \texttt{triangles} je objekt tipa
-\texttt{PolygonMesh} za spremanje izražunatih koordinata trokuta.
+stvaranje mreže trokuta. \texttt{triangles} je objekt tipa
+\texttt{PolygonMesh} za spremanje izračunatih koordinata trokuta.
 Algoritmu se sada predaje ulazni oblak, stablo pretraživanja i poziva se
 rekonstrukcija.
 
@@ -317,11 +317,11 @@ normalama }
 \label{fig:tablescene-normals}
 \end{figure}
 
-Ispis koda~\ref{lstIzradivanje3} prikazuje korištenje klase
+Ispis koda~\ref{lstStvaranje3} prikazuje korištenje klase
 \texttt{saveVTKFile} za spremanje objekta \texttt{triangles} u datoteku
 s vtk ekstenzijom.
 
-\begin{lstlisting}[label=lstIzradivanje3,caption={Dio izvornog koda iz
+\begin{lstlisting}[label=lstStvaranje3,caption={Dio izvornog koda iz
 funkcije \texttt{reconstruct\_mesh()} }]
     // Write reconstructed mesh
     if (argc < 2){
@@ -336,7 +336,7 @@ funkcije \texttt{reconstruct\_mesh()} }]
     }
 \end{lstlisting}
 
-% subsubsection Izrađivanje i zapisivanje mreže trokuta (end)
+% subsubsection Stvaranje i zapisivanje mreže trokuta (end)
 
 \subsubsection{Prikazivanje mreže trokuta} % (fold)
 \label{ssub:Prikazivanje mreže trokuta}
