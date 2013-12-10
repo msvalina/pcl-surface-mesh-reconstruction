@@ -86,7 +86,7 @@ terminala}
 \subsubsection{Pregled \texttt{main()} funkcije} % (fold)
 \label{ssub:Pregled main funkcije}
 \begin{lstlisting}[label=lstMain,caption={Izvorni kod
-\texttt{main() funkcije} }]
+\texttt{main()} funkcije }]
 int main (int argc, char *argv[])
 {
     downsample (argc, argv);
@@ -165,7 +165,7 @@ slike~\ref{fig:tablescene-downsample}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/tablescene-downsampling-example.png}
-% If there is \footnote in caption brackets [] must be used
+% If there is \footnote in caption brackets [] must be used in \caption
 \caption[description for List of Figures]{%
     Oblak točaka \textit{table\_scene}\footnotemark[2] lijevo prije
     \texttt{downsample()}  460400 točaka i poslije desno 41049 točaka}
@@ -190,8 +190,8 @@ Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 % minipage ensures that listing won't be split between pages
 % but it seams like it's pushing whole box slightly to the right
 % \begin{minipage}{\textwidth}
-\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda 
-iz funkcije \texttt{remove\_outliers()} }]
+\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda o
+    uklanjanju šuma iz funkcije \texttt{remove\_outliers()} }]
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
     sor.setInputCloud (cloud);
@@ -235,8 +235,8 @@ točaka. Drugi je spajanje estimiranih normala i oblaka točaka u
 zajedniči oblak točaka s normalama. Treći korak je pozivanje algoritma
 za stvaranje mreže nad novo stvorenim oblakom.
 
-\begin{lstlisting}[label=lstStvaranje1, caption={Dio izvornog koda iz
-funkcije \texttt{reconstruct\_mesh()} }]
+\begin{lstlisting}[label=lstStvaranje1, caption={Dio izvornog koda o
+    estimaciji normala iz funkcije \texttt{reconstruct\_mesh()} }]
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
     pcl::PointCloud<Normal>::Ptr normals (new pcl::PointCloud<Normal>);
@@ -277,8 +277,8 @@ koda~\ref{lstStvaranje2} Taj oblak točaka je prikazan na
 slici~\ref{fig:tablescene-normals}
 
 \newpage
-\begin{lstlisting}[label=lstStvaranje2,caption={Dio izvornog koda iz
-funkcije \texttt{reconstruct\_mesh()} }]
+\begin{lstlisting}[label=lstStvaranje2,caption={Dio izvornog koda o
+    stvaranju mreže iz funkcije \texttt{reconstruct\_mesh()} }]
     // Concatenate the XYZ and normal fields
     pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
             pcl::PointCloud<PointTypeN>);
@@ -327,8 +327,8 @@ Ispis koda~\ref{lstStvaranje3} prikazuje korištenje klase
 \texttt{saveVTKFile} za spremanje objekta \texttt{triangles} u datoteku
 s vtk ekstenzijom.
 
-\begin{lstlisting}[label=lstStvaranje3,caption={Dio izvornog koda iz
-funkcije \texttt{reconstruct\_mesh()} }]
+\begin{lstlisting}[label=lstStvaranje3,caption={Dio izvornog koda o
+    zapisivanju mreže iz funkcije \texttt{reconstruct\_mesh()} }]
     // Write reconstructed mesh
     if (argc < 2){
         pcl::io::saveVTKFile
@@ -347,14 +347,15 @@ funkcije \texttt{reconstruct\_mesh()} }]
 \subsubsection{Prikazivanje mreže trokuta} % (fold)
 \label{ssub:Prikazivanje mreže trokuta}
 Prikazivanje mreže trokuta omogućava \texttt{PCLVisualizer} klasa. Ista
-klasa se koristi u komandono linijskom programu za prikaza oblaka točaka
+klasa se koristi u komandno linijskom programu za prikaza oblaka točaka
 \texttt{pcl\_vieweru}. U ispisu koda~\ref{lstPrikaz} se vidi
 jednostavnost upotrebe klase. Nakon kreiranja objekta \texttt{viewer} i
-postavljanja parametara poziva se beskonačna petlja unutar koje se
-pokrene prozor s prikazom mreže trokuta. Klikom na tipku \texttt{q}
-izlazi se iz petlje i program završava.
-Slika~\ref{fig:tablesecne-mesh-perspectives} prikazuje izgled mreže iz
-četiri pogleda.
+postavljanja parametara poziva se beskonačna petlja. Metoda
+\texttt{spinOnce()} odrađuje crtanje mreže, prikazivanje na ekranu i
+daje \texttt{vieweru} vremena za procesiranje i time omogućava
+interaktivnost s mrežom. Klikom na tipku \texttt{q} izlazi se iz petlje
+i program završava.  Slika~\ref{fig:tablesecne-mesh-perspectives}
+prikazuje izgled mreže iz četiri pogleda.
 
 \begin{figure}[h]
 \centering
@@ -377,7 +378,8 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
     viewer->initCameraParameters (); 
     while (!viewer->wasStopped ())
     {
-        viewer->spinOnce (100); boost::this_thread::sleep
+        viewer->spinOnce (100); 
+        boost::this_thread::sleep 
             (boost::posix_time::microseconds (100000));
     }
     std::cout << "Finshed - show_mesh() with PCLVisualizer\n";
