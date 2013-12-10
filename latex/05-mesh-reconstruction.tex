@@ -108,9 +108,12 @@ Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
 izlazu iz funkcije kako bi prije i poslije svake operacije bio dostupan
 oblak točaka. Za to koristi \texttt{PCDReader} i \texttt{PCDWriter} klase.
-Primjer takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
+Predložak takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
+Nakon učitavanja oblaka točaka \texttt{reader} objektom, nad njim se
+vrše operacije npr. reduciranje oblaka točaka. Nakon toga kreiranjem
+i korištenjem \texttt{writer} objekta promjenji oblak se zapisuje u datoteku.
 
-\begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Primjer izvornog
+\begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Predložak izvornog
 koda za učitavanje oblaka točaka}]
     // Init cloud variables 
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
@@ -120,7 +123,7 @@ koda za učitavanje oblaka točaka}]
     pcl::PCDReader reader;
     reader.read ("pointcloud.pcd", *cloud);
     /* 
-     * Do something with cloud
+     * Do something with cloud e.g. downsample pointcloud
      */
     // Write cloud to a file
     pcl::PCDWriter writer;
@@ -133,7 +136,7 @@ koda za učitavanje oblaka točaka}]
 
 \subsubsection{Reduciranje oblaka točaka} % (fold)
 \label{ssub:Reduciranje oblaka točaka}
-Reduciranje obalaka ne unosi bitnih gubitaka informacija, a izvodi se
+Reduciranje obalaka ne unosi bitne gubitake informacija, a izvodi se
 zbog lakše daljnje obrade oblaka. Izvodi se pomoću \texttt{VoxelGrid}
 klase i implementirano je u \texttt{downsample()} funkciji. Dijelovi
 funkcije prikazani su u ispisu koda~\ref{lstReduciranje}
@@ -201,10 +204,13 @@ iz funkcije \texttt{remove\_outliers()} }]
 
 Nakon kreiranja objekta \texttt{sor} i predavanja oblaka postavljena su
 još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
-će filter analizirati. Drugi \texttt{setStddevMulThresh} pak kaže da će
-sve točke u okolini ispitane točke čije su udaljenosti veće od jedne
-standardne devijacije očekivane udaljenosti biti označne kao šum
-(\textit{outlier}) i odbačene. Rezultati rada funkcije se vide na
+će filter analizirati. Drugi \texttt{setStddevMulThresh} postavlja
+multiplikator praga standardne devijacije. Sve točke izvan normalne
+razdiobe određene jednadžbom \(\mu\pm\sigma\cdot\texttt{StddevMulThresh}\)
+bit će označene kao (\textit{outlier}) i odbačene.  Odnosno točke u
+okolini ispitane točke čije su udaljenosti veće od jedne standardne
+devijacije od očekivane udaljenosti biti označne kao šum i odbačene.
+Rezultati rada funkcije se vide na
 slici~\ref{fig:tablescene-outliers}
 
 \begin{figure}[h]
