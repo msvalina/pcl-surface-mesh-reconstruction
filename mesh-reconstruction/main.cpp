@@ -11,8 +11,8 @@
 #include <pcl/visualization/pcl_visualizer.h>
 
 typedef pcl::Normal Normal;
-//typedef pcl::PointXYZ PointType;
-//typedef pcl::PointNormal PointTypeN;
+// typedef pcl::PointXYZ PointType; 
+// typedef pcl::PointNormal PointTypeN; 
 typedef pcl::PointXYZRGB PointType;
 typedef pcl::PointXYZRGBNormal PointTypeN;
 
@@ -29,16 +29,16 @@ int main (int argc, char *argv[])
 {
     // If there is no file pointcloud.pcd and no cloud is given through
     // argument vector exit nicely
-    if (argc < 2) {
-        pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
-        if(pcl::io::loadPCDFile ("pointcloud", *cloud) == -1){
-            help ();
-            return -1;
-        }
-    }
+    // if (argc < 2) {
+    //     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+    //     if(pcl::io::loadPCDFile ("pointcloud", *cloud) == -1){
+    //         help ();
+    //         return -1;
+    //     }
+    // }
 
-    downsample (argc, argv);
-    remove_outliers (argc, argv);
+    // downsample (argc, argv);
+    // remove_outliers (argc, argv);
     pcl::PolygonMesh mesh_of_triangles;
     reconstruct_mesh (argc, argv, mesh_of_triangles);
     show_mesh (mesh_of_triangles);
@@ -191,7 +191,7 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
     }
     else {
         std::string str;
-        str.append(argv[1]).append("-downsampled.pcd-inliers.pcd");
+        str.append(argv[1]);
         reader.read (str, *cloud_blob);
     }
 
@@ -235,6 +235,14 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
 
     psn.setInputCloud(cloud_with_normals);
     psn.setSearchMethod(tree2);
+    int depth = 6;
+    int solver_divide = 8;
+    int iso_divide = 8;
+    float point_weight = 4.0f;
+    psn.setDepth (depth);
+    psn.setSolverDivide (solver_divide);
+    psn.setIsoDivide (iso_divide);
+    psn.setPointWeight (point_weight);
     psn.reconstruct (triangles);
     psn.setOutputPolygons(false);
 
@@ -244,18 +252,15 @@ void reconstruct_mesh (int argc, char* argv[], pcl::PolygonMesh& triangles)
     // Write reconstructed mesh
     if (argc < 2){
         pcl::io::saveVTKFile
-            ("pointcloud-downsampled-outliers-mesh.vtk", triangles);
-        writer.write ("pointcloud-with-normals.pcd", *cwn,
+            ("ts-defaults.vtk", triangles);
+        writer.write ("ts-cwn.pcd", *cwn,
                 Eigen::Vector4f::Zero(), Eigen::Quaternionf::Identity(),
                 false);
     }
     else {
         std::string str, str2;
-        str.append(argv[1]).append("-mesh.vtk");
+        str.append("ts-mesh-depth-6.vtk");
         pcl::io::saveVTKFile (str, triangles);
-        str2.append(argv[1]).append("-cloud_with_normals.pcd");
-        writer.write (str2, *cwn, Eigen::Vector4f::Zero(),
-                Eigen::Quaternionf::Identity(), false);
     }
     std::cout << "Finshed - reconstruct_mesh() with " << 
         "Poisson\n" << std::endl;
