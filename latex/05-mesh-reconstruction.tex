@@ -7,11 +7,27 @@
 \subsection{Snimanje scene 3D kamerom i RGBDSlam programom} % (fold)
 \label{sub:Snimanje scene 3D kamerom i RGBDSlam programom}
 Program RGBDSlam razvijen je suradnjom
-Albert-Ludwigs-Unversität\footnotemark[6] sveučilišta u Freiburgu i
-Technische Universität München\footnotemark[7] sveučilišta u Münchenu.
-Slobodan je program objavljen pod GPLv3\footnotemark[8] licencom.
+Albert-Ludwigs-Unversität\footnotemark[1] sveučilišta u Freiburgu i
+Technische Universität München\footnotemark[2] sveučilišta u Münchenu.
+Slobodan je program objavljen pod GPLv3\footnotemark[3] licencom.
+Izvorni kod je dostupan na Google code\footnotemark[4] stranicama. U
+prilogu diplomskog rada nalaze se upute za prevođenje i instaliranje
+programa. Instaliran program pokreće se preko komandne linije koristeći
+\texttt{roslaunch} koji je dio ROS biblioteke i alata
+koji su detaljnije objašnjeni u poglavlju~\ref{sub:ROS biblioteka i
+alati} Kao što se vidi na slici~\ref{fig:running-rgbdslam}
+\texttt{roslaunch} za parametar prima XML datoteku s ekstenzijom
+\texttt{.launch} u kojoj su definirani parametri s kojima se pokreće
+program.
 
-\footnotetext[6]{%
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.39]{figures/running-rgbdslam.png}
+\caption{Prikaz pokretanja RGBDSlam programa iz komandne linije}
+\label{fig:running-rgbdslam}
+\end{figure}
+
+\footnotetext[1]{%
 \href{http://www.informatik.uni-freiburg.de/~endres/}%
 {Felix Endres} i \href{http://www.informatik.uni-freiburg.de/~hess/}%
 {Juergen Hess} sa odijela \href{http://ais.informatik.uni-freiburg.de/}%
@@ -19,18 +35,23 @@ Slobodan je program objavljen pod GPLv3\footnotemark[8] licencom.
 \href{http://www.informatik.uni-freiburg.de/~burgard/}%
 {Prof. Dr. Wolfram Burgard}.
 }
-\footnotetext[7]{%
+\footnotetext[2]{%
 \href{http://vision.in.tum.de/members/engelhan}%
 {Nikolas Engelhard} sa odijela \href{http://vision.in.tum.de/}%
 {Computer Vision Group} koji vodi
 \href{http://vision.in.tum.de/members/sturmju}% 
 {Dr. Juergen Sturm}.
 }
-\footnotetext[8]{%
+\footnotetext[3]{%
 \textit{General Public License version 3} slobodna je licenca koja
 osigurava osnovna prava slobodnih programa. Pravo na korištenje,
 proučavanje, kopiranje i poboljšavanje. Izvor: 
 \url{http://www.gnu.org/licenses/gpl-3.0.html}}
+
+\footnotetext[4]{%
+RGBDSlam program moguće je preuzeti sa \texttt{svn} programom sa stranice
+\url{http://alufr-ros-pkg.googlecode.com/svn/trunk/rgbdslam\_freiburg/}%
+}
 
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
 
@@ -166,12 +187,12 @@ slike~\ref{fig:tablescene-downsample}
 \includegraphics[scale=0.5]{figures/tablescene-downsampling-example.png}
 % If there is \footnote in caption brackets [] must be used in \caption
 \caption[description for List of Figures]{%
-    Oblak točaka \textit{table\_scene}\footnotemark[2] lijevo prije
+    Oblak točaka \textit{table\_scene}\footnotemark[1] lijevo prije
     \texttt{downsample()}  460400 točaka i poslije desno 41049 točaka}
 \label{fig:tablescene-downsample}
 \end{figure}
 
-\footnotetext[2]{Oblak točaka \texttt{table\_scene\_lms400.pcd} je
+\footnotetext[1]{Oblak točaka \texttt{table\_scene\_lms400.pcd} je
 objavljen pod uvijetima BSD licence izvor: 
 \href{https://github.com/PointCloudLibrary/data/blob/master/tutorials%
 /table\_scene\_lms400.pcd}{\texttt{ %
@@ -256,17 +277,17 @@ za stvaranje mreže nad novo stvorenim oblakom.
 Iz ispisa koda~\ref{lstStvaranje1} se vidi da je prije estimiranja
 normala nad oblakom točaka potrebno inicijalizirati objekt za
 spremanje normala i za estimaciju. Nakon toga definira se
-stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnotemark[3]
+stablo za pretraživanje oblaka tipa \texttt{KdTree}.\footnotemark[1]
 Stablu se tada predaje oblak za pretraživanje. Objektu za
 estimaciju \texttt{normEst} tada se predaje oblak i stablo te broj
 susjednih točaka nad kojima se vrši estimacija
-normala\footnotemark[4]. 
+normala\footnotemark[2]. 
 
-\footnotetext[3]{%
+\footnotetext[1]{%
 K dimenzionalno stablo je detaljno objašnjeno na stranici \href{http://%
 pointclouds.org/documentation/tutorials/kdtree\_search.php}%
 {\texttt{pointclouds.org/doc/\dots/kdtree\_search.php}}}
-\footnotetext[4]{%
+\footnotetext[2]{%
 Estimacija normala detaljno je objašnjena na stranici \href{http://%
 pointclouds.org/documentation/tutorials/normal\_estimation.php}%
 {\texttt{pointclouds.org/doc/\dots/normal\_estimation.php}}}
@@ -304,13 +325,13 @@ slici~\ref{fig:tablescene-normals}
 
 Nad stvorenim oblakom s normalama stvara se stablo za pretraživanje.
 Zatim se inicijaliziraju objekti \texttt{psn} i \texttt{triangles}.
-\texttt{psn} predstavlja \texttt{Poisson}\footnotemark[5] algoritam za
+\texttt{psn} predstavlja \texttt{Poisson}\footnotemark[1] algoritam za
 stvaranje mreže trokuta. \texttt{triangles} je objekt tipa
 \texttt{PolygonMesh} za spremanje izračunatih koordinata trokuta.
 Algoritmu se sada predaje ulazni oblak, stablo pretraživanja i poziva se
 rekonstrukcija.
 
-\footnotetext[5]{%
+\footnotetext[1]{%
 Poisson algoritam su razvili Michael Kazhdan i Matthew Bolitho,
 objavljen je pod BSD licencom. Izvor: \url{http://www.cs.jhu.edu/~misha/Code/%
 PoissonRecon/Version5.5/}}
