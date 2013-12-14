@@ -53,16 +53,61 @@ RGBDSlam program moguće je preuzeti sa \texttt{svn} programom sa stranice
 \url{http://alufr-ros-pkg.googlecode.com/svn/trunk/rgbdslam\_freiburg/}%
 }
 
+\newpage
+Prilikom korištenja RGBDSlama nije bilo potrebe za mjenjanjem zadanih
+postavki te je korištena zadana \texttt{kineckt+rgbdslam.launch}
+datoteka za pokretanje. Program podržava dva načina rada automatski i
+ručni. Kod automatskog načina program neprestano uzima slike s kamere i
+procesira ih, što u kratkom vremenu rezultira velikom količinom
+podataka. Dok ručni način korisniku omogućava na pritisak tipke Enter
+uzimanje slike. Za potrebe diplomskog rada korišten je ručni način rada.
+
+\subsubsection{Sažet opis rada RGBDSlam programa} % (fold)
+\label{ssub:Sažet opis rada RGBDSlam programa}
+
+\begin{figure}[h]
+\renewcommand{\figurename}{Grafikon}
+\centering
+\includegraphics[scale=0.27]{figures/rgbdslam-overview.png}
+\caption[]{Shematski pregled\footnotemark[1] RGBDSlam programa}
+\label{fig:rgbdslam-overview}
+\end{figure}
+
+\footnotetext[1]{%
+Shema je preuzeta iz znanstvenog rada ``An Evaluation of the RGB-D SLAM
+System'' autora Endres, Hess, Burgard, Engelhard, Cremers, Sturm.
+}
+
+Kao što se vidi iz grafikona~\ref{fig:rgbdslam-overview} program je
+podijeljen u četiri osnovna dijela. Prvi dio računa značajke koristeći
+SURF, SIFT ili ORB iz ulaznih slika u boji. Zatim se te značajke sparuju
+s značajkama iz prethodnih slika. Drugi dio ispituje dubinu slika na
+lokacijama izračunatih značajki. Time dobiva znanje o točkinim 3D
+korespodencijama između bilo koje dvije sličice. Zatim s tim
+korespodencijama estimira relativnu transformaciju između sličica
+koristeći RANSAC. Kako parovi estimiranih poza između sličica nisu
+globalno konzistentni treći dio programa optimizira graf poza koristeći
+g\textsuperscript{2}o. Algoritam u ovoj fazi daje globalno konzistentni
+3D model promatrane okoline predstavljen oblakom točaka u boji. Takav
+oblak točaka je korišten dalje u diplomskom radu za stvaranje mreže
+trokuta. Zadnji četvrti dio koristi Octomap biblioteku kako bi generirio
+volumetrijski prikaz okoline. Taj dio se uključuje posebnom datotekom
+prilikom pokretanja programa i nije korišten u ovom radu.
+
+% subsubsection Sažet opis rada RGBDSlam programa (end)
+
+
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
 
 \newpage
+\setcounter{figure}{0}
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} % (fold)
 \label{sub:Izgradnja 3D modela scene pomoću mreže trokuta}
 
 Izgradnja 3D modela scene pomoću mreže trokuta je implementirana u
 programu nazvanom \texttt{mesh-reconstruction}.\footnotemark[1]
 Program se intenzivno oslanja na biblioteku PointCloud koja je opisana u
-potpoglavlju \ref{sub:Biblioteka Pointcloud} Kao što je vidljivo iz
+podpoglavlju \ref{sub:Biblioteka Pointcloud} Kao što je vidljivo iz
 grafikona \ref{fig:flowchart} program je podijeljen u pet osnovnih
 funkcija:
 \begin{itemize}
@@ -87,7 +132,7 @@ uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
 \label{fig:flowchart}
 \end{figure}
 
-U sljedećim potpoglavljima dan je pregled funkcija i PCL klasa na kojima
+U sljedećim podpoglavljima dan je pregled funkcija i PCL klasa na kojima
 se baziraju. Također na slici~\ref{fig:running-mesh-reconstruction} se
 vidi kako izgleda pokretanje programa, što sve ispisuje na standardni
 izlaz te kako prikazuje mrežu trokuta.
