@@ -12,20 +12,7 @@ Technische Universität München\footnotemark[2] sveučilišta u Münchenu.
 Slobodan je program objavljen pod GPLv3\footnotemark[3] licencom.
 Izvorni kod je dostupan na Google code\footnotemark[4] stranicama. U
 prilogu diplomskog rada nalaze se upute za prevođenje i instaliranje
-programa. Instaliran program pokreće se preko komandne linije koristeći
-\texttt{roslaunch} koji je dio ROS biblioteke i alata
-koji su detaljnije objašnjeni u poglavlju~\ref{sub:ROS biblioteka i
-alati} Kao što se vidi na slici~\ref{fig:running-rgbdslam}
-\texttt{roslaunch} za parametar prima XML datoteku s ekstenzijom
-\texttt{.launch} u kojoj su definirani parametri s kojima se pokreće
-program.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.39]{figures/running-rgbdslam.png}
-\caption{Prikaz pokretanja RGBDSlam programa iz komandne linije}
-\label{fig:running-rgbdslam}
-\end{figure}
+programa. 
 
 \footnotetext[1]{%
 \href{http://www.informatik.uni-freiburg.de/~endres/}%
@@ -54,14 +41,6 @@ RGBDSlam program moguće je preuzeti sa \texttt{svn} programom sa stranice
 }
 
 \newpage
-Prilikom korištenja RGBDSlama nije bilo potrebe za mjenjanjem zadanih
-postavki te je korištena zadana \texttt{kineckt+rgbdslam.launch}
-datoteka za pokretanje. Program podržava dva načina rada automatski i
-ručni. Kod automatskog načina program neprestano uzima slike s kamere i
-procesira ih, što u kratkom vremenu rezultira velikom količinom
-podataka. Dok ručni način korisniku omogućava na pritisak tipke Enter
-uzimanje slike. Za potrebe diplomskog rada korišten je ručni način rada.
-
 \subsubsection{Sažet opis rada RGBDSlam programa} % (fold)
 \label{ssub:Sažet opis rada RGBDSlam programa}
 
@@ -79,23 +58,75 @@ System'' autora Endres, Hess, Burgard, Engelhard, Cremers, Sturm.
 }
 
 Kao što se vidi iz grafikona~\ref{fig:rgbdslam-overview} program je
-podijeljen u četiri osnovna dijela. Prvi dio računa značajke koristeći
-SURF, SIFT ili ORB iz ulaznih slika u boji. Zatim se te značajke sparuju
-s značajkama iz prethodnih slika. Drugi dio ispituje dubinu slika na
-lokacijama izračunatih značajki. Time dobiva znanje o točkinim 3D
-korespodencijama između bilo koje dvije sličice. Zatim s tim
+podijeljen u četiri osnovna dijela. Prvi dio računa
+značajke\footnotemark[2] iz ulaznih slika u boji. Zatim se te značajke
+sparuju s značajkama iz prethodnih slika. Drugi dio ispituje dubinu
+slika na lokacijama izračunatih značajki. Time dobiva znanje o točkinim
+3D korespodencijama između bilo koje dvije sličice. Zatim s tim
 korespodencijama estimira relativnu transformaciju između sličica
-koristeći RANSAC. Kako parovi estimiranih poza između sličica nisu
-globalno konzistentni treći dio programa optimizira graf poza koristeći
-g\textsuperscript{2}o. Algoritam u ovoj fazi daje globalno konzistentni
-3D model promatrane okoline predstavljen oblakom točaka u boji. Takav
-oblak točaka je korišten dalje u diplomskom radu za stvaranje mreže
-trokuta. Zadnji četvrti dio koristi Octomap biblioteku kako bi generirio
-volumetrijski prikaz okoline. Taj dio se uključuje posebnom datotekom
-prilikom pokretanja programa i nije korišten u ovom radu.
+koristeći RANSAC\footnotemark[3]. Kako parovi estimiranih poza između
+sličica nisu globalno konzistentni treći dio programa optimizira graf
+poza koristeći g\textsuperscript{2}o\footnotemark[4]. Algoritam u ovoj
+fazi daje globalno konzistentni 3D model promatrane okoline predstavljen
+oblakom točaka u boji. Takav oblak točaka je korišten dalje u diplomskom
+radu za stvaranje mreže trokuta. Zadnji četvrti dio koristi
+Octomap\footnotemark[5] biblioteku kako bi generirio volumetrijski
+prikaz okoline. Taj dio se uključuje posebnom datotekom prilikom
+pokretanja programa i nije korišten u ovom radu.
+
+\footnotetext[2]{%
+RGBDSlam se oslanja na OpenCV biblioteku u kojoj su implementirani SURF,
+SIFT i ORB algoritmi za pronalazak značajki.}
+\footnotetext[3]{%
+RANSAC Random Sample Consensus je iterativna metoda estimiranja parametara
+matematičkog modela iz promatranih mjerenja koji sadržavaju šum.
+}
+\footnotetext[4]{%
+\href{http://openslam.org/g2o.html}%
+{g\textsuperscript{2}o:} A General Framework for Graph Optimization je
+okvir otvorenog koda za optimiziranje graph-based? nelinearnih error?
+funkcija.}
+\footnotetext[5]{%
+\href{http://octomap.github.io/}%
+{OctoMap} je efikasni probabilistički okvir za 3D mapiranje baziran na
+octree strukturi.}
 
 % subsubsection Sažet opis rada RGBDSlam programa (end)
 
+\newpage
+\subsubsection{Pokretanje RGBDSlam programa} % (fold)
+\label{ssub:Pokretanje RGBDSlam programa}
+
+Instaliran program pokreće se preko komandne linije koristeći
+\texttt{roslaunch} koji je dio ROS biblioteke i alata
+koji su detaljnije objašnjeni u poglavlju~\ref{sub:ROS biblioteka i
+alati} Kao što se vidi na slici~\ref{fig:running-rgbdslam}
+\texttt{roslaunch} za parametar prima XML datoteku s ekstenzijom
+\texttt{.launch} u kojoj su definirani parametri s kojima se pokreće
+program.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.39]{figures/running-rgbdslam.png}
+\caption{Prikaz pokretanja RGBDSlam programa iz komandne linije}
+\label{fig:running-rgbdslam}
+\end{figure}
+
+Prilikom korištenja RGBDSlama nije bilo potrebe za mjenjanjem zadanih
+postavki te je korištena zadana \texttt{kineckt+rgbdslam.launch}
+datoteka za pokretanje. Program podržava dva načina rada automatski i
+ručni. Kod automatskog načina program neprestano uzima slike s kamere i
+procesira ih, što u kratkom vremenu rezultira velikom količinom
+podataka. Dok ručni način korisniku omogućava na pritisak tipke Enter
+uzimanje slike. Za potrebe diplomskog rada korišten je ručni način rada.
+
+% subsubsection Pokretanje RGBDSlam programa (end)
+
+\newpage
+\subsubsection{Snimanje scena RGBDSlam programom} % (fold)
+\label{ssub:Snimanje scena RGBDSlam programom}
+
+% subsubsection Snimanje scena RGBDSlam programom (end)
 
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
 
@@ -148,6 +179,7 @@ terminala}
 \label{fig:running-mesh-reconstruction}
 \end{figure}
 
+\newpage
 \subsubsection{Pregled \texttt{main()} funkcije} % (fold)
 \label{ssub:Pregled main funkcije}
 \begin{lstlisting}[label=lstMain,caption={Izvorni kod
@@ -167,7 +199,6 @@ Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
 
 % subsubsection Pregled tt (end)
 
-\newpage
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
 Program učitava podatke na početku svake funkcije, te ih zapisuje na
@@ -199,6 +230,7 @@ koda za učitavanje oblaka točaka}]
 
 % subsubsection Učitavanje oblaka točaka (end)
 
+\newpage
 \subsubsection{Reduciranje oblaka točaka} % (fold)
 \label{ssub:Reduciranje oblaka točaka}
 Reduciranje obalaka ne unosi bitne gubitake informacija, a izvodi se
@@ -245,6 +277,7 @@ github.com/PointCloudLibrary/\dots/table\_scene\_lms400.pcd}}}
 
 % subsubsection Reduciranje oblaka točaka (end)
 
+\newpage
 \subsubsection{Uklanjanje pogrešaka pri mjerenju} % (fold)
 \label{ssub:Uklanjanje pogrešaka pri mjerenju}
 Šum pri mjerenju je sastavni dio svakog mjernog uređaja pa tako i
@@ -410,6 +443,7 @@ s vtk ekstenzijom.
 
 % subsubsection Stvaranje i zapisivanje mreže trokuta (end)
 
+\newpage
 \subsubsection{Prikazivanje mreže trokuta} % (fold)
 \label{ssub:Prikazivanje mreže trokuta}
 Prikazivanje mreže trokuta omogućava \texttt{PCLVisualizer} klasa. Ista
@@ -430,7 +464,6 @@ prikazuje izgled mreže iz četiri pogleda.
 \label{fig:tablesecne-mesh-perspectives}
 \end{figure}
 
-\newpage
 \begin{lstlisting}[label=lstPrikaz,caption={Izvorni kod funkcije
 \texttt{show\_mesh()} }]
 void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
