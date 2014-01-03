@@ -58,7 +58,8 @@ RGBDSlam program moguće je preuzeti sa \texttt{svn} programom sa stranice
 
 \footnotetext[1]{%
 Shema je preuzeta iz znanstvenog rada ``An Evaluation of the RGB-D SLAM
-System'' autora Endres, Hess, Burgard, Engelhard, Cremers, Sturm.
+System'' autora Endres, Hess, Burgard, Engelhard, Cremers,
+Sturm~\cite{endres12icra}.
 }
 
 Kao što je vidljivo iz grafikona~\ref{fig:rgbdslam-overview} program je
@@ -79,21 +80,27 @@ prikaz okoline. Taj dio se uključuje posebnom datotekom prilikom
 pokretanja programa i nije korišten u ovom radu.
 
 \footnotetext[2]{%
-RGBDSlam se oslanja na OpenCV biblioteku u kojoj su implementirani SURF,
-SIFT i ORB algoritmi za pronalazak značajki.}
+RGBDSlam se oslanja na OpenCV~\cite{opencv_library} biblioteku u
+kojoj su implementirani SURF~\cite{Bay06surf:speeded},
+SIFT~\cite{Lowe04distinctiveimage} i ORB~\cite{1302} algoritmi za
+pronalazak značajki.
+}
 \footnotetext[3]{%
-RANSAC Random Sample Consensus je iterativna metoda estimiranja parametara
-matematičkog modela iz promatranih mjerenja koji sadržavaju šum.
+RANSAC Random Sample Consensus~\cite{AICPub836:1981} je iterativna
+metoda estimiranja parametara matematičkog modela iz promatranih
+mjerenja koji sadržavaju šum.
 }
 \footnotetext[4]{%
 \href{http://openslam.org/g2o.html}%
-{g\textsuperscript{2}o:} A General Framework for Graph Optimization je
-okvir otvorenog koda za optimiziranje graph-based? nelinearnih error?
-funkcija.}
+{g\textsuperscript{2}o:} A General Framework for Graph
+Optimization~\cite{kuemmerle11icra} je okvir otvorenog koda za
+optimiziranje graph-based? nelinearnih error? funkcija.
+}
 \footnotetext[5]{%
 \href{http://octomap.github.io/}%
-{OctoMap} je efikasni probabilistički okvir za 3D mapiranje baziran na
-octree strukturi.}
+{OctoMap}~\cite{hornung13auro} je efikasni probabilistički okvir za 3D
+mapiranje baziran na octree strukturi.
+}
 
 % subsubsection Sažet opis rada RGBDSlam programa (end)
 
@@ -102,7 +109,7 @@ octree strukturi.}
 \label{ssub:Pokretanje RGBDSlam programa}
 
 Instaliran program pokreće se preko komandne linije koristeći
-\texttt{roslaunch} koji je dio ROS biblioteke i alata
+\texttt{roslaunch} koji je dio ROS~\cite{288} biblioteke i alata
 koji su detaljnije objašnjeni u poglavlju~\ref{sub:ROS biblioteka i
 alati} Kao što je prikazano na slici~\ref{fig:running-rgbdslam}
 \texttt{roslaunch} za parametar prima XML datoteku s ekstenzijom
@@ -172,7 +179,7 @@ funkcija:
 
 \footnotetext[1]{%
 Program \texttt{mesh-reconstruction} je slobodan program dostupan pod
-uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
+uvijetima MIT licence. Izvorni kod se nalazi u prilogu te na web stranici
 \href{http://github.com/msvalina/}%
 {\texttt{github.com/msvalina/}}}
 
@@ -184,10 +191,11 @@ uvijetima MIT licence. Izvorni kod se nalazi na DVD-u te na web stranici
 \label{fig:flowchart}
 \end{figure}
 
-U sljedećim podpoglavljima dan je pregled funkcija i PCL klasa na kojima
-se baziraju. Također na slici~\ref{fig:running-mesh-reconstruction} se
-vidi kako izgleda pokretanje programa, što sve ispisuje na standardni
-izlaz te kako prikazuje mrežu trokuta.
+U sljedećim podpoglavljima dan je pregled funkcija i PCL~\cite{1184}
+klasa na kojima se baziraju. Također na
+slici~\ref{fig:running-mesh-reconstruction} se vidi kako izgleda
+pokretanje programa, što sve ispisuje na standardni izlaz te kako
+prikazuje mrežu trokuta.
 
 \newpage
 % Reset counter becouse Grafikon and figures should have diff counters
