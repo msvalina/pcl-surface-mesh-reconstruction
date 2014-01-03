@@ -8,11 +8,11 @@
 \label{sub:Snimanje scene 3D kamerom i RGBDSlam programom}
 % RGBDSLAM allows to quickly acquire colored 3D models of objects and
 % indoor scenes with a hand-held Kinect-style camera. 
-Program RGBDSlam omogućuava brzo prikupljanje 3D modela objekata i scena
-u unutršnjosti prostorija (oblak točaka u boji) upravljanjem rukom
-kamerom tipa Kineckt. Razvijen je suradnjom
-Albert-Ludwigs-Unversität\footnotemark[1] sveučilišta u Freiburgu i
-Technische Universität München\footnotemark[2] sveučilišta u Münchenu.
+Program RGBDSlam omogućava brzo prikupljanje 3D modela objekata i scena
+u unutrašnjosti prostorija (oblak točaka u boji) rukom upravljanom 
+kamerom tipa Kineckt. Razvijen je suradnjom sveučilišta 
+Albert-Ludwigs-Unversität\footnotemark[1] u Freiburgu i
+Technische Universität München\footnotemark[2].
 Slobodan je program objavljen pod GPLv3\footnotemark[3] licencom.
 Izvorni kod je dostupan na Google code\footnotemark[4]
 stranicama. U prilogu diplomskog rada nalaze se upute za prevođenje i
@@ -61,19 +61,19 @@ Shema je preuzeta iz znanstvenog rada ``An Evaluation of the RGB-D SLAM
 System'' autora Endres, Hess, Burgard, Engelhard, Cremers, Sturm.
 }
 
-Kao što se vidi iz grafikona~\ref{fig:rgbdslam-overview} program je
+Kao što je vidljivo iz grafikona~\ref{fig:rgbdslam-overview} program je
 podijeljen u četiri osnovna dijela. Prvi dio računa
 značajke\footnotemark[2] iz ulaznih slika u boji. Zatim se te značajke
-sparuju s značajkama iz prethodnih slika. Drugi dio ispituje dubinu
-slika na lokacijama izračunatih značajki. Time dobiva znanje o točkinim
-3D korespodencijama između bilo koje dvije sličice. Zatim s tim
-korespodencijama estimira relativnu transformaciju između sličica
-koristeći RANSAC\footnotemark[3]. Kako parovi estimiranih poza između
+sparuju sa značajkama iz prethodnih slika. Drugi dio ispituje dubinu
+slika na lokacijama izračunatih značajki. Time je dobiveno znanje o 
+3D korespondencijama točaka između bilo koje dvije sličice. Zatim je tim
+korespondencijama estimirana relativna transformacija između sličica
+upotrebom RANSACa\footnotemark[3]. Kako parovi estimiranih poza između
 sličica nisu globalno konzistentni treći dio programa optimizira graf
-poza koristeći g\textsuperscript{2}o\footnotemark[4]. Algoritam u ovoj
+poza upotrebom g\textsuperscript{2}o\footnotemark[4]. Algoritam u ovoj
 fazi daje globalno konzistentni 3D model promatrane okoline predstavljen
-oblakom točaka u boji. Takav oblak točaka je korišten dalje u diplomskom
-radu za stvaranje mreže trokuta. Zadnji četvrti dio koristi
+oblakom točaka u boji. Takav oblak točaka je upotrebljen u diplomskom
+radu za stvaranje mreže trokuta. Zadnji četvrti dio upotrijebljava 
 Octomap\footnotemark[5] biblioteku kako bi generirio volumetrijski
 prikaz okoline. Taj dio se uključuje posebnom datotekom prilikom
 pokretanja programa i nije korišten u ovom radu.
@@ -104,7 +104,7 @@ octree strukturi.}
 Instaliran program pokreće se preko komandne linije koristeći
 \texttt{roslaunch} koji je dio ROS biblioteke i alata
 koji su detaljnije objašnjeni u poglavlju~\ref{sub:ROS biblioteka i
-alati} Kao što se vidi na slici~\ref{fig:running-rgbdslam}
+alati} Kao što je prikazano na slici~\ref{fig:running-rgbdslam}
 \texttt{roslaunch} za parametar prima XML datoteku s ekstenzijom
 \texttt{.launch} u kojoj su definirani parametri s kojima se pokreće
 program.
@@ -116,13 +116,13 @@ program.
 \label{fig:running-rgbdslam}
 \end{figure}
 
-Prilikom korištenja RGBDSlama nije bilo potrebe za mjenjanjem zadanih
+Prilikom upotrebe RGBDSlama nije bilo potrebe za mijenjanjem zadanih
 postavki te je korištena zadana \texttt{kineckt+rgbdslam.launch}
-datoteka za pokretanje. Program podržava dva načina rada automatski i
+datoteka za pokretanje. Program podržava dva načina rada, automatski i
 ručni. Kod automatskog načina program neprestano uzima slike s kamere i
 procesira ih, što u kratkom vremenu rezultira velikom količinom
-podataka. Dok ručni način korisniku omogućava na pritisak tipke Enter
-uzimanje slike. Za potrebe diplomskog rada korišten je ručni način rada.
+podataka. Ručni način korisniku omogućava uzimanje slike na pritisak
+tipke Enter.
 
 % subsubsection Pokretanje RGBDSlam programa (end)
 
@@ -130,16 +130,16 @@ uzimanje slike. Za potrebe diplomskog rada korišten je ručni način rada.
 \subsubsection{Snimanje scena RGBDSlam programom} % (fold)
 \label{ssub:Snimanje scena RGBDSlam programom}
 
-Za snimanje scena je korišten ručni način rada RGBDSlam programa.
+Za snimanje scena upotrijebljen je ručni način rada RGBDSlam programa.
 Prednost ručnog načina rada je što snimatelj kontrolira broj slika
 uzetih s kamere. Nedostatak je što je nezgodno jednoj osobi baratati s
-kamerom, gledat u računalo i pritiskat Enter za slikanje. Zato je pri
+kamerom, gledat u računalo i pritiskati Enter za slikanje. Zato je pri
 snimanju scena sudjelovalo više osoba ili je korištena
-skripta\footnotemark[1] koja je umjesto korisnika stiskala Enter nakon
-proizvoljnog broja sekudni. Tijekom snimanja trebalo je obratit
-pozornost na značajke scene koja se snima kako bih program mogao spariti
-značajke s prethodnom scenom. Tijekom izrade diplomskog rada snimljeno
-je osam scena odnosno prostorija koje su obrađene u
+skripta\footnotemark[1] koja umjesto korisnika šalje signal Enter
+programu nakon proizvoljnog broja sekudni. Tijekom snimanja trebalo je
+obratiti pozornost na značajke scene koja se snima kako bih program
+mogao spariti značajke s prethodnom scenom. Tijekom izrade diplomskog
+rada snimljeno je osam scena odnosno prostorija koje su obrađene u
 poglavlju~\ref{sec:Rezultati} Snimljene scene su spremane u
 \texttt{.pcd} formatu i kao takve korištene za daljnju obradu u
 diplomskom radu.
