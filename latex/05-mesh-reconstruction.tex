@@ -116,6 +116,7 @@ alati} Kao što je prikazano na slici~\ref{fig:running-rgbdslam}
 \texttt{.launch} u kojoj su definirani parametri s kojima se pokreće
 program.
 
+\setcounter{figure}{0}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.39]{figures/running-rgbdslam.png}
@@ -159,7 +160,6 @@ Skripta za slikanje je dostupna u prilogu.}
 % subsection Snimanje scene 3D kamerom i RGBDSlam programom (end)
 
 \newpage
-\setcounter{figure}{0}
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} % (fold)
 \label{sub:Izgradnja 3D modela scene pomoću mreže trokuta}
 
@@ -183,6 +183,7 @@ uvijetima MIT licence. Izvorni kod se nalazi u prilogu te na web stranici
 \href{http://github.com/msvalina/}%
 {\texttt{github.com/msvalina/}}}
 
+\setcounter{figure}{1}
 \begin{figure}[h]
 \renewcommand{\figurename}{Grafikon}
 \centering
@@ -199,7 +200,7 @@ prikazuje mrežu trokuta.
 
 \newpage
 % Reset counter becouse Grafikon and figures should have diff counters
-\setcounter{figure}{0}
+\setcounter{figure}{1}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/running-mesh-reconstruction.png}
@@ -391,13 +392,14 @@ susjednih točaka nad kojima se vrši estimacija
 normala\footnotemark[2]. 
 
 \footnotetext[1]{%
-K dimenzionalno stablo je detaljno objašnjeno na stranici \href{http://%
+K dimenzionalno stablo~\cite{Moore1991} je detaljno objašnjeno i na
+stranici \url{http://%
 pointclouds.org/documentation/tutorials/kdtree\_search.php}%
-{\texttt{pointclouds.org/doc/\dots/kdtree\_search.php}}}
+}
 \footnotetext[2]{%
-Estimacija normala detaljno je objašnjena na stranici \href{http://%
+Estimacija normala detaljno je objašnjena na stranici \url{http://%
 pointclouds.org/documentation/tutorials/normal\_estimation.php}%
-{\texttt{pointclouds.org/doc/\dots/normal\_estimation.php}}}
+}
 
 Nakon estimacije normala slijedi spajanje estimiranih normala i oblaka u
 novi oblak točaka s normalama. Kao što je prikazano u ispisu
