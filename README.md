@@ -10,8 +10,6 @@ This is a draft version of thesis and working version of program.
 
 *First* *draft* version of thesis after 89 days and 87 commits can be
 [downloaded here][5]
-*Second* *draft* version of thesis after 119 days and 112 commits can be
-[downloaded here][6]
 
 *Second* *draft* version of thesis after 119 days and 112 commits can be
 [downloaded here][6]
