@@ -10,6 +10,8 @@ This is a draft version of thesis and working version of program.
 
 *First* *draft* version of thesis after 89 days and 87 commits can be
 [downloaded here][5]
+*Second* *draft* version of thesis after 119 days and 112 commits can be
+[downloaded here][6]
 
 ### Project description 
 ![alt text][project-description]
@@ -27,4 +29,5 @@ is to evaluate functionality and quality of described process.
 [3]: http://wiki.ros.org/rgbdslam/
 [4]: http://wiki.ros.org/
 [5]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-01.pdf?raw=true
+[6]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-02.pdf?raw=true
 
