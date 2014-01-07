@@ -63,44 +63,31 @@ Sturm~\cite{endres12icra}.
 }
 
 Kao što je vidljivo iz grafikona~\ref{fig:rgbdslam-overview} program je
-podijeljen u četiri osnovna dijela. Prvi dio računa
-značajke\footnotemark[2] iz ulaznih slika u boji. Zatim se te značajke
-sparuju sa značajkama iz prethodnih slika. Drugi dio ispituje dubinu
-slika na lokacijama izračunatih značajki. Time je dobiveno znanje o 
-3D korespondencijama točaka između bilo koje dvije sličice. Zatim je na
-temelju tih korespondencija estimirana relativna transformacija između
-sličica upotrebom RANSACa\footnotemark[3]. Kako parovi estimiranih poza
-između sličica nisu globalno konzistentni treći dio programa optimizira
-graf poza upotrebom g\textsuperscript{2}o algoritma\footnotemark[4].
-Algoritam u ovoj fazi daje globalno konzistentni 3D model promatrane
-okoline predstavljen oblakom točaka u boji. Takav oblak točaka je
-upotrebljen u diplomskom radu za stvaranje mreže trokuta. Zadnji četvrti
-dio upotrijebljava Octomap\footnotemark[5] biblioteku kako bi generirio
-volumetrijski prikaz okoline. Taj dio se uključuje posebnom datotekom
-prilikom pokretanja programa i nije korišten u ovom radu.
-
-\footnotetext[2]{%
-RGBDSlam se oslanja na OpenCV~\cite{opencv_library} biblioteku u
-kojoj su implementirani SURF~\cite{Bay06surf:speeded},
+podijeljen u četiri osnovna dijela. Prvi dio računa značajke iz ulaznih
+slika u boji. RGBDSlam se oslanja na OpenCV~\cite{opencv_library}
+biblioteku u kojoj su implementirani SURF~\cite{Bay06surf:speeded},
 SIFT~\cite{Lowe04distinctiveimage} i ORB~\cite{1302} algoritmi za
-pronalazak značajki.
-}
-\footnotetext[3]{%
-RANSAC Random Sample Consensus~\cite{AICPub836:1981} je iterativna
-metoda estimiranja parametara matematičkog modela iz promatranih
-mjerenja koji sadržavaju šum.
-}
-\footnotetext[4]{%
-\href{http://openslam.org/g2o.html}%
-{g\textsuperscript{2}o:} A General Framework for Graph
+pronalazak značajki. Zatim se te značajke sparuju sa značajkama iz
+prethodnih slika. Drugi dio ispituje dubinu slika na lokacijama
+izračunatih značajki. Time je dobiveno znanje o 3D korespondencijama
+točaka između bilo koje dvije sličice. Zatim je na temelju tih
+korespondencija estimirana relativna transformacija između sličica
+upotrebom RANSACa. RANSAC Random Sample Consensus~\cite{AICPub836:1981}
+je iterativna metoda estimiranja parametara matematičkog modela iz
+promatranih mjerenja koji sadržavaju šum. Kako parovi estimiranih poza
+između sličica nisu globalno konzistentni treći dio programa optimizira
+graf poza upotrebom g\textsuperscript{2}o algoritma.
+{g\textsuperscript{2}o} General Framework for Graph
 Optimization~\cite{kuemmerle11icra} je okvir otvorenog koda za
-optimiziranje graph-based? nelinearnih error? funkcija.
-}
-\footnotetext[5]{%
-\href{http://octomap.github.io/}%
-{OctoMap}~\cite{hornung13auro} je efikasni probabilistički okvir za 3D
-mapiranje baziran na octree strukturi.
-}
+optimiziranje graph-based? nelinearnih error? funkcija. Algoritam u
+ovoj fazi daje globalno konzistentni 3D model promatrane okoline
+predstavljen oblakom točaka u boji. Takav oblak točaka je upotrebljen u
+diplomskom radu za stvaranje mreže trokuta. Zadnji četvrti dio
+upotrijebljava Octomap biblioteku kako bi generirio volumetrijski prikaz
+okoline. {OctoMap}~\cite{hornung13auro} je efikasni probabilistički
+okvir za 3D mapiranje baziran na octree strukturi. Taj dio se uključuje
+posebnom datotekom prilikom pokretanja programa i nije korišten u ovom
+radu.
 
 % subsubsection Sažet opis rada RGBDSlam programa (end)
 
