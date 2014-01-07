@@ -8,7 +8,7 @@
 \label{sub:Snimanje scene 3D kamerom i RGBDSlam programom}
 % RGBDSLAM allows to quickly acquire colored 3D models of objects and
 % indoor scenes with a hand-held Kinect-style camera. 
-Program RGBDSlam omogućava brzo prikupljanje 3D modela objekata i scena
+Program RGBDSlam omogućava izgradnju 3D modela objekata i scena
 u unutrašnjosti prostorija (oblak točaka u boji) rukom upravljanom 
 kamerom tipa Kineckt. Razvijen je suradnjom sveučilišta 
 Albert-Ludwigs-Unversität\footnotemark[1] u Freiburgu i
@@ -67,17 +67,17 @@ podijeljen u četiri osnovna dijela. Prvi dio računa
 značajke\footnotemark[2] iz ulaznih slika u boji. Zatim se te značajke
 sparuju sa značajkama iz prethodnih slika. Drugi dio ispituje dubinu
 slika na lokacijama izračunatih značajki. Time je dobiveno znanje o 
-3D korespondencijama točaka između bilo koje dvije sličice. Zatim je tim
-korespondencijama estimirana relativna transformacija između sličica
-upotrebom RANSACa\footnotemark[3]. Kako parovi estimiranih poza između
-sličica nisu globalno konzistentni treći dio programa optimizira graf
-poza upotrebom g\textsuperscript{2}o\footnotemark[4]. Algoritam u ovoj
-fazi daje globalno konzistentni 3D model promatrane okoline predstavljen
-oblakom točaka u boji. Takav oblak točaka je upotrebljen u diplomskom
-radu za stvaranje mreže trokuta. Zadnji četvrti dio upotrijebljava 
-Octomap\footnotemark[5] biblioteku kako bi generirio volumetrijski
-prikaz okoline. Taj dio se uključuje posebnom datotekom prilikom
-pokretanja programa i nije korišten u ovom radu.
+3D korespondencijama točaka između bilo koje dvije sličice. Zatim je na
+temelju tih korespondencija estimirana relativna transformacija između
+sličica upotrebom RANSACa\footnotemark[3]. Kako parovi estimiranih poza
+između sličica nisu globalno konzistentni treći dio programa optimizira
+graf poza upotrebom g\textsuperscript{2}o algoritma\footnotemark[4].
+Algoritam u ovoj fazi daje globalno konzistentni 3D model promatrane
+okoline predstavljen oblakom točaka u boji. Takav oblak točaka je
+upotrebljen u diplomskom radu za stvaranje mreže trokuta. Zadnji četvrti
+dio upotrijebljava Octomap\footnotemark[5] biblioteku kako bi generirio
+volumetrijski prikaz okoline. Taj dio se uključuje posebnom datotekom
+prilikom pokretanja programa i nije korišten u ovom radu.
 
 \footnotetext[2]{%
 RGBDSlam se oslanja na OpenCV~\cite{opencv_library} biblioteku u
@@ -141,7 +141,7 @@ tipke Enter.
 Za snimanje scena upotrijebljen je ručni način rada RGBDSlam programa.
 Prednost ručnog načina rada je što snimatelj kontrolira broj slika
 uzetih s kamere. Nedostatak je što je nezgodno jednoj osobi baratati s
-kamerom, gledat u računalo i pritiskati Enter za slikanje. Zato je pri
+kamerom, gledati u računalo i pritiskati Enter za slikanje. Zato je pri
 snimanju scena sudjelovalo više osoba ili je korištena
 skripta\footnotemark[1] koja umjesto korisnika šalje signal Enter
 programu nakon proizvoljnog broja sekudni. Tijekom snimanja trebalo je
@@ -231,13 +231,15 @@ Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
 
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
-Program učitava podatke na početku svake funkcije, te ih zapisuje na
-izlazu iz funkcije kako bi prije i poslije svake operacije bio dostupan
-oblak točaka. Za to koristi \texttt{PCDReader} i \texttt{PCDWriter} klase.
-Predložak takvog koda se nalazi u ispisu koda~\ref{lstUcitavanjeOblaka}
-Nakon učitavanja oblaka točaka \texttt{reader} objektom, nad njim se
-vrše operacije npr. reduciranje oblaka točaka. Nakon toga kreiranjem
-i korištenjem \texttt{writer} objekta promjenji oblak se zapisuje u datoteku.
+Program se sastoji od funkcija downsample, remove\_outliers,
+reconstruct\_mesh i show\_mesh. Na početku svake funkcije program
+učitava oblak točaka, obrađuje ga i zapisuje na izlazu iz funkcije kako
+bi prije i poslije svake operacije bio dostupan. Za to koristi
+\texttt{PCDReader} i \texttt{PCDWriter} klase. Predložak takvog koda se
+nalazi u ispisu koda~\ref{lstUcitavanjeOblaka} Nakon učitavanja oblaka
+točaka \texttt{reader} objektom, nad njim se vrše operacije npr.
+reduciranje oblaka točaka. Nakon toga kreiranjem i korištenjem
+\texttt{writer} objekta promjenji oblak se zapisuje u datoteku.
 
 \begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Predložak izvornog
 koda za učitavanje oblaka točaka}]
@@ -295,7 +297,7 @@ slike~\ref{fig:tablescene-downsample}
 % If there is \footnote in caption brackets [] must be used in \caption
 \caption[description for List of Figures]{%
     Oblak točaka \textit{table\_scene}\footnotemark[1] lijevo prije
-    \texttt{downsample()}  460400 točaka i poslije desno 41049 točaka}
+    \texttt{downsample()} 460400 točaka i poslije desno 41049 točaka}
 \label{fig:tablescene-downsample}
 \end{figure}
 
@@ -319,7 +321,7 @@ Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 % minipage ensures that listing won't be split between pages
 % but it seams like it's pushing whole box slightly to the right
 % \begin{minipage}{\textwidth}
-\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda o
+\begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda za 
     uklanjanju šuma iz funkcije \texttt{remove\_outliers()} }]
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
@@ -364,7 +366,7 @@ točaka. Drugi je spajanje estimiranih normala i oblaka točaka u
 zajedniči oblak točaka s normalama. Treći korak je pozivanje algoritma
 za stvaranje mreže nad novo stvorenim oblakom.
 
-\begin{lstlisting}[label=lstStvaranje1, caption={Dio izvornog koda o
+\begin{lstlisting}[label=lstStvaranje1, caption={Dio izvornog koda za
     estimaciji normala iz funkcije \texttt{reconstruct\_mesh()} }]
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
@@ -407,7 +409,7 @@ koda~\ref{lstStvaranje2} Taj oblak točaka je prikazan na
 slici~\ref{fig:tablescene-normals}
 
 \newpage
-\begin{lstlisting}[label=lstStvaranje2,caption={Dio izvornog koda o
+\begin{lstlisting}[label=lstStvaranje2,caption={Dio izvornog koda za
     stvaranju mreže iz funkcije \texttt{reconstruct\_mesh()} }]
     // Concatenate the XYZ and normal fields
     pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
@@ -457,7 +459,7 @@ Ispis koda~\ref{lstStvaranje3} prikazuje korištenje klase
 \texttt{saveVTKFile} za spremanje objekta \texttt{triangles} u datoteku
 s vtk ekstenzijom.
 
-\begin{lstlisting}[label=lstStvaranje3,caption={Dio izvornog koda o
+\begin{lstlisting}[label=lstStvaranje3,caption={Dio izvornog koda za
     zapisivanju mreže iz funkcije \texttt{reconstruct\_mesh()} }]
     // Write reconstructed mesh
     if (argc < 2){
@@ -482,10 +484,10 @@ klasa se koristi u komandno linijskom programu za prikaza oblaka točaka
 \texttt{pcl\_vieweru}. U ispisu koda~\ref{lstPrikaz} se vidi
 jednostavnost upotrebe klase. Nakon kreiranja objekta \texttt{viewer} i
 postavljanja parametara poziva se beskonačna petlja. Metoda
-\texttt{spinOnce()} odrađuje crtanje mreže, prikazivanje na ekranu i
+\texttt{spinOnce()} izvodi crtanje mreže, prikazivanje na ekranu i
 daje \texttt{vieweru} vremena za procesiranje i time omogućava
 interaktivnost s mrežom. Klikom na tipku \texttt{q} izlazi se iz petlje
-i program završava.  Slika~\ref{fig:tablesecne-mesh-perspectives}
+i program završava. Slika~\ref{fig:tablesecne-mesh-perspectives}
 prikazuje izgled mreže iz četiri pogleda.
 
 \begin{figure}[h]
