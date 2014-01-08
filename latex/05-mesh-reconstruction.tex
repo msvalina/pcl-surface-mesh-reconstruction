@@ -299,17 +299,19 @@ github.com/PointCloudLibrary/\dots/table\_scene\_lms400.pcd}}}
 \newpage
 \subsubsection{Uklanjanje pogrešaka pri mjerenju} % (fold)
 \label{ssub:Uklanjanje pogrešaka pri mjerenju}
-Šum pri mjerenju je sastavni dio svakog mjernog uređaja pa tako i
-Kineckt kamere. PointCloud biblioteka ima ugrađenu
-\texttt{StatisticalOutlierRemoval} klasu koja uklanja šum a 
-implementirana je u funkciji \texttt{remove\_outlieres()}.
-Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
+Pogreške pri mjerenju su sastavni dio svakog mjernog uređaja. U slučaju
+Kineckt senzora često se javljaju odudarajuće vrijednosti (engl.
+\textit{outliers}). PointCloud biblioteka ima ugrađenu
+\texttt{StatisticalOutlierRemoval} klasu koja uklanja odudarajuće
+vrijednosti, a implementirana je u funkciji
+\texttt{remove\_outlieres()}. Iz ispisa koda~\ref{lstUklanjanje} se
+vidi kako se klasa koristi.
 
 % minipage ensures that listing won't be split between pages
 % but it seams like it's pushing whole box slightly to the right
 % \begin{minipage}{\textwidth}
 \begin{lstlisting}[label=lstUklanjanje, caption={Dio izvornog koda za 
-    uklanjanju šuma iz funkcije \texttt{remove\_outliers()} }]
+    uklanjanje odudarajaućih vrijednosti iz funkcije \texttt{remove\_outliers()} }]
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
     sor.setInputCloud (cloud);
@@ -323,14 +325,16 @@ Iz ispisa koda~\ref{lstUklanjanje} se vidi kako se klasa koristi.
 Nakon kreiranja objekta \texttt{sor} i predavanja oblaka postavljena su
 još dva parametra. Prvi \texttt{setMeanK} je broj susjednih točaka koje
 će filter analizirati. Drugi \texttt{setStddevMulThresh} postavlja
-multiplikator praga standardne devijacije. Sve točke izvan normalne
-razdiobe određene jednadžbom \(\mu\pm\sigma\cdot\texttt{StddevMulThresh}\)
-bit će označene kao (\textit{outlier}) i odbačene.  Odnosno točke u
-okolini ispitane točke čije su udaljenosti veće od jedne standardne
-devijacije od očekivane udaljenosti biti označne kao šum i odbačene.
-Rezultati rada funkcije se vide na
+multiplikator praga standardne devijacije. Algoritam dva puta prolazi
+kroz oblak točaka. U prvoj iteraciji računa srednju vrijednost
+udaljenosti svake točke do njenih K susjeda. Zatim računa očekivanje
+\(\mu\) i standardnu devijaciju \(\sigma\) svih udaljenosti kako bi
+mogao odrediti prag udaljenosti. Prag udaljenosti je određen jednadžbom
+\(\mu+\texttt{StddevMulThresh}\cdot\sigma\). U sljedećoj iteraciji točke
+će biti označene kao outlier ukoliko su njihove srednje vrijednosti
+udaljenosti od susjeda veće od praga. Rezultati rada funkcije se vide na
 slici~\ref{fig:tablescene-outliers}
-
+ 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/tablescene-remove-outliers-example.png}
