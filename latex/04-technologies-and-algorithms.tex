@@ -26,8 +26,29 @@
 
 % subsection Slam (end)
 
+\newpage
 \subsection{Poisson algoritam za rekonstrukciju površine} % (fold)
 \label{sub:Poisson}
+Rekonstrukcija 3D površina iz uzorka točaka je dobro proučavan problem u
+računalnoj grafici. Rekonstrukcija omogućava namještanje skeniranih
+podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
+modela.
+
+Poisson algoritam pristupa problemu rekonstrukcije površine rješavanjem
+Poissonove jednadžbe. To čini upotrebom metode implicitne funkcije.
+Točnije računanjem 3D indikacijske funkcije \(\chi\) (definiranom s 1 u
+točkama unutar modela, odnosno s 0 u točkama izvan) i dohvaćanjem
+rekonstruktruirane površine izvlačenjem odgovarajuće iso-površine.
+
+Algoritam se oslanja na ideju da postoji cjelovita veza između
+orijentiranih točaka uzetih s površine modela i indkacijske funkcije
+modela. Točnije, gradijent indikacijske funkcije je polje vektora koje
+je uglavnom popunjeno nulama (jer je indikacijska funkcija uglavnom
+konstantna), osim kod točaka blizu površine gdje je jednako unutrašnjim
+normalama površine. Stoga, uzorci orijentiranih točaka mogu biti
+promatrani kao gradijent modelove indikacijske funkcije kao što je
+prikazano na slici~\ref{}
+
 
 % subsection Poisson (end)
 
