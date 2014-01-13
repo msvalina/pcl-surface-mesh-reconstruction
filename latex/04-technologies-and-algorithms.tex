@@ -41,13 +41,31 @@ točkama unutar modela, odnosno s 0 u točkama izvan) i dohvaćanjem
 rekonstruktruirane površine izvlačenjem odgovarajuće iso-površine.
 
 Algoritam se oslanja na ideju da postoji cjelovita veza između
-orijentiranih točaka uzetih s površine modela i indkacijske funkcije
+orijentiranih točaka uzetih s površine modela i indikacijske funkcije
 modela. Točnije, gradijent indikacijske funkcije je polje vektora koje
 je uglavnom popunjeno nulama (jer je indikacijska funkcija uglavnom
 konstantna), osim kod točaka blizu površine gdje je jednako unutrašnjim
 normalama površine. Stoga, uzorci orijentiranih točaka mogu biti
 promatrani kao gradijent modelove indikacijske funkcije kao što je
-prikazano na slici~\ref{}
+prikazano na slici~\ref{fig:poisson-reconstruction.png}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.35]{figures/poisson-reconstruction.png}
+\caption{Prikaz Poisson rekonstrukcije u 2D}
+\label{fig:poisson-reconstruction.png}
+\end{figure}
+
+Problem računanja indikacijske funkcije se svodi na invertiranje
+operatora gradijenta, odnosno pronalazak funkcije skalara \(\chi\) čiji
+gradijent najbolje aproksimira polje vektora \(\vec{V}\) definirano
+uzorcima, odnosno \(min_\chi \|\nabla\chi - \vec{V}\|\). Ako se primjeni
+operator divergencije, tada se taj problem pretvara u standardni
+Poissonov problem: računanje funkcije skalara \(\chi\) čiji laplasijan
+(divergencija gradijenta) je jednak divergenciji polju vektora
+\(\vec{V}\),
+\\
+\(\Delta \chi \equiv \nabla \cdot \nabla\chi = \nabla \cdot \vec{V}\).
 
 
 % subsection Poisson (end)
