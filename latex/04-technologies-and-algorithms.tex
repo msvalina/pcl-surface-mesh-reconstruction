@@ -45,10 +45,14 @@ upravljati rekonstrukcija površine.
 Originalna implementacija Poisson algoritma se nalazi na 
 \url{http://www.cs.jhu.edu/~misha/Code/PoissonRecon/Version5.5/}}
 
-Rekonstrukcija 3D površina iz uzorka točaka je dobro proučavan problem u
-računalnoj grafici. Ona omogućava namještanje skeniranih
-podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
-modela.
+% Rekonstrukcija 3D površina iz uzorka točaka je dobro proučavan problem u
+% računalnoj grafici. Ona omogućava namještanje skeniranih
+% podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
+% modela.
+
+% Ideja i matematički pregled
+\subsubsection{Osnovna ideja i kratak matematički pregled} % (fold)
+\label{ssub:Osnovna ideja i kratak matematički pregled}
 
 Poisson algoritam pristupa problemu rekonstrukcije površine rješavanjem
 Poissonove jednadžbe. To čini upotrebom metode implicitne funkcije.
@@ -57,11 +61,11 @@ točkama unutar modela, odnosno s 0 u točkama izvan) i dohvaćanjem
 rekonstruktruirane površine izvlačenjem odgovarajuće iso-površine.
 
 Algoritam se oslanja na ideju da postoji cjelovita veza između
-orijentiranih točaka uzetih s površine modela i indikacijske funkcije
+orijentiranih normala uzetih s površine modela i indikacijske funkcije
 modela. Točnije, gradijent indikacijske funkcije je polje vektora koje
 je uglavnom popunjeno nulama (jer je indikacijska funkcija uglavnom
 konstantna), osim kod točaka blizu površine gdje je jednako unutrašnjim
-normalama površine. Stoga, uzorci orijentiranih točaka mogu biti
+normalama površine. Stoga, uzorci orijentiranih normala mogu biti
 promatrani kao gradijent modelove indikacijske funkcije kao što je
 prikazano na slici~\ref{fig:poisson-reconstruction.png}
 
@@ -76,9 +80,11 @@ Problem računanja indikacijske funkcije se svodi na invertiranje
 operatora gradijenta, odnosno pronalazak funkcije skalara \(\chi\) čiji
 gradijent najbolje aproksimira polje vektora \(\vec{V}\) definirano
 uzorcima, odnosno 
+
 \begin{equation*}
 min_\chi \|\nabla\chi - \vec{V}\|.
 \end{equation*}
+
 Ako se primjeni operator divergencije, tada se taj problem pretvara u
 standardni Poissonov problem: računanje funkcije skalara \(\chi\) čiji
 laplasijan (divergencija gradijenta) je jednak divergenciji polja
@@ -96,6 +102,53 @@ Poisson rekonstrukcija je globalno rješenje koje razmatra sve podatke
 odjednom, bez upotrebe heurstičkih podijela i stapanja. Zbog toga
 Poisson rekonstrukcija kreira izrazito glatku površinu koja robusno
 aproksimira šumovite podatke.  
+
+% subsubsection Osnovna ideja i kratak matematički pregled (end)
+
+% Ograničenje Poisson algoritma
+\subsubsection{Ograničenje Poisson algoritma} % (fold)
+\label{ssub:Ograničenje Poisson algoritma}
+
+Ograničenje implementacije Poisson algoritma je u tome što ne uzima u
+obzir informacije asocirane s načinom stjecanja oblaka točaka.
+Slika~\ref{fig:poisson-buddha.png} pokazuje kip Bude i vidi se primjer takvog
+ograničenja. Budući da nema točaka između Budinih nogu, Poisson
+algoritam spaja te dvije regije. Algoritam se može unaprijediti
+ugradnjom dodatne informacije poput vidokruga i na taj način izbjeći to
+ograničenje.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.20]{figures/poisson-buddha.png}
+\caption[]{Prikaz ograničenja implementacije Poisson
+algoritma\footnotemark[1]}
+\label{fig:poisson-buddha.png}
+\end{figure}
+
+\footnotetext[1]{%
+Slika je preuzta iz znanstvenog
+rada~\cite{Kazhdan:2006:PSR:1281957.1281965}}
+
+% subsubsection Ograničenje Poisson algoritma (end)
+
+
+% Parametri za upravljanje rekonstrukcijom Poisson algoritma
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 % subsection Poisson (end)
