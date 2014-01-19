@@ -29,15 +29,14 @@
 \newpage
 \subsection{Poisson algoritam za rekonstrukciju površine} % (fold)
 \label{sub:Poisson}
-Poisson algoritam za rekonstrukciju
-površine~\cite{Kazhdan:2006:PSR:1281957.1281965} razvijen je suradnjom
-Michaela Kazhdana i Matthewa Bolitha s Johns Hopkins sveučilišta u
-Baltimoru i Huguesa Hoppea iz Microsoft Researcha u Redmondu. Također
-Kazhdan i Bolitho su implementirali\footnotemark[1] Poisson algoritam i
-objavili kod pod BSD licencom. Na osnovu tog rada algoritam je dodan i u
-PCL biblioteku.
+Poisson algoritam za rekonstrukciju površine~\cite{Kazhdan:2006}
+razvijen je suradnjom Michaela Kazhdana i Matthewa Bolitha s Johns
+Hopkins sveučilišta u Baltimoru i Huguesa Hoppea iz Microsoft Researcha
+u Redmondu. Također Kazhdan i Bolitho su implementirali\footnotemark[1]
+Poisson algoritam i objavili kod pod BSD licencom. Na osnovu tog rada
+algoritam je dodan i u PCL biblioteku.
 
-U ovom poglavlju dana je osnovna ideja i kratak matematički pregled
+U ovom potpoglavlju nalazi se osnovna ideja i kratak matematički pregled
 algoritma. Opisano je ograničenje algoritma te parametri kojima se može
 upravljati rekonstrukcija površine.
 
@@ -50,7 +49,7 @@ Originalna implementacija Poisson algoritma se nalazi na
 % podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
 % modela.
 
-% Ideja i matematički pregled
+\newpage
 \subsubsection{Osnovna ideja i kratak matematički pregled} % (fold)
 \label{ssub:Osnovna ideja i kratak matematički pregled}
 
@@ -72,7 +71,8 @@ prikazano na slici~\ref{fig:poisson-reconstruction.png}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.35]{figures/poisson-reconstruction.png}
-\caption{Prikaz Poisson rekonstrukcije u 2D}
+\caption[]{Prikaz Poisson rekonstrukcije u 2D,
+    izvor:~\cite{Kazhdan:2006}}
 \label{fig:poisson-reconstruction.png}
 \end{figure}
 
@@ -92,7 +92,7 @@ vektora \(\vec{V}\),
 
 \begin{equation*}
 \Delta \chi \equiv \nabla \cdot \nabla\chi = \nabla \cdot \vec{V}.
-\end{equation*}.
+\end{equation*}
 
 Predstavljanje rekonstrukciju površine kao Poissonov problem pruža
 nekoliko prednosti. Mnoge implicitne metode namještanja površina
@@ -103,9 +103,26 @@ odjednom, bez upotrebe heurstičkih podijela i stapanja. Zbog toga
 Poisson rekonstrukcija kreira izrazito glatku površinu koja robusno
 aproksimira šumovite podatke.  
 
+Za izvlačenje iso-površine Poisson algoritam koristi Marching Cubes
+algoritam~\cite{Lorensen87marchingcubes} koji kreira octree strukturu
+podataka za prikaz površine.  Kao što se vidi na
+slici~\ref{fig:poisson-marching-cubes.png} Marching Cubes algoritam
+dijeli oblak točaka u mrežu voxela marširajući kroz oblak i analizira
+koje točke čine iso-površinu objekta.  Detektiranjem koji rubovi voxela
+presjecaju iso-površinu modela algoritam kreira mrežu trokuta. Više
+informacija o izvlačenju površine se mogu pronaći u radu “Unconstrained
+Isosurface Extraction on Arbitrary Octrees” Michaela
+Kahzdana~\cite{Kazhdan:2007}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{figures/poisson-marching-cubes.png}
+\caption[]{Prikaz Marching cubes algoritma, izvor:~\cite{Kazhdan:2007}}
+\label{fig:poisson-marching-cubes.png}
+\end{figure}
+
 % subsubsection Osnovna ideja i kratak matematički pregled (end)
 
-% Ograničenje Poisson algoritma
 \subsubsection{Ograničenje Poisson algoritma} % (fold)
 \label{ssub:Ograničenje Poisson algoritma}
 
@@ -120,36 +137,56 @@ ograničenje.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.20]{figures/poisson-buddha.png}
-\caption[]{Prikaz ograničenja implementacije Poisson
-algoritma\footnotemark[1]}
+\caption[]{Rekonstrukcija modela ``Happy Buddha'' 
+VRIP\footnotemark[2] algoritam (lijevo) i Poisson algoritma (desno),
+izvor:~\cite{Kazhdan:2006}}
 \label{fig:poisson-buddha.png}
 \end{figure}
 
-\footnotetext[1]{%
-Slika je preuzta iz znanstvenog
-rada~\cite{Kazhdan:2006:PSR:1281957.1281965}}
+\footnotetext[2]{%
+VRIP - Volumetric Range Image Processing~\cite{Curless:1996VRIP}}
 
 % subsubsection Ograničenje Poisson algoritma (end)
 
+\newpage
+\subsubsection{Parametri Poisson algoritma} % (fold)
+\label{ssub:Parametri Poisson algoritma}
+Postoji nekoliko parametara koji utječu na rezultat rekonstrukcije.
+\begin{itemize}
+    \item \texttt{Depth:} dubina octree stabla koje se koristi za
+        rekonstrukciju. Zadana vrijednost 8.
+    \item \texttt{SolverDivide:} postavlja dubinu kod kojeg bloka
+        Gauss-Seidel metoda riješava Laplasovu jednadžbu. Zadana
+        vrijednost 8.
+    \item \texttt{IsoDivide:} postavlja dubinu kod kojeg bloka
+        ekstraktor iso-površine izvlači iso-površinu. Zadana vrijednost
+        8.
+    \item \texttt{SamplesPerNode:} postavlja minimalni broj točaka koje
+        se trebaju nalaziti unutar octree čvora kako se octree
+        konstrukcija prilagođava gustoći sempliranja. Za podatke bez
+        šuma 1 - 5, sa šumom 15 - 20.
+    \item \texttt{Scale:} omjer između promjera kocke korištne za
+        rekonstrukciju i promjera kocke koja omeđuje uzorke. Zadana
+        vrijednost 1.25.
+    \item \texttt{Confidence:} postavljanje zastavice govori
+        rekonstruktorciji da koristi veličinu normala kao informaciju o
+        pouzdanosti. Ako nije postavljena sve normale se normaliziraju
+        prije rekonstrukcije.
+\end{itemize}
 
-% Parametri za upravljanje rekonstrukcijom Poisson algoritma
+Od nabrojanih parametara najvažniji utjecaj na generiranu mrežu imaju
+\texttt{SamplesPerNode} i \texttt{Depth}. Veća dubina octree stabla
+rezultira većom precinosti mreže voxela jer Marching Cubes algoritam
+ulazi dublje u stablo. Manja dubina (između 5 i 7) daje glađi model ali
+s manje detalja. \texttt{SamplesPerNode} parametar definira koliko će
+točaka Marchin Cubes algoritma staviti u jedan čvor rezultantnog octree
+stabla. Ako algoritam radi s podacima punim šuma velik uzorak točaka (15
+- 20) po čvoru pruža glađenje ali se gube detalji. Dok rad s malim
+vrijednostima (1 - 5) održava razinu detalja visokom. Velike vrijednosti
+reduciraju kranji broj vrhova poligona, dok male održavaju broj vrhova
+visokim.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% subsubsection Parametri Poisson algoritma (end)
 
 % subsection Poisson (end)
 
