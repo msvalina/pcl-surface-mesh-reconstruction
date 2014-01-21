@@ -38,7 +38,7 @@ algoritam je dodan i u PCL biblioteku.
 
 U ovom potpoglavlju nalazi se osnovna ideja i kratak matematički pregled
 algoritma. Opisano je ograničenje algoritma te parametri kojima se može
-upravljati rekonstrukcija površine.
+upravljati rekonstrukcijom površine.
 
 \footnotetext[1]{%
 Originalna implementacija Poisson algoritma se nalazi na 
@@ -49,15 +49,14 @@ Originalna implementacija Poisson algoritma se nalazi na
 % podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
 % modela.
 
-\newpage
 \subsubsection{Osnovna ideja i kratak matematički pregled} % (fold)
 \label{ssub:Osnovna ideja i kratak matematički pregled}
 
 Poisson algoritam pristupa problemu rekonstrukcije površine rješavanjem
 Poissonove jednadžbe. To čini upotrebom metode implicitne funkcije.
-Točnije računanjem 3D indikacijske funkcije \(\chi\) (definiranom s 1 u
-točkama unutar modela, odnosno s 0 u točkama izvan) i dohvaćanjem
-rekonstruktruirane površine izvlačenjem odgovarajuće iso-površine.
+Točnije računanjem 3D indikacijske funkcije \(\chi\) definirane s 1 u
+točkama unutar modela, odnosno s 0 u točkama izvan i dohvaćanjem
+rekonstruktruirane površine izvlačenjem odgovarajuće izopovršine.
 
 Algoritam se oslanja na ideju da postoji cjelovita veza između
 orijentiranih normala uzetih s površine modela i indikacijske funkcije
@@ -65,7 +64,7 @@ modela. Točnije, gradijent indikacijske funkcije je polje vektora koje
 je uglavnom popunjeno nulama (jer je indikacijska funkcija uglavnom
 konstantna), osim kod točaka blizu površine gdje je jednako unutrašnjim
 normalama površine. Stoga, uzorci orijentiranih normala mogu biti
-promatrani kao gradijent modelove indikacijske funkcije kao što je
+promatrani kao gradijent modela indikacijske funkcije kao što je
 prikazano na slici~\ref{fig:poisson-reconstruction.png}
 
 \begin{figure}[h]
@@ -103,13 +102,13 @@ odjednom, bez upotrebe heurstičkih podijela i stapanja. Zbog toga
 Poisson rekonstrukcija kreira izrazito glatku površinu koja robusno
 aproksimira šumovite podatke.  
 
-Za izvlačenje iso-površine Poisson algoritam koristi Marching Cubes
+Za izvlačenje izopovršine Poisson algoritam koristi Marching Cubes
 algoritam~\cite{Lorensen87marchingcubes} koji kreira octree strukturu
 podataka za prikaz površine.  Kao što se vidi na
 slici~\ref{fig:poisson-marching-cubes.png} Marching Cubes algoritam
 dijeli oblak točaka u mrežu voxela marširajući kroz oblak i analizira
-koje točke čine iso-površinu objekta.  Detektiranjem koji rubovi voxela
-presjecaju iso-površinu modela algoritam kreira mrežu trokuta. Više
+koje točke čine izopovršinu objekta.  Detektiranjem koji rubovi voxela
+presjecaju izopovršinu modela algoritam kreira mrežu trokuta. Više
 informacija o izvlačenju površine se mogu pronaći u radu “Unconstrained
 Isosurface Extraction on Arbitrary Octrees” Michaela
 Kahzdana~\cite{Kazhdan:2007}
@@ -156,14 +155,14 @@ Postoji nekoliko parametara koji utječu na rezultat rekonstrukcije.
     \item \texttt{Depth:} dubina octree stabla koje se koristi za
         rekonstrukciju. Zadana vrijednost 8.
     \item \texttt{SolverDivide:} postavlja dubinu kod kojeg bloka
-        Gauss-Seidel metoda riješava Laplasovu jednadžbu. Zadana
+        Gauss-Seidel metoda riješava Laplaceovu jednadžbu. Zadana
         vrijednost 8.
     \item \texttt{IsoDivide:} postavlja dubinu kod kojeg bloka
-        ekstraktor iso-površine izvlači iso-površinu. Zadana vrijednost
+        ekstraktor izopovršine izvlači izopovršinu. Zadana vrijednost
         8.
     \item \texttt{SamplesPerNode:} postavlja minimalni broj točaka koje
         se trebaju nalaziti unutar octree čvora kako se octree
-        konstrukcija prilagođava gustoći sempliranja. Za podatke bez
+        konstrukcija prilagođava gustoći uzorkovanja. Za podatke bez
         šuma 1 - 5, sa šumom 15 - 20.
     \item \texttt{Scale:} omjer između promjera kocke korištne za
         rekonstrukciju i promjera kocke koja omeđuje uzorke. Zadana
