@@ -275,9 +275,11 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
     viewer->setBackgroundColor (0, 0, 0);
     viewer->addPolygonMesh (mesh_of_triangles, "sample mesh");
     viewer->initCameraParameters ();
+    // Setting type of mesh representation 
+    // Wireframe = standard "mesh" representation
+    viewer->setRepresentationToWireframeForAllActors ();
     // viewer->setRepresentationToSurfaceForAllActors ();
     // viewer->setRepresentationToPointsForAllActors ();
-    viewer->setRepresentationToWireframeForAllActors ();
     while (!viewer->wasStopped ())
     {
         viewer->spinOnce (100); boost::this_thread::sleep
