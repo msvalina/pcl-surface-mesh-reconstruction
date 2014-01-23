@@ -45,7 +45,7 @@ Originalna implementacija Poisson algoritma se nalazi na
 \url{http://www.cs.jhu.edu/~misha/Code/PoissonRecon/Version5.5/}}
 
 % Rekonstrukcija 3D površina iz uzorka točaka je dobro proučavan problem u
-% računalnoj grafici. Ona omogućava namještanje skeniranih
+% računalnoj grafici. Ona omogućava uklapanje skeniranih
 % podataka, ispunjavanje površinskih rupa i ponovnu izgradnju postojećih
 % modela.
 
@@ -94,8 +94,8 @@ vektora \(\vec{V}\),
 \end{equation*}
 
 Predstavljanje rekonstrukciju površine kao Poissonov problem pruža
-nekoliko prednosti. Mnoge implicitne metode namještanja površina
-segementiraju podatke u regije za lokalno namještanje i onda te lokalne
+nekoliko prednosti. Mnoge implicitne metode uklapanja površina
+segementiraju podatke u regije za lokalno uklapanje i onda te lokalne
 aproksimacije spajaju upotrebom funkcija stapanja. Za razliku od njih,
 Poisson rekonstrukcija je globalno rješenje koje razmatra sve podatke
 odjednom, bez upotrebe heurstičkih podijela i stapanja. Zbog toga
@@ -133,6 +133,17 @@ algoritam spaja te dvije regije. Algoritam se može unaprijediti
 ugradnjom dodatne informacije poput vidokruga i na taj način izbjeći to
 ograničenje.
 
+**A limitation of our method
+is that it does not incorporate information associated with
+the acquisition modality. Figure 6 shows an example of this
+in the reconstruction at the base of the Buddha. Since there
+are no samples between the two feet, our method (right)
+connects the two regions. In contrast, the ability to use sec-
+ondary information such as line of sight allows VRIP (left)
+to perform the space carving necessary to disconnect the two
+feet, resulting in a more accurate reconstruction.**
+
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.20]{figures/poisson-buddha.png}
@@ -153,19 +164,19 @@ VRIP - Volumetric Range Image Processing~\cite{Curless:1996VRIP}}
 Postoji nekoliko parametara koji utječu na rezultat rekonstrukcije.
 \begin{itemize}
     \item \texttt{Depth:} dubina octree stabla koje se koristi za
-        rekonstrukciju. Zadana vrijednost 8.
+        rekonstrukciju. Pretpostavljena vrijednost 8.
     \item \texttt{SolverDivide:} postavlja dubinu kod kojeg bloka
-        Gauss-Seidel metoda riješava Laplaceovu jednadžbu. Zadana
+        Gauss-Seidel metoda riješava Laplaceovu jednadžbu. Pretpostavljena
         vrijednost 8.
     \item \texttt{IsoDivide:} postavlja dubinu kod kojeg bloka
-        ekstraktor izopovršine izvlači izopovršinu. Zadana vrijednost
+        ekstraktor izopovršine izvlači izopovršinu. Pretpostavljena vrijednost
         8.
     \item \texttt{SamplesPerNode:} postavlja minimalni broj točaka koje
         se trebaju nalaziti unutar octree čvora kako se octree
         konstrukcija prilagođava gustoći uzorkovanja. Za podatke bez
-        šuma 1 - 5, sa šumom 15 - 20.
+        šuma 1 - 5, sa šumom 15 - 20. Pretpostavljena vrijednost 1.
     \item \texttt{Scale:} omjer između promjera kocke korištne za
-        rekonstrukciju i promjera kocke koja omeđuje uzorke. Zadana
+        rekonstrukciju i promjera kocke koja omeđuje uzorke. Pretpostavljena
         vrijednost 1.25.
     \item \texttt{Confidence:} postavljanje zastavice govori
         rekonstruktorciji da koristi veličinu normala kao informaciju o
