@@ -4,18 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core
-
-QT       -= gui
+QT       += core gui
 
 TARGET = mesh-reconstruction
-CONFIG   += console
-CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mainwindow.cpp \
+    meshreconstruction.cpp \
 
 INCLUDEPATH +=  "/usr/local/include/pcl-1.7/" \
                 "/usr/include/flann/" \
@@ -50,4 +47,8 @@ LIBS += -lOpenNI \
         -lvtkexoIIc \
         -lvtkHybrid \
         -lboost_thread
+
+HEADERS += \
+    mainwindow.h \
+    meshreconstruction.h \
 
