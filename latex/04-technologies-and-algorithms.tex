@@ -21,9 +21,39 @@
 % subsection Biblioteka Pointcloud (end)
 
 
+\newpage
 \subsection{Istovremena lokalizacija i mapiranje} % (fold)
 \label{sub:Slam}
+Istovremena lokalizacija i mapiranje dolazi od engleske skraćenice
+SLAM \textit{Simultaneous Localization and Mapping}. SLAM su
+originalno razvili Hugh Durrant-Whyte i John J.
+Leonard~\cite{Durrant:91b} koji su rad bazirali na prethodnom radu
+Smitha, Selfa and Cheesemana~\cite{Smith86}. SLAM se bavi rješavanjem
+problema izgradnje mape nepoznate okoline mobilnog robota te istovremeno
+navigiranje robota okolinom koristeći tu mapu.
 
+SLAM se sastoji iz nekoliko koraka: izvlačenje orijentira, asociranje
+podataka, estimiranja stanja, ažuriranja stanja i ažuriranja orijentira.
+Postoji više načina kako riješiti svaki od tih koraka. SLAM se može
+primjeniti na 2D i 3D kretanje.
+
+\subsubsection{Osnovna ideja i kratak pregled koraka} % (fold)
+\label{ssub:Osnovna ideja }
+Proces istovremene lokalizacije i mapiranja se sastoji iz nekoliko
+koraka. Cilj procesa je koristiti okolinu za ažuriranje pozicije robota.
+Zbog nesavršenosti odometrije robota nije dobro osloniti se samo na nju
+kako bi se pronašla pozicija robota. Već se može koristiti lasersko
+skeniranje okoline ili kao u slučaju RGBDSlam programa Kinect 3D kamera
+kako bi pronašli pravu poziciju robota/kamere. To se postiže
+izvlačenjem značjaki iz okoline i promatranjem tih značajki kada se
+robot pomakne. EKF (\textit{Extended Kalman Filter}) prošireni Kalmanov
+filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
+na kojoj robot misli da se nalazi koristeći izvučene značajke. Takve
+značajke se još nazivaju i orjentiri. EKF prati estimaciju nesigurnosti
+pozicije robota i nesigurnosti orijentira iz okoline. Prikaz SLAM
+procesa se nalazi na slici~\ref{fig:slam-overview}
+
+% subsubsection Osnovna ideja  (end)
 % subsection Slam (end)
 
 \newpage
