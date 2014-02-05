@@ -29,8 +29,7 @@ void MainWindow::createMenu()
     fileMenu = new QMenu(tr("&File"), this);
     exitAction = fileMenu->addAction(tr("E&xit"));
     menuBar->addMenu(fileMenu);
-
-    //connect(exitAction, SIGNAL(triggered()), this, SLOT(accept()));
+    connect(exitAction, SIGNAL(triggered()), this, SLOT(accept()));
 }
 
 void MainWindow::createVerticalGroupBox()
@@ -53,6 +52,7 @@ void MainWindow::createHorizontalGroupBox()
     removeOutliersBtn = new QPushButton("Remove Outliers", this);
     meshReconstructionBtn = new QPushButton("Mesh Reconstruction", this);
     showMeshBtn = new QPushButton("Show Mesh", this);
+    connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(openMesh()));
     layout->addWidget(downsampleBtn);
     layout->addWidget(removeOutliersBtn);
     layout->addWidget(meshReconstructionBtn);
@@ -62,11 +62,18 @@ void MainWindow::createHorizontalGroupBox()
 
 void MainWindow::openFile()
 {
-    QString fileDescrip;
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open PCD"));
+    fileName = QFileDialog::getOpenFileName(this, tr("Open PCD"));
         if (!fileName.isEmpty()){
-            qDebug() << "Onda prikzi poruku i zapisi ju u fileDiscrpi" ;
+            qDebug() << "Onda prikzi poruku " ;
         }
     qDebug() << fileName ;
+}
+
+void MainWindow::openMesh()
+{
+    qDebug() << "open mesh";
+    meshRec = new MeshReconstruction;
+    meshRec->setFilePath(fileName);
+    meshRec->showMesh();
 }
 

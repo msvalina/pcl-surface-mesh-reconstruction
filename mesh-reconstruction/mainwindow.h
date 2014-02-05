@@ -10,6 +10,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
+#include "meshreconstruction.h"
 
 class MainWindow : public QDialog
 {
@@ -21,6 +22,7 @@ public:
 
 private slots:
     void openFile();
+    void openMesh();
 
 private:
     void createMenu();
@@ -41,6 +43,9 @@ private:
     QVBoxLayout *mainlayout;
     QGroupBox *verticalGroup;
     QGroupBox *horizontalGroup;
+
+    QString fileName;
+    MeshReconstruction *meshRec;
 };
 
 #endif // MAINWINDOW_H
