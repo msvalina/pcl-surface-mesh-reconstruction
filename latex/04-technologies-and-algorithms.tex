@@ -50,8 +50,20 @@ robot pomakne. EKF (\textit{Extended Kalman Filter}) prošireni Kalmanov
 filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
 na kojoj robot misli da se nalazi koristeći izvučene značajke. Takve
 značajke se još nazivaju i orjentiri. EKF prati estimaciju nesigurnosti
-pozicije robota i nesigurnosti orijentira iz okoline. Prikaz SLAM
-procesa se nalazi na slici~\ref{fig:slam-overview}
+pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
+procesa se nalazi na slici~\ref{fig:slam-overview.pdf}
+
+\begin{figure}[h]
+\renewcommand{\figurename}{Grafikon}
+\centering
+\includegraphics[scale=0.43]{figures/slam-overview.pdf}
+\caption[]{Pregled SLAM procesa\footnotemark[1]}
+\label{fig:slam-overview.pdf}
+\end{figure}
+
+\footnotetext[1]{%
+Grafikon je inspiriran sličnim grafikonom iz rada SLAM for
+Dummies~\cite{web:slam} }
 
 % subsubsection Osnovna ideja  (end)
 % subsection Slam (end)
