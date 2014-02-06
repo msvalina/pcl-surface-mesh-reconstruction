@@ -5,10 +5,10 @@
 \label{sec:Tehnologija i teorija}
 
 
-\subsection{Microsof Kineckt 3D kamera} % (fold)
-\label{sub:Microsof Kineckt 3D kamera}
+\subsection{Microsof Kinect 3D kamera} % (fold)
+\label{sub:Microsof Kinect 3D kamera}
 
-% subsection Microsof Kineckt 3D kamera (end)
+% subsection Microsof Kinect 3D kamera (end)
 
 \subsection{ROS biblioteka i alati} % (fold)
 \label{sub:ROS biblioteka i alati}
@@ -51,15 +51,24 @@ filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
 na kojoj robot misli da se nalazi koristeći izvučene značajke. Takve
 značajke se još nazivaju i orjentiri. EKF prati estimaciju nesigurnosti
 pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
-procesa se nalazi na slici~\ref{fig:slam-overview.pdf}
+procesa~\footnotemark[1] se nalazi na grafikonu~\ref{fig:slam-overview.pdf}  
 
 \begin{figure}[h]
 \renewcommand{\figurename}{Grafikon}
 \centering
 \includegraphics[scale=0.43]{figures/slam-overview.pdf}
-\caption[]{Pregled SLAM procesa\footnotemark[1]}
+\caption{Pregled SLAM procesa}
 \label{fig:slam-overview.pdf}
 \end{figure}
+
+Kad se odometrija promjeni zato što se robot pomakao nesigurnost koja se
+tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
+odometrije. Orijentiri se tada izvlače iz okoline zbog robotove nove
+pozicije. Robot tada pokušava asocirati te orijentire s prije pronađenim
+orijentirima. Ponovno pronađeni orijentiri se tada koriste za ažuriranje
+pozicije robota u EKFu. Orijentiri koji prije nisu pronađeni se dodaju u
+EKF kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
+računa estimaciju robotove trenutne pozicije.
 
 \footnotetext[1]{%
 Grafikon je inspiriran sličnim grafikonom iz rada SLAM for
