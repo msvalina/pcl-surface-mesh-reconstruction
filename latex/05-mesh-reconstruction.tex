@@ -10,7 +10,7 @@
 % indoor scenes with a hand-held Kinect-style camera. 
 Program RGBDSlam omogućava izgradnju 3D modela objekata i scena
 u unutrašnjosti prostorija (oblak točaka u boji) rukom upravljanom 
-kamerom tipa Kineckt. Razvijen je suradnjom sveučilišta 
+kamerom tipa Kinect. Razvijen je suradnjom sveučilišta 
 Albert-Ludwigs-Unversität\footnotemark[1] u Freiburgu i
 Technische Universität München\footnotemark[2].
 Slobodan je program objavljen pod GPLv3\footnotemark[3] licencom.
@@ -116,7 +116,7 @@ program.
 \end{figure}
 
 Prilikom upotrebe RGBDSlama nije bilo potrebe za mijenjanjem zadanih
-postavki te je korištena zadana \texttt{kineckt+rgbdslam.launch}
+postavki te je korištena zadana \texttt{kinect+rgbdslam.launch}
 datoteka za pokretanje. Program podržava dva načina rada, automatski i
 ručni. Kod automatskog načina program neprestano uzima slike s kamere i
 procesira ih, što u kratkom vremenu rezultira velikom količinom
@@ -304,7 +304,7 @@ github.com/PointCloudLibrary/\dots/table\_scene\_lms400.pcd}}}
 \subsubsection{Uklanjanje pogrešaka pri mjerenju} % (fold)
 \label{ssub:Uklanjanje pogrešaka pri mjerenju}
 Pogreške pri mjerenju su sastavni dio svakog mjernog uređaja. U slučaju
-Kineckt senzora često se javljaju odudarajuće vrijednosti (engl.
+Kinect senzora često se javljaju odudarajuće vrijednosti (engl.
 \textit{outliers}). PointCloud biblioteka ima ugrađenu
 \texttt{StatisticalOutlierRemoval} klasu koja uklanja odudarajuće
 vrijednosti, a implementirana je u funkciji
