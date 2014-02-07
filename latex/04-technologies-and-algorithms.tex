@@ -64,9 +64,9 @@ procesa~\footnotemark[1] se nalazi na grafikonu~\ref{fig:slam-overview.pdf}
 Kad se odometrija promjeni zato što se robot pomakao nesigurnost koja se
 tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
 odometrije. Orijentiri se tada izvlače iz okoline zbog robotove nove
-pozicije. Robot tada pokušava asocirati te orijentire s prije pronađenim
-orijentirima. Ponovno pronađeni orijentiri se tada koriste za ažuriranje
-pozicije robota u EKFu. Orijentiri koji prije nisu pronađeni se dodaju u
+pozicije. Robot tada pokušava asocirati te orijentire s prije zapaženim
+orijentirima. Ponovno zapaženi orijentiri se tada koriste za ažuriranje
+pozicije robota u EKFu. Orijentiri koji prije nisu zapaženi se dodaju u
 EKF kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
 računa estimaciju robotove trenutne pozicije.
 
