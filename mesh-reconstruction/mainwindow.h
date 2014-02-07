@@ -10,6 +10,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
+#include <QLabel>
 #include "meshreconstruction.h"
 
 class MainWindow : public QDialog
@@ -26,7 +27,7 @@ private slots:
 
 private:
     void createMenu();
-    void createVerticalGroupBox();
+    void createGridGroupBox();
     void createHorizontalGroupBox();
 
     QPushButton *openBtn;
@@ -35,6 +36,8 @@ private:
     QPushButton *removeOutliersBtn;
     QPushButton *meshReconstructionBtn;
     QPushButton *showMeshBtn;
+    QLabel *infoLabel;
+    QLabel *runLabel;
 
     QMenuBar *menuBar;
     QMenu *fileMenu;
