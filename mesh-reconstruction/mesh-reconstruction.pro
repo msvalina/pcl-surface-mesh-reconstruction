@@ -13,6 +13,7 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     meshreconstruction.cpp \
+    logwindow.cpp
 
 INCLUDEPATH +=  "/usr/local/include/pcl-1.7/" \
                 "/usr/include/flann/" \
@@ -51,4 +52,5 @@ LIBS += -lOpenNI \
 HEADERS += \
     mainwindow.h \
     meshreconstruction.h \
+    logwindow.h
 

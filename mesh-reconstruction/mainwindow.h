@@ -11,6 +11,7 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QLabel>
+#include <logwindow.h>
 #include "meshreconstruction.h"
 
 class MainWindow : public QDialog
@@ -29,6 +30,7 @@ private:
     void createMenu();
     void createGridGroupBox();
     void createHorizontalGroupBox();
+    void createOutputGroup();
 
     QPushButton *openBtn;
     QPushButton *runAllBtn;
@@ -36,6 +38,7 @@ private:
     QPushButton *removeOutliersBtn;
     QPushButton *meshReconstructionBtn;
     QPushButton *showMeshBtn;
+    QPushButton *saveOutputBtn;
     QLabel *infoLabel;
     QLabel *runLabel;
 
@@ -46,8 +49,10 @@ private:
     QVBoxLayout *mainlayout;
     QGroupBox *verticalGroup;
     QGroupBox *horizontalGroup;
+    QGroupBox *outputGroup;
 
     QString fileName;
+    LogWindow *logWin;
     MeshReconstruction *meshRec;
 };
 

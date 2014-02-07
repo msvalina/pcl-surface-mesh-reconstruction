@@ -7,11 +7,13 @@ MainWindow::MainWindow(QWidget *parent)
     createMenu();
     createGridGroupBox();
     createHorizontalGroupBox();
+    createOutputGroup();
 
     mainlayout = new QVBoxLayout;
     mainlayout->setMenuBar(menuBar);
     mainlayout->addWidget(verticalGroup);
     mainlayout->addWidget(horizontalGroup);
+    mainlayout->addWidget(outputGroup);
 
     setLayout(mainlayout);
     setWindowTitle("Mesh Reconstruction Gui");
@@ -66,6 +68,17 @@ void MainWindow::createHorizontalGroupBox()
     layout->addWidget(meshReconstructionBtn);
     layout->addWidget(showMeshBtn);
     horizontalGroup->setLayout(layout);
+}
+
+void MainWindow::createOutputGroup()
+{
+    outputGroup = new QGroupBox("Action output");
+    QVBoxLayout *layout = new QVBoxLayout;
+    saveOutputBtn = new QPushButton("Save output", this);
+    logWin = new LogWindow;
+    layout->addWidget(logWin);
+    layout->addWidget(saveOutputBtn);
+    outputGroup->setLayout(layout);
 }
 
 void MainWindow::openFile()
