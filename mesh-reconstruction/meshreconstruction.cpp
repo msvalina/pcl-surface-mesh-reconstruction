@@ -11,9 +11,9 @@ void MeshReconstruction::setFilePath(QString path)
     filePath = path.toStdString();
 }
 
-void MeshReconstruction::downsample()
+void MeshReconstruction::downsample(LogWindow *logWin)
 {
-    std::cout << "Started - downsample() with VoxelGrid" << std::endl;
+    logWin->appendMessage("Started - downsample() with VoxelGrid");
 
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
     pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
@@ -22,9 +22,11 @@ void MeshReconstruction::downsample()
     pcl::PCDReader reader;
     reader.read (filePath, *cloud);
 
-    std::cout << "PointCloud before filtering: ";
-    std::cout << cloud->width * cloud->height << " data points (" ;
-    std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
+    logWin->appendMessage("PointCloud before filtering: ");
+    QString before;
+    before = QString::number(cloud->width * cloud->height) + " data points (" +
+            QString::fromStdString(pcl::getFieldsList (*cloud)) + ").";
+    logWin->appendMessage(before);
 
     // Create the filtering object
     pcl::VoxelGrid<pcl::PCLPointCloud2> vg;
@@ -33,9 +35,11 @@ void MeshReconstruction::downsample()
     vg.setLeafSize (0.01f, 0.01f, 0.01f);
     vg.filter (*cloud_filtered);
 
-    std::cout << "PointCloud after filtering: ";
-    std::cout << cloud_filtered->width * cloud_filtered->height;
-    std::cout << " data points ("  << pcl::getFieldsList (*cloud) << ").\n";
+    logWin->appendMessage("PointCloud after filtering:");
+    QString after;
+    after = QString::number(cloud_filtered->width * cloud_filtered->height) + " data points (" +
+            QString::fromStdString(pcl::getFieldsList (*cloud_filtered)) + ").";
+    logWin->appendMessage(after);
 
     pcl::PCDWriter writer;
     std::string str;
@@ -43,8 +47,7 @@ void MeshReconstruction::downsample()
     writer.write (str, *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
 
-    std::cout << "Finished - downsample() with VoxelGrid\n" << std::endl;
-
+    logWin->appendMessage("Finished - downsample() with VoxelGrid");
 }
 
 void MeshReconstruction::showMesh()

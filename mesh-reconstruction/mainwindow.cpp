@@ -4,6 +4,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
 {
+    meshRec = new MeshReconstruction;
+    logWin = new LogWindow;
+
     createMenu();
     createGridGroupBox();
     createHorizontalGroupBox();
@@ -17,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(mainlayout);
     setWindowTitle("Mesh Reconstruction Gui");
-
-    meshRec = new MeshReconstruction;
 }
 
 MainWindow::~MainWindow()
@@ -78,7 +79,6 @@ void MainWindow::createOutputGroup()
     outputGroup = new QGroupBox("Action output");
     QVBoxLayout *layout = new QVBoxLayout;
     saveOutputBtn = new QPushButton("Save output", this);
-    logWin = new LogWindow;
     layout->addWidget(logWin);
     layout->addWidget(saveOutputBtn);
     outputGroup->setLayout(layout);
@@ -90,6 +90,7 @@ void MainWindow::openFile()
         if (fileName.isEmpty()){
             qDebug() << "Test test test" ;
         }
+    logWin->appendMessage(fileName);
     qDebug() << fileName ;
 }
 
@@ -102,7 +103,7 @@ void MainWindow::runDownsample()
     }
     else {
         meshRec->setFilePath(fileName);
-        meshRec->downsample();
+        meshRec->downsample(logWin);
     }
 }
 

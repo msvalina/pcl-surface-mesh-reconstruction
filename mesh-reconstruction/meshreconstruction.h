@@ -15,6 +15,7 @@
 #include <boost/thread/thread.hpp>
 #include <pcl/common/common_headers.h>
 #include <pcl/visualization/pcl_visualizer.h>
+#include "logwindow.h"
 
 class MeshReconstruction : public QObject
 {
@@ -22,7 +23,7 @@ class MeshReconstruction : public QObject
 public:
     explicit MeshReconstruction(QObject *parent = 0);
     void setFilePath(QString path);
-    void downsample();
+    void downsample(LogWindow *logWin);
     void removeOutliers();
     void meshReconstruction();
     void showMesh();
@@ -34,8 +35,6 @@ public slots:
 private:
     std::string filePath;
     QString path;
-
-
 
 };
 
