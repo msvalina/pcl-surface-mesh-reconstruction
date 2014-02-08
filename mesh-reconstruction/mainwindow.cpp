@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(mainlayout);
     setWindowTitle("Mesh Reconstruction Gui");
+
+    meshRec = new MeshReconstruction;
 }
 
 MainWindow::~MainWindow()
@@ -59,10 +61,11 @@ void MainWindow::createHorizontalGroupBox()
     horizontalGroup = new QGroupBox("Choose action");
     QHBoxLayout *layout = new QHBoxLayout;
     downsampleBtn = new QPushButton("Downsample", this);
+    connect(downsampleBtn, SIGNAL(clicked()), this, SLOT(runDownsample()));
     removeOutliersBtn = new QPushButton("Remove Outliers", this);
     meshReconstructionBtn = new QPushButton("Mesh Reconstruction", this);
     showMeshBtn = new QPushButton("Show Mesh", this);
-    connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(openMesh()));
+    connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(runShowMesh()));
     layout->addWidget(downsampleBtn);
     layout->addWidget(removeOutliersBtn);
     layout->addWidget(meshReconstructionBtn);
@@ -83,18 +86,37 @@ void MainWindow::createOutputGroup()
 
 void MainWindow::openFile()
 {
-    fileName = QFileDialog::getOpenFileName(this, tr("Open PCD"));
-        if (!fileName.isEmpty()){
-            qDebug() << "Onda prikzi poruku " ;
+    fileName = QFileDialog::getOpenFileName(this, tr("Open PCD or VTK"));
+        if (fileName.isEmpty()){
+            qDebug() << "Test test test" ;
         }
     qDebug() << fileName ;
 }
 
-void MainWindow::openMesh()
+void MainWindow::runDownsample()
+{
+    if (fileName.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose pointcloud (.pcd)");
+        msgBox.exec();
+    }
+    else {
+        meshRec->setFilePath(fileName);
+        meshRec->downsample();
+    }
+}
+
+void MainWindow::runShowMesh()
 {
     qDebug() << "open mesh";
-    meshRec = new MeshReconstruction;
+    if (fileName.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose polygonmesh (.vtk)");
+        msgBox.exec();
+    }
+    else {
     meshRec->setFilePath(fileName);
     meshRec->showMesh();
+    }
 }
 

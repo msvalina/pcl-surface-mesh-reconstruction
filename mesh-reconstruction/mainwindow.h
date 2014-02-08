@@ -11,6 +11,7 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QLabel>
+#include <QMessageBox>
 #include <logwindow.h>
 #include "meshreconstruction.h"
 
@@ -24,7 +25,10 @@ public:
 
 private slots:
     void openFile();
-    void openMesh();
+    void runDownsample();
+    //void runRemoveOutliers();
+    //void runMeshReconstruction();
+    void runShowMesh();
 
 private:
     void createMenu();

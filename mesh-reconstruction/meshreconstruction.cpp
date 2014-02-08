@@ -9,8 +9,42 @@ MeshReconstruction::MeshReconstruction(QObject *parent) :
 void MeshReconstruction::setFilePath(QString path)
 {
     filePath = path.toStdString();
-    if(path.isEmpty())
-        filePath = "/home/maki/geek/source/masters-thesis/mesh-reconstruction-build-desktop-Qt_4_8_1_in_PATH__System__Debug/ts-mesh-depth-4.vtk";
+}
+
+void MeshReconstruction::downsample()
+{
+    std::cout << "Started - downsample() with VoxelGrid" << std::endl;
+
+    pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
+    pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
+
+    // Fill in the cloud data
+    pcl::PCDReader reader;
+    reader.read (filePath, *cloud);
+
+    std::cout << "PointCloud before filtering: ";
+    std::cout << cloud->width * cloud->height << " data points (" ;
+    std::cout << pcl::getFieldsList (*cloud) << ")." << std::endl;
+
+    // Create the filtering object
+    pcl::VoxelGrid<pcl::PCLPointCloud2> vg;
+    vg.setInputCloud (cloud);
+    // voxel size to be 1cm^3
+    vg.setLeafSize (0.01f, 0.01f, 0.01f);
+    vg.filter (*cloud_filtered);
+
+    std::cout << "PointCloud after filtering: ";
+    std::cout << cloud_filtered->width * cloud_filtered->height;
+    std::cout << " data points ("  << pcl::getFieldsList (*cloud) << ").\n";
+
+    pcl::PCDWriter writer;
+    std::string str;
+    str.append(filePath.append("-downsampled.pcd"));
+    writer.write (str, *cloud_filtered, Eigen::Vector4f::Zero(),
+                Eigen::Quaternionf::Identity(), false);
+
+    std::cout << "Finished - downsample() with VoxelGrid\n" << std::endl;
+
 }
 
 void MeshReconstruction::showMesh()

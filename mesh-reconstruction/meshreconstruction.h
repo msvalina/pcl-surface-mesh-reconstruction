@@ -22,6 +22,9 @@ class MeshReconstruction : public QObject
 public:
     explicit MeshReconstruction(QObject *parent = 0);
     void setFilePath(QString path);
+    void downsample();
+    void removeOutliers();
+    void meshReconstruction();
     void showMesh();
 
 signals:
