@@ -27,7 +27,7 @@ private slots:
     void openFile();
     void runDownsample();
     void runRemoveOutliers();
-    //void runMeshReconstruction();
+    void runMeshReconstruction();
     void runShowMesh();
 
 private:

@@ -2,7 +2,7 @@
 
 LogWindow::LogWindow(QWidget *parent) : QPlainTextEdit(parent)
 {
-    appendMessage("Welcome young padwan");
+    appendMessage("Welcome young padawan.");
 }
 
 void LogWindow::appendMessage(const QString& text)

@@ -1,6 +1,12 @@
 #include "meshreconstruction.h"
 #include "qdebug.h"
 
+typedef pcl::Normal Normal;
+//typedef pcl::PointXYZ PointType;
+//typedef pcl::PointNormal PointTypeN;
+typedef pcl::PointXYZRGB PointType;
+typedef pcl::PointXYZRGBNormal PointTypeN;
+
 MeshReconstruction::MeshReconstruction(QObject *parent) :
     QObject(parent)
 {
@@ -121,4 +127,73 @@ void MeshReconstruction::removeOutliers(LogWindow *logWin)
             Eigen::Quaternionf::Identity(), false);
 
     logWin->appendMessage("Finished - remove_outliers() with StatisticalOutlierRemoval\n");
+}
+
+void MeshReconstruction::meshReconstruction(LogWindow *logWin)
+{
+    logWin->appendMessage("Started - reconstruct_mesh() with Poisson");
+
+    pcl::PCLPointCloud2::Ptr cloud_blob (new pcl::PCLPointCloud2());
+    pcl::PointCloud<PointType>::Ptr cloud (new
+            pcl::PointCloud<PointType>);
+    pcl::PolygonMesh triangles;
+
+    pcl::PCDReader reader;
+    reader.read (filePath, *cloud_blob);
+
+    pcl::fromPCLPointCloud2 (*cloud_blob, *cloud);
+    // the data should be available in cloud
+    logWin->appendMessage("PointCloud loaded: " + QString::number(cloud->size()) + "data points\n");
+
+    // Normal estimation
+    pcl::NormalEstimation<PointType, Normal> normEst;
+    pcl::PointCloud<Normal>::Ptr normals (new pcl::PointCloud<Normal>);
+
+    // Create kdtree representation of cloud,
+    // and pass it to the normal estimation object.
+    pcl::search::KdTree<PointType>::Ptr tree (new
+            pcl::search::KdTree<PointType>);
+    tree->setInputCloud (cloud);
+    normEst.setInputCloud (cloud);
+    normEst.setSearchMethod (tree);
+    // Use 20 neighbor points for estimating normal
+    normEst.setKSearch (20);
+    normEst.compute (*normals);
+    // normals should not contain the point normals + surface
+    // curvatures
+
+    // Concatenate the XYZ and normal fields
+    pcl::PointCloud<PointTypeN>::Ptr cloud_with_normals (new
+            pcl::PointCloud<PointTypeN>);
+    pcl::concatenateFields (*cloud, *normals, *cloud_with_normals);
+    // cloud_with_normals = cloud + normals
+
+    // Create search tree
+    pcl::search::KdTree<PointTypeN>::Ptr tree2 (new
+            pcl::search::KdTree<PointTypeN>);
+    tree2->setInputCloud (cloud_with_normals);
+
+    // Initialize objects
+    // psn - for surface reconstruction algorithm
+    // triangles - for storage of reconstructed triangles
+    pcl::Poisson<PointTypeN> psn;
+    //pcl::PolygonMesh triangles;
+
+    psn.setInputCloud(cloud_with_normals);
+    psn.setSearchMethod(tree2);
+    psn.reconstruct (triangles);
+    psn.setOutputPolygons(false);
+
+    pcl::PCDWriter writer;
+    pcl::PCLPointCloud2::Ptr cwn (new pcl::PCLPointCloud2());
+    pcl::toPCLPointCloud2 (*cloud_with_normals, *cwn);
+
+    logWin->appendMessage("Writing reconstructed mesh and cloud with normals");
+    std::string str, str2;
+    str.append(filePath).append("-mesh.vtk");
+    pcl::io::saveVTKFile (str, triangles);
+    str2.append(filePath).append("-cloud_with_normals.pcd");
+    writer.write (str2, *cwn, Eigen::Vector4f::Zero(),
+            Eigen::Quaternionf::Identity(), false);
+    logWin->appendMessage("Finshed - reconstruct_mesh() with Poisson\n");
 }

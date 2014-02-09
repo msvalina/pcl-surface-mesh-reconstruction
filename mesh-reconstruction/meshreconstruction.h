@@ -25,7 +25,7 @@ public:
     void setFilePath(QString path);
     void downsample(LogWindow *logWin);
     void removeOutliers(LogWindow *logWin);
-    void meshReconstruction();
+    void meshReconstruction(LogWindow *logWin);
     void showMesh(LogWindow *logWin);
 
 signals:

@@ -44,7 +44,7 @@ void MainWindow::createGridGroupBox()
     infoLabel = new QLabel("First open pointcloud (.pcd) or polygonmesh (.vtk) and choose one of actions");
     infoLabel->setWordWrap(true);
     layout->addWidget(infoLabel,0,0);
-    runLabel = new QLabel("Run All runs actions in order: downsample, remove outliers, mesh reconstruction and show mesh");
+    runLabel = new QLabel("Run All runs actions in order:\ndownsample, remove outliers, mesh reconstruction and show mesh");
     runLabel->setWordWrap(true);
     layout->addWidget(runLabel,1,0);
     openBtn = new QPushButton("Open PCD", this);
@@ -66,6 +66,7 @@ void MainWindow::createHorizontalGroupBox()
     removeOutliersBtn = new QPushButton("Remove Outliers", this);
     connect(removeOutliersBtn, SIGNAL(clicked()), this, SLOT(runRemoveOutliers()));
     meshReconstructionBtn = new QPushButton("Mesh Reconstruction", this);
+    connect(meshReconstructionBtn, SIGNAL(clicked()), this, SLOT(runMeshReconstruction()));
     showMeshBtn = new QPushButton("Show Mesh", this);
     connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(runShowMesh()));
     layout->addWidget(downsampleBtn);
@@ -132,5 +133,18 @@ void MainWindow::runRemoveOutliers()
     else {
     meshRec->setFilePath(fileName);
     meshRec->removeOutliers(logWin);
+    }
+}
+
+void MainWindow::runMeshReconstruction()
+{
+    if (fileName.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose pointcloud (.pcd)");
+        msgBox.exec();
+    }
+    else {
+    meshRec->setFilePath(fileName);
+    meshRec->meshReconstruction(logWin);
     }
 }
