@@ -81,6 +81,7 @@ void MainWindow::createOutputGroup()
     outputGroup = new QGroupBox("Action output");
     QVBoxLayout *layout = new QVBoxLayout;
     saveOutputBtn = new QPushButton("Save output", this);
+    connect(saveOutputBtn, SIGNAL(clicked()), this, SLOT(saveFile()));
     layout->addWidget(logWin);
     layout->addWidget(saveOutputBtn);
     outputGroup->setLayout(layout);
@@ -88,23 +89,30 @@ void MainWindow::createOutputGroup()
 
 void MainWindow::openFile()
 {
-    fileName = QFileDialog::getOpenFileName(this, tr("Open PCD or VTK"));
-        if (fileName.isEmpty()){
+    openFileStr = QFileDialog::getOpenFileName(this, tr("Open PCD or VTK"));
+        if (openFileStr.isEmpty()){
             qDebug() << "Test test test" ;
         }
-    logWin->appendMessage(fileName);
-    qDebug() << fileName ;
+    logWin->appendMessage(openFileStr);
+    qDebug() << openFileStr ;
+}
+
+void MainWindow::saveFile()
+{
+    saveFileStr = QFileDialog::getSaveFileName(this, "Save output log");
+    if(!saveFileStr.isEmpty())
+        logWin->saveLogMessage(saveFileStr);
 }
 
 void MainWindow::runDownsample()
 {
-    if (fileName.isEmpty()){
+    if (openFileStr.isEmpty()){
         QMessageBox msgBox;
         msgBox.setText("Please first choose pointcloud (.pcd)");
         msgBox.exec();
     }
     else {
-        meshRec->setFilePath(fileName);
+        meshRec->setFilePath(openFileStr);
         meshRec->downsample(logWin);
     }
 }
@@ -112,39 +120,39 @@ void MainWindow::runDownsample()
 void MainWindow::runShowMesh()
 {
     qDebug() << "open mesh";
-    if (fileName.isEmpty()){
+    if (openFileStr.isEmpty()){
         QMessageBox msgBox;
         msgBox.setText("Please first choose polygonmesh (.vtk)");
         msgBox.exec();
     }
     else {
-    meshRec->setFilePath(fileName);
+    meshRec->setFilePath(openFileStr);
     meshRec->showMesh(logWin);
     }
 }
 
 void MainWindow::runRemoveOutliers()
 {
-    if (fileName.isEmpty()){
+    if (openFileStr.isEmpty()){
         QMessageBox msgBox;
         msgBox.setText("Please first choose pointcloud (.pcd)");
         msgBox.exec();
     }
     else {
-    meshRec->setFilePath(fileName);
+    meshRec->setFilePath(openFileStr);
     meshRec->removeOutliers(logWin);
     }
 }
 
 void MainWindow::runMeshReconstruction()
 {
-    if (fileName.isEmpty()){
+    if (openFileStr.isEmpty()){
         QMessageBox msgBox;
         msgBox.setText("Please first choose pointcloud (.pcd)");
         msgBox.exec();
     }
     else {
-    meshRec->setFilePath(fileName);
+    meshRec->setFilePath(openFileStr);
     meshRec->meshReconstruction(logWin);
     }
 }

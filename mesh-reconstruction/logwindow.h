@@ -3,6 +3,8 @@
 
 #include <QPlainTextEdit>
 #include <QScrollBar>
+#include <QFile>
+#include <QTextStream>
 
 class LogWindow : public QPlainTextEdit
 {
@@ -11,9 +13,10 @@ class LogWindow : public QPlainTextEdit
 public:
     LogWindow(QWidget *parent = 0);
     void appendMessage(const QString& text);
+    void saveLogMessage(const QString &saveFile);
 
 private:
-    QFile m_logFile;
+    QString logText;
 };
 
 

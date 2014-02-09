@@ -25,6 +25,7 @@ public:
 
 private slots:
     void openFile();
+    void saveFile();
     void runDownsample();
     void runRemoveOutliers();
     void runMeshReconstruction();
@@ -55,7 +56,8 @@ private:
     QGroupBox *horizontalGroup;
     QGroupBox *outputGroup;
 
-    QString fileName;
+    QString openFileStr;
+    QString saveFileStr;
     LogWindow *logWin;
     MeshReconstruction *meshRec;
 };
