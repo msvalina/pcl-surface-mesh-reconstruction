@@ -24,9 +24,9 @@ public:
     explicit MeshReconstruction(QObject *parent = 0);
     void setFilePath(QString path);
     void downsample(LogWindow *logWin);
-    void removeOutliers();
+    void removeOutliers(LogWindow *logWin);
     void meshReconstruction();
-    void showMesh();
+    void showMesh(LogWindow *logWin);
 
 signals:
     

@@ -64,6 +64,7 @@ void MainWindow::createHorizontalGroupBox()
     downsampleBtn = new QPushButton("Downsample", this);
     connect(downsampleBtn, SIGNAL(clicked()), this, SLOT(runDownsample()));
     removeOutliersBtn = new QPushButton("Remove Outliers", this);
+    connect(removeOutliersBtn, SIGNAL(clicked()), this, SLOT(runRemoveOutliers()));
     meshReconstructionBtn = new QPushButton("Mesh Reconstruction", this);
     showMeshBtn = new QPushButton("Show Mesh", this);
     connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(runShowMesh()));
@@ -117,7 +118,19 @@ void MainWindow::runShowMesh()
     }
     else {
     meshRec->setFilePath(fileName);
-    meshRec->showMesh();
+    meshRec->showMesh(logWin);
     }
 }
 
+void MainWindow::runRemoveOutliers()
+{
+    if (fileName.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose pointcloud (.pcd)");
+        msgBox.exec();
+    }
+    else {
+    meshRec->setFilePath(fileName);
+    meshRec->removeOutliers(logWin);
+    }
+}
