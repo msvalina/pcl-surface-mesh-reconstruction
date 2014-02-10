@@ -30,6 +30,7 @@ private slots:
     void runRemoveOutliers();
     void runMeshReconstruction();
     void runShowMesh();
+    void runRunAll();
 
 private:
     void createMenu();

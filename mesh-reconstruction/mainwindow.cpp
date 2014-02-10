@@ -50,6 +50,7 @@ void MainWindow::createGridGroupBox()
     openBtn = new QPushButton("Open PCD", this);
     connect(openBtn, SIGNAL(clicked()), this, SLOT(openFile()));
     runAllBtn = new QPushButton("Run All", this);
+    connect(runAllBtn, SIGNAL(clicked()), this, SLOT(runRunAll()));
     layout->addWidget(openBtn,0,2);
     layout->addWidget(runAllBtn,1,2);
     layout->setColumnStretch(0,30);
@@ -117,20 +118,6 @@ void MainWindow::runDownsample()
     }
 }
 
-void MainWindow::runShowMesh()
-{
-    qDebug() << "open mesh";
-    if (openFileStr.isEmpty()){
-        QMessageBox msgBox;
-        msgBox.setText("Please first choose polygonmesh (.vtk)");
-        msgBox.exec();
-    }
-    else {
-    meshRec->setFilePath(openFileStr);
-    meshRec->showMesh(logWin);
-    }
-}
-
 void MainWindow::runRemoveOutliers()
 {
     if (openFileStr.isEmpty()){
@@ -154,5 +141,38 @@ void MainWindow::runMeshReconstruction()
     else {
     meshRec->setFilePath(openFileStr);
     meshRec->meshReconstruction(logWin);
+    }
+}
+
+void MainWindow::runShowMesh()
+{
+    qDebug() << "open mesh";
+    if (openFileStr.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose polygonmesh (.vtk)");
+        msgBox.exec();
+    }
+    else {
+    meshRec->setFilePath(openFileStr);
+    meshRec->showMesh(logWin);
+    }
+}
+
+void MainWindow::runRunAll()
+{
+    if (openFileStr.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("Please first choose pointcloud (.pcd)");
+        msgBox.exec();
+    }
+    else {
+        meshRec->setFilePath(openFileStr);
+        meshRec->downsample(logWin);
+        meshRec->setFilePath(openFileStr + "-downsampled.pcd");
+        meshRec->removeOutliers(logWin);
+        meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd");
+        meshRec->meshReconstruction(logWin);
+        meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd" + "-mesh.vtk");
+        meshRec->showMesh(logWin);
     }
 }

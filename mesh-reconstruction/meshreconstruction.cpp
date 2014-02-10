@@ -56,30 +56,6 @@ void MeshReconstruction::downsample(LogWindow *logWin)
     logWin->appendMessage("Finished - downsample() with VoxelGrid");
 }
 
-void MeshReconstruction::showMesh(LogWindow *logWin)
-{
-    pcl::PolygonMesh mesh_of_triangles;
-    pcl::io::loadPolygonFile(filePath, mesh_of_triangles);
-    logWin->appendMessage ("Started - show_mesh() with PCLVisualizer\n");
-    // Create viewer object and show mesh
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
-          pcl::visualization::PCLVisualizer ("3D Viewer"));
-    viewer->setBackgroundColor (0, 0, 0);
-    viewer->addPolygonMesh (mesh_of_triangles, "sample mesh");
-    viewer->initCameraParameters ();
-    // Setting type of mesh representation
-    // Wireframe = standard "mesh" representation
-    viewer->setRepresentationToWireframeForAllActors ();
-    // viewer->setRepresentationToSurfaceForAllActors ();
-    // viewer->setRepresentationToPointsForAllActors ();
-    while (!viewer->wasStopped ())
-    {
-        viewer->spinOnce (100); boost::this_thread::sleep
-            (boost::posix_time::microseconds (100000));
-    }
-    logWin->appendMessage("Finshed - show_mesh() with PCLVisualizer\n");
-}
-
 void MeshReconstruction::removeOutliers(LogWindow *logWin)
 {
     logWin->appendMessage("Started - remove_outliers() with StatisticalOutlierRemoval");
@@ -197,3 +173,28 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
             Eigen::Quaternionf::Identity(), false);
     logWin->appendMessage("Finshed - reconstruct_mesh() with Poisson\n");
 }
+
+void MeshReconstruction::showMesh(LogWindow *logWin)
+{
+    pcl::PolygonMesh mesh_of_triangles;
+    pcl::io::loadPolygonFile(filePath, mesh_of_triangles);
+    logWin->appendMessage ("Started - show_mesh() with PCLVisualizer\n");
+    // Create viewer object and show mesh
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new
+          pcl::visualization::PCLVisualizer ("3D Viewer"));
+    viewer->setBackgroundColor (0, 0, 0);
+    viewer->addPolygonMesh (mesh_of_triangles, "sample mesh");
+    viewer->initCameraParameters ();
+    // Setting type of mesh representation
+    // Wireframe = standard "mesh" representation
+    viewer->setRepresentationToWireframeForAllActors ();
+    // viewer->setRepresentationToSurfaceForAllActors ();
+    // viewer->setRepresentationToPointsForAllActors ();
+    while (!viewer->wasStopped ())
+    {
+        viewer->spinOnce (100); boost::this_thread::sleep
+            (boost::posix_time::microseconds (100000));
+    }
+    logWin->appendMessage("Finshed - show_mesh() with PCLVisualizer\n");
+}
+
