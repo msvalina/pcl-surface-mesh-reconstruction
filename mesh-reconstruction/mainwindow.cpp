@@ -11,11 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
     createGridGroupBox();
     createHorizontalGroupBox();
     createOutputGroup();
+    createPsnGroup();
 
     mainlayout = new QVBoxLayout;
     mainlayout->setMenuBar(menuBar);
     mainlayout->addWidget(verticalGroup);
     mainlayout->addWidget(horizontalGroup);
+    mainlayout->addWidget(psnGroup);
     mainlayout->addWidget(outputGroup);
 
     setLayout(mainlayout);
@@ -39,7 +41,7 @@ void MainWindow::createMenu()
 
 void MainWindow::createGridGroupBox()
 {
-    verticalGroup = new QGroupBox("Info and open");
+    verticalGroup = new QGroupBox("Info");
     QGridLayout *layout = new QGridLayout;
     infoLabel = new QLabel("First open pointcloud (.pcd) or polygonmesh (.vtk) and choose one of actions");
     infoLabel->setWordWrap(true);
@@ -86,6 +88,32 @@ void MainWindow::createOutputGroup()
     layout->addWidget(logWin);
     layout->addWidget(saveOutputBtn);
     outputGroup->setLayout(layout);
+}
+
+void MainWindow::createPsnGroup()
+{
+    psnGroup = new QGroupBox(tr("Poisson parameters"));
+    QGridLayout *layout = new QGridLayout;
+    depth = new QSpinBox;
+    solverDivide = new QSpinBox;
+    isoDivide = new QSpinBox;
+    samplesPerNode = new QSpinBox;
+    scale = new QDoubleSpinBox;
+    confidence = new QCheckBox;
+    layout->addWidget(new QLabel("Depth:"), 0, 0);
+    layout->addWidget(new QLabel("Solver Divide:"), 1, 0);
+    layout->addWidget(new QLabel("Iso Divide:"), 2, 0);
+    layout->addWidget(new QLabel("Samples Per Node:"), 0, 2);
+    layout->addWidget(new QLabel("Scale:"), 1, 2);
+    layout->addWidget(new QLabel("Confidence:"), 2, 2);
+    layout->addWidget(depth, 0, 1);
+    layout->addWidget(solverDivide, 1, 1);
+    layout->addWidget(isoDivide, 2, 1);
+    layout->addWidget(samplesPerNode, 0, 3);
+    layout->addWidget(scale, 1, 3);
+    layout->addWidget(confidence, 2, 3);
+    layout->setSpacing(10);
+    psnGroup->setLayout(layout);
 }
 
 void MainWindow::openFile()

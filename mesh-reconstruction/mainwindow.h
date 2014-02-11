@@ -6,12 +6,17 @@
 #include <QFileDialog>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QFormLayout>
 #include <QGroupBox>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QComboBox>
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
 #include <QLabel>
 #include <QMessageBox>
+#include <QCheckBox>
 #include <logwindow.h>
 #include "meshreconstruction.h"
 
@@ -37,6 +42,7 @@ private:
     void createGridGroupBox();
     void createHorizontalGroupBox();
     void createOutputGroup();
+    void createPsnGroup();
 
     QPushButton *openBtn;
     QPushButton *runAllBtn;
@@ -47,6 +53,12 @@ private:
     QPushButton *saveOutputBtn;
     QLabel *infoLabel;
     QLabel *runLabel;
+    QSpinBox *depth;
+    QSpinBox *solverDivide;
+    QSpinBox *isoDivide;
+    QSpinBox *samplesPerNode;
+    QDoubleSpinBox *scale;
+    QCheckBox *confidence;
 
     QMenuBar *menuBar;
     QMenu *fileMenu;
@@ -56,6 +68,7 @@ private:
     QGroupBox *verticalGroup;
     QGroupBox *horizontalGroup;
     QGroupBox *outputGroup;
+    QGroupBox *psnGroup;
 
     QString openFileStr;
     QString saveFileStr;
