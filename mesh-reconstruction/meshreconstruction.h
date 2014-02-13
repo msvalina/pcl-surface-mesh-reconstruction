@@ -17,6 +17,9 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include "logwindow.h"
 
+
+
+
 class MeshReconstruction : public QObject
 {
     Q_OBJECT
@@ -25,6 +28,9 @@ public:
     void setFilePath(QString path);
     void downsample(LogWindow *logWin);
     void removeOutliers(LogWindow *logWin);
+    void setPoissonParams(int depth = 8, int solverDivide = 8,
+                          int isoDivide = 8, int samplesPerNode = 3,
+                          float scale = 1.25, bool confidence = true);
     void meshReconstruction(LogWindow *logWin);
     void showMesh(LogWindow *logWin);
 
@@ -35,6 +41,12 @@ public slots:
 private:
     std::string filePath;
     QString path;
+    int psn_depth;
+    int psn_solverDivide;
+    int psn_isoDivide;
+    int psn_samplesPerNode;
+    float psn_scale;
+    bool psn_confidence;
 
 };
 

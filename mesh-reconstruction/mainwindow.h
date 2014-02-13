@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QString>
 #include <QDialog>
 #include <QFileDialog>
 #include <QPushButton>
@@ -36,6 +37,7 @@ private slots:
     void runMeshReconstruction();
     void runShowMesh();
     void runRunAll();
+    void runSetPoissonParams();
 
 private:
     void createMenu();
@@ -51,6 +53,7 @@ private:
     QPushButton *meshReconstructionBtn;
     QPushButton *showMeshBtn;
     QPushButton *saveOutputBtn;
+    QPushButton *applyPsn;
     QLabel *infoLabel;
     QLabel *runLabel;
     QSpinBox *depth;

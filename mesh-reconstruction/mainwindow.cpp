@@ -49,7 +49,7 @@ void MainWindow::createGridGroupBox()
     runLabel = new QLabel("Run All runs actions in order:\ndownsample, remove outliers, mesh reconstruction and show mesh");
     runLabel->setWordWrap(true);
     layout->addWidget(runLabel,1,0);
-    openBtn = new QPushButton("Open PCD", this);
+    openBtn = new QPushButton("Open", this);
     connect(openBtn, SIGNAL(clicked()), this, SLOT(openFile()));
     runAllBtn = new QPushButton("Run All", this);
     connect(runAllBtn, SIGNAL(clicked()), this, SLOT(runRunAll()));
@@ -94,12 +94,13 @@ void MainWindow::createPsnGroup()
 {
     psnGroup = new QGroupBox(tr("Poisson parameters"));
     QGridLayout *layout = new QGridLayout;
-    depth = new QSpinBox;
-    solverDivide = new QSpinBox;
-    isoDivide = new QSpinBox;
-    samplesPerNode = new QSpinBox;
-    scale = new QDoubleSpinBox;
-    confidence = new QCheckBox;
+    depth = new QSpinBox; depth->setValue(8);
+    solverDivide = new QSpinBox; solverDivide->setValue(8);
+    isoDivide = new QSpinBox; isoDivide->setValue(8);
+    samplesPerNode = new QSpinBox; samplesPerNode->setValue(3);
+    scale = new QDoubleSpinBox; scale->setValue(1.25);
+    confidence = new QCheckBox; confidence->setChecked(true);
+    applyPsn = new QPushButton("Apply Poisson Params");
     layout->addWidget(new QLabel("Depth:"), 0, 0);
     layout->addWidget(new QLabel("Solver Divide:"), 1, 0);
     layout->addWidget(new QLabel("Iso Divide:"), 2, 0);
@@ -112,7 +113,9 @@ void MainWindow::createPsnGroup()
     layout->addWidget(samplesPerNode, 0, 3);
     layout->addWidget(scale, 1, 3);
     layout->addWidget(confidence, 2, 3);
+    layout->addWidget(applyPsn, 3, 0);
     layout->setSpacing(10);
+    connect(applyPsn, SIGNAL(clicked()), this, SLOT(runSetPoissonParams()));
     psnGroup->setLayout(layout);
 }
 
@@ -203,4 +206,21 @@ void MainWindow::runRunAll()
         meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd" + "-mesh.vtk");
         meshRec->showMesh(logWin);
     }
+}
+
+void MainWindow::runSetPoissonParams()
+{
+
+    meshRec->setPoissonParams(depth->value(), solverDivide->value(),
+                              isoDivide->value(), samplesPerNode->value(),
+                              scale->value(), confidence->isChecked());
+
+    logWin->appendMessage ("Poisson parameters:\n"
+             "Depth: " + QString::number(depth->value()) + "\n" +
+             "Solver Divide: " + QString::number(solverDivide->value()) + "\n" +
+             "Iso Divide: " + QString::number(isoDivide->value()) + "\n" +
+             "Samples Per Node: " + QString::number(samplesPerNode->value()) + "\n" +
+             "Scale: " + QString::number(scale->value()) + "\n" +
+             "Confidence: " + QString::number(confidence->isChecked()) + "\n" );
+
 }

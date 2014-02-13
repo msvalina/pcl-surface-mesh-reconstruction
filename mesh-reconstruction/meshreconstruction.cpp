@@ -10,6 +10,7 @@ typedef pcl::PointXYZRGBNormal PointTypeN;
 MeshReconstruction::MeshReconstruction(QObject *parent) :
     QObject(parent)
 {
+    setPoissonParams();
 }
 
 void MeshReconstruction::setFilePath(QString path)
@@ -105,6 +106,17 @@ void MeshReconstruction::removeOutliers(LogWindow *logWin)
     logWin->appendMessage("Finished - remove_outliers() with StatisticalOutlierRemoval\n");
 }
 
+void MeshReconstruction::setPoissonParams(int depth, int solverDivide,
+                                          int isoDivide, int samplesPerNode,
+                                          float scale, bool confidence)
+{
+    psn_depth = depth;
+    psn_solverDivide = solverDivide;
+    psn_samplesPerNode = samplesPerNode;
+    psn_scale = scale;
+    psn_confidence = confidence;
+}
+
 void MeshReconstruction::meshReconstruction(LogWindow *logWin)
 {
     logWin->appendMessage("Started - reconstruct_mesh() with Poisson");
@@ -155,6 +167,12 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
     pcl::Poisson<PointTypeN> psn;
     //pcl::PolygonMesh triangles;
 
+    psn.setDepth(psn_depth);
+    psn.setSolverDivide(psn_solverDivide);
+    psn.setIsoDivide(psn_isoDivide);
+    psn.setSamplesPerNode(psn_samplesPerNode);
+    psn.setScale(psn_scale);
+    psn.setConfidence(psn_confidence);
     psn.setInputCloud(cloud_with_normals);
     psn.setSearchMethod(tree2);
     psn.reconstruct (triangles);
