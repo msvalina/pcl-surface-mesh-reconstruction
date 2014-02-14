@@ -10,13 +10,7 @@ system][5]
 
 This is a draft version of thesis and working version of program.
 
-*Third* *draft* version of thesis after 135 days and 133 commits can be
-[downloaded here][8]
-
-*Second* *draft* version of thesis after 119 days and 112 commits can be
-[downloaded here][7]
-
-*First* *draft* version of thesis after 89 days and 87 commits can be
+*Last* *draft* version of thesis after 135 days and 133 commits can be
 [downloaded here][6]
 
 ### Graphical project description 
@@ -30,12 +24,18 @@ is to have 3D model of objects and scenes from multiple views.
 ### Task 
 is to evaluate functionality and quality of described process.
 
+### GUI Screenshot
+here is a screenshot of GUI written in Qt 4.8
+![alt text][gui]
+
+[gui]: https://raw.github.com/msvalina/pcl-surface-mesh-reconstruction/master/latex/figures/mesh-reconstruction-gui.png
 [1]: http://pointclouds.org/
 [2]: http://www.cs.jhu.edu/~misha/Code/PoissonRecon/Version5.5/
 [3]: http://openslam.org/rgbdslam.html
 [4]: http://wiki.ros.org/rgbdslam/
 [5]: http://wiki.ros.org/
-[6]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-01.pdf?raw=true
-[7]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-02.pdf?raw=true
-[8]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-03.pdf?raw=true
+[6]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-03.pdf?raw=true
+
+
+
 
