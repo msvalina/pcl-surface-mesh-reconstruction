@@ -20,6 +20,7 @@
 #include <QCheckBox>
 #include <logwindow.h>
 #include "meshreconstruction.h"
+#include "vtkpointcloudwidget.h"
 
 class MainWindow : public QDialog
 {
@@ -77,6 +78,8 @@ private:
     QString saveFileStr;
     LogWindow *logWin;
     MeshReconstruction *meshRec;
+    VTKPointCloudWidget *vtkVis;
+    QDialog *vtkWin;
 };
 
 #endif // MAINWINDOW_H

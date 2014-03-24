@@ -13,7 +13,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     meshreconstruction.cpp \
-    logwindow.cpp
+    logwindow.cpp \
+    vtkpointcloudwidget.cpp
 
 INCLUDEPATH +=  "/usr/local/include/pcl-1.7/" \
                 "/usr/include/flann/" \
@@ -47,10 +48,13 @@ LIBS += -lOpenNI \
         -lvtkmetaio \
         -lvtkexoIIc \
         -lvtkHybrid \
-        -lboost_thread
+        -lboost_thread \
+        -lQVTK \
+        -lvtkQtChart
 
 HEADERS += \
     mainwindow.h \
     meshreconstruction.h \
-    logwindow.h
+    logwindow.h \
+    vtkpointcloudwidget.h
 

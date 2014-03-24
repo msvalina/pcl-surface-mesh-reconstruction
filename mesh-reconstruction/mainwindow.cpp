@@ -177,6 +177,7 @@ void MainWindow::runMeshReconstruction()
 
 void MainWindow::runShowMesh()
 {
+    /*
     qDebug() << "open mesh";
     if (openFileStr.isEmpty()){
         QMessageBox msgBox;
@@ -187,6 +188,14 @@ void MainWindow::runShowMesh()
     meshRec->setFilePath(openFileStr);
     meshRec->showMesh(logWin);
     }
+    */
+    vtkWin = new QDialog;
+    vtkWin->show();
+    vtkWin->setWindowTitle("Mesh Visualisation");
+    vtkWin->setMinimumSize(750, 750);
+    vtkWin->resize(750, 750);
+    vtkVis = new VTKPointCloudWidget(vtkWin);
+    vtkVis->loadPolygon(openFileStr);
 }
 
 void MainWindow::runRunAll()
