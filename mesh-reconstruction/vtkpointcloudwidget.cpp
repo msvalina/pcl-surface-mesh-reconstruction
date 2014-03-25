@@ -29,3 +29,15 @@ void VTKPointCloudWidget::showPointCloud()
 
     this->update();
 }
+
+void VTKPointCloudWidget::representWithWire()
+{
+    vis.setRepresentationToWireframeForAllActors();
+    this->update();
+}
+
+void VTKPointCloudWidget::representWithSurface()
+{
+    vis.setRepresentationToSurfaceForAllActors();
+    this->update();
+}

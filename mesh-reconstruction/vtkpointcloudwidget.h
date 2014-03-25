@@ -19,6 +19,11 @@ class VTKPointCloudWidget : public QVTKWidget
 {
     Q_OBJECT
 
+public slots:
+    void representWithSurface();
+    void representWithWire();
+
+
 public:
     VTKPointCloudWidget(QWidget *parent);
     void loadPolygon(QString path);

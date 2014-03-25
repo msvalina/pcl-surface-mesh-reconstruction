@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     meshreconstruction.cpp \
     logwindow.cpp \
-    vtkpointcloudwidget.cpp
+    vtkpointcloudwidget.cpp \
+    presentationwindow.cpp
 
 INCLUDEPATH +=  "/usr/local/include/pcl-1.7/" \
                 "/usr/include/flann/" \
@@ -56,5 +57,6 @@ HEADERS += \
     mainwindow.h \
     meshreconstruction.h \
     logwindow.h \
-    vtkpointcloudwidget.h
+    vtkpointcloudwidget.h \
+    presentationwindow.h
 

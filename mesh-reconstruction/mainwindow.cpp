@@ -177,25 +177,18 @@ void MainWindow::runMeshReconstruction()
 
 void MainWindow::runShowMesh()
 {
-    /*
-    qDebug() << "open mesh";
     if (openFileStr.isEmpty()){
         QMessageBox msgBox;
         msgBox.setText("Please first choose polygonmesh (.vtk)");
         msgBox.exec();
     }
     else {
-    meshRec->setFilePath(openFileStr);
-    meshRec->showMesh(logWin);
+        presWin = new PresentationWindow;
+        logWin->appendMessage("Starting visualistion");
+        presWin->setFilePath(openFileStr);
+        presWin->show();
     }
-    */
-    vtkWin = new QDialog;
-    vtkWin->show();
-    vtkWin->setWindowTitle("Mesh Visualisation");
-    vtkWin->setMinimumSize(750, 750);
-    vtkWin->resize(750, 750);
-    vtkVis = new VTKPointCloudWidget(vtkWin);
-    vtkVis->loadPolygon(openFileStr);
+
 }
 
 void MainWindow::runRunAll()
