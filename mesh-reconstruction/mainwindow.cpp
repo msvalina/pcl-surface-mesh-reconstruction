@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     meshRec = new MeshReconstruction;
     logWin = new LogWindow;
+    presWin = new PresentationWindow;
 
     createMenu();
     createGridGroupBox();
@@ -170,8 +171,8 @@ void MainWindow::runMeshReconstruction()
         msgBox.exec();
     }
     else {
-    meshRec->setFilePath(openFileStr);
-    meshRec->meshReconstruction(logWin);
+        meshRec->setFilePath(openFileStr);
+        meshRec->meshReconstruction(logWin);
     }
 }
 
@@ -183,7 +184,6 @@ void MainWindow::runShowMesh()
         msgBox.exec();
     }
     else {
-        presWin = new PresentationWindow;
         logWin->appendMessage("Starting visualistion");
         presWin->setFilePath(openFileStr);
         presWin->show();
@@ -205,8 +205,8 @@ void MainWindow::runRunAll()
         meshRec->removeOutliers(logWin);
         meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd");
         meshRec->meshReconstruction(logWin);
-        meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd" + "-mesh.vtk");
-        meshRec->showMesh(logWin);
+        presWin->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd" + "-mesh.vtk");
+        presWin->show();
     }
 }
 
