@@ -112,6 +112,7 @@ void MeshReconstruction::setPoissonParams(int depth, int solverDivide,
 {
     psn_depth = depth;
     psn_solverDivide = solverDivide;
+    psn_isoDivide = isoDivide;
     psn_samplesPerNode = samplesPerNode;
     psn_scale = scale;
     psn_confidence = confidence;
@@ -131,7 +132,7 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
 
     pcl::fromPCLPointCloud2 (*cloud_blob, *cloud);
     // the data should be available in cloud
-    logWin->appendMessage("PointCloud loaded: " + QString::number(cloud->size()) + "data points\n");
+    logWin->appendMessage("PointCloud loaded: " + QString::number(cloud->size()) + " data points\n");
 
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
@@ -167,16 +168,16 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
     pcl::Poisson<PointTypeN> psn;
     //pcl::PolygonMesh triangles;
 
+    psn.setInputCloud(cloud_with_normals);
+    psn.setSearchMethod(tree2);
     psn.setDepth(psn_depth);
     psn.setSolverDivide(psn_solverDivide);
     psn.setIsoDivide(psn_isoDivide);
     psn.setSamplesPerNode(psn_samplesPerNode);
     psn.setScale(psn_scale);
     psn.setConfidence(psn_confidence);
-    psn.setInputCloud(cloud_with_normals);
-    psn.setSearchMethod(tree2);
     psn.reconstruct (triangles);
-    psn.setOutputPolygons(false);
+    //psn.setOutputPolygons(false);
 
     pcl::PCDWriter writer;
     pcl::PCLPointCloud2::Ptr cwn (new pcl::PCLPointCloud2());
