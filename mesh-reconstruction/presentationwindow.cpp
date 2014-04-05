@@ -28,7 +28,8 @@ void PresentationWindow::createGridGroupBox()
     vtkWireBtn = new QPushButton(("Wireframe representation"), this);
     vtkSurfBtn = new QPushButton(("Surface representation"), this);
     connect(vtkWireBtn, SIGNAL(clicked()), vtkVis, SLOT(representWithWire()));
-    connect(vtkSurfBtn, SIGNAL(clicked()), vtkVis, SLOT(representWithSurface()));
+    connect(vtkSurfBtn, SIGNAL(clicked()), vtkVis,
+            SLOT(representWithSurface()));
 
     vtkHLay->addWidget(vtkWireBtn);
     vtkHLay->addWidget(vtkSurfBtn);

@@ -33,7 +33,6 @@ MainWindow::~MainWindow()
 void MainWindow::createMenu()
 {
     menuBar = new QMenuBar;
-
     fileMenu = new QMenu(tr("&File"), this);
     exitAction = fileMenu->addAction(tr("E&xit"));
     menuBar->addMenu(fileMenu);
@@ -44,10 +43,12 @@ void MainWindow::createGridGroupBox()
 {
     verticalGroup = new QGroupBox("Info");
     QGridLayout *layout = new QGridLayout;
-    infoLabel = new QLabel("First open pointcloud (.pcd) or polygonmesh (.vtk) and choose one of actions");
+    infoLabel = new QLabel("First open pointcloud (.pcd) or polygonmesh (.vtk)"
+                           "and choose one of actions");
     infoLabel->setWordWrap(true);
     layout->addWidget(infoLabel,0,0);
-    runLabel = new QLabel("Run All runs actions in order:\ndownsample, remove outliers, mesh reconstruction and show mesh");
+    runLabel = new QLabel("Run All runs actions in order:\ndownsample, remove"
+                          "outliers, mesh reconstruction and show mesh");
     runLabel->setWordWrap(true);
     layout->addWidget(runLabel,1,0);
     openBtn = new QPushButton("Open", this);
@@ -68,9 +69,11 @@ void MainWindow::createHorizontalGroupBox()
     downsampleBtn = new QPushButton("Downsample", this);
     connect(downsampleBtn, SIGNAL(clicked()), this, SLOT(runDownsample()));
     removeOutliersBtn = new QPushButton("Remove Outliers", this);
-    connect(removeOutliersBtn, SIGNAL(clicked()), this, SLOT(runRemoveOutliers()));
+    connect(removeOutliersBtn, SIGNAL(clicked()), this,
+            SLOT(runRemoveOutliers()));
     meshReconstructionBtn = new QPushButton("Mesh Reconstruction", this);
-    connect(meshReconstructionBtn, SIGNAL(clicked()), this, SLOT(runMeshReconstruction()));
+    connect(meshReconstructionBtn, SIGNAL(clicked()), this,
+            SLOT(runMeshReconstruction()));
     showMeshBtn = new QPushButton("Show Mesh", this);
     connect(showMeshBtn, SIGNAL(clicked()), this, SLOT(runShowMesh()));
     layout->addWidget(downsampleBtn);
@@ -95,12 +98,18 @@ void MainWindow::createPsnGroup()
 {
     psnGroup = new QGroupBox(tr("Poisson parameters"));
     QGridLayout *layout = new QGridLayout;
-    depth = new QSpinBox; depth->setValue(8);
-    solverDivide = new QSpinBox; solverDivide->setValue(8);
-    isoDivide = new QSpinBox; isoDivide->setValue(8);
-    samplesPerNode = new QSpinBox; samplesPerNode->setValue(3);
-    scale = new QDoubleSpinBox; scale->setValue(1.25);
-    confidence = new QCheckBox; confidence->setChecked(true);
+    depth = new QSpinBox;
+    solverDivide = new QSpinBox;
+    isoDivide = new QSpinBox;
+    samplesPerNode = new QSpinBox;
+    scale = new QDoubleSpinBox;
+    confidence = new QCheckBox;
+    depth->setValue(8);
+    solverDivide->setValue(8);
+    isoDivide->setValue(8);
+    samplesPerNode->setValue(1);
+    scale->setValue(1.1);
+    confidence->setChecked(false);
     applyPsn = new QPushButton("Apply Poisson Params");
     layout->addWidget(new QLabel("Depth:"), 0, 0);
     layout->addWidget(new QLabel("Solver Divide:"), 1, 0);
@@ -124,9 +133,9 @@ void MainWindow::openFile()
 {
     openFileStr = QFileDialog::getOpenFileName(this, tr("Open PCD or VTK"));
         if (openFileStr.isEmpty()){
-            qDebug() << "Test test test" ;
+            qDebug() << "You Didnt choose file" ;
         }
-    logWin->appendMessage(openFileStr);
+    logWin->appendMessage(openFileStr + "\n");
     qDebug() << openFileStr ;
 }
 
@@ -134,7 +143,7 @@ void MainWindow::saveFile()
 {
     saveFileStr = QFileDialog::getSaveFileName(this, "Save output log");
     if(!saveFileStr.isEmpty())
-        logWin->saveLogMessage(saveFileStr);
+        logWin->saveLogMessage(saveFileStr + "\n");
 }
 
 void MainWindow::runDownsample()
@@ -184,11 +193,10 @@ void MainWindow::runShowMesh()
         msgBox.exec();
     }
     else {
-        logWin->appendMessage("Starting visualistion");
+        logWin->appendMessage("Starting visualistion \n");
         presWin->setFilePath(openFileStr);
         presWin->show();
     }
-
 }
 
 void MainWindow::runRunAll()
@@ -205,7 +213,8 @@ void MainWindow::runRunAll()
         meshRec->removeOutliers(logWin);
         meshRec->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd");
         meshRec->meshReconstruction(logWin);
-        presWin->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd" + "-mesh.vtk");
+        presWin->setFilePath(openFileStr + "-downsampled.pcd" + "-inliers.pcd"
+                             + "-mesh.vtk");
         presWin->show();
     }
 }
@@ -218,11 +227,11 @@ void MainWindow::runSetPoissonParams()
                               scale->value(), confidence->isChecked());
 
     logWin->appendMessage ("Poisson parameters:\n"
-             "Depth: " + QString::number(depth->value()) + "\n" +
-             "Solver Divide: " + QString::number(solverDivide->value()) + "\n" +
-             "Iso Divide: " + QString::number(isoDivide->value()) + "\n" +
-             "Samples Per Node: " + QString::number(samplesPerNode->value()) + "\n" +
-             "Scale: " + QString::number(scale->value()) + "\n" +
+             "Depth: " + QString::number(depth->value()) + "\n"
+             "Solver Divide: " + QString::number(solverDivide->value()) + "\n"
+             "Iso Divide: " + QString::number(isoDivide->value()) + "\n"
+             "Samples Per Node: " + QString::number(samplesPerNode->value()) +
+             "\n" + "Scale: " + QString::number(scale->value()) + "\n"
              "Confidence: " + QString::number(confidence->isChecked()) + "\n" );
 
 }

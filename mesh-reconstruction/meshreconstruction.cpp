@@ -44,8 +44,9 @@ void MeshReconstruction::downsample(LogWindow *logWin)
 
     logWin->appendMessage("PointCloud after filtering:");
     QString after;
-    after = QString::number(cloud_filtered->width * cloud_filtered->height) + " data points (" +
-            QString::fromStdString(pcl::getFieldsList (*cloud_filtered)) + ").";
+    after = QString::number(cloud_filtered->width * cloud_filtered->height) +
+            " data points (" + QString::fromStdString(pcl::getFieldsList
+            (*cloud_filtered)) + ").";
     logWin->appendMessage(after);
 
     pcl::PCDWriter writer;
@@ -54,12 +55,13 @@ void MeshReconstruction::downsample(LogWindow *logWin)
     writer.write (str, *cloud_filtered, Eigen::Vector4f::Zero(),
                 Eigen::Quaternionf::Identity(), false);
 
-    logWin->appendMessage("Finished - downsample() with VoxelGrid");
+    logWin->appendMessage("Finished - downsample() with VoxelGrid \n");
 }
 
 void MeshReconstruction::removeOutliers(LogWindow *logWin)
 {
-    logWin->appendMessage("Started - remove_outliers() with StatisticalOutlierRemoval");
+    logWin->appendMessage("Started - remove_outliers() with "
+                          "StatisticalOutlierRemoval");
 
     pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2());
     pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2());
@@ -84,8 +86,9 @@ void MeshReconstruction::removeOutliers(LogWindow *logWin)
 
     logWin->appendMessage("PointCloud after filtering: ");
     QString after;
-    after = QString::number(cloud_filtered->width * cloud_filtered->height) + " data points (" +
-            QString::fromStdString(pcl::getFieldsList (*cloud_filtered)) + ").";
+    after = QString::number(cloud_filtered->width * cloud_filtered->height) +
+            " data points (" + QString::fromStdString(pcl::getFieldsList
+            (*cloud_filtered)) + ").";
     logWin->appendMessage(after);
 
     pcl::PCDWriter writer;
@@ -103,7 +106,8 @@ void MeshReconstruction::removeOutliers(LogWindow *logWin)
     writer.write (str2, *cloud_filtered, Eigen::Vector4f::Zero(),
             Eigen::Quaternionf::Identity(), false);
 
-    logWin->appendMessage("Finished - remove_outliers() with StatisticalOutlierRemoval\n");
+    logWin->appendMessage("Finished - remove_outliers() with "
+                          "StatisticalOutlierRemoval\n");
 }
 
 void MeshReconstruction::setPoissonParams(int depth, int solverDivide,
@@ -132,7 +136,8 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
 
     pcl::fromPCLPointCloud2 (*cloud_blob, *cloud);
     // the data should be available in cloud
-    logWin->appendMessage("PointCloud loaded: " + QString::number(cloud->size()) + " data points\n");
+    logWin->appendMessage("PointCloud loaded: " + QString::number(cloud->size())
+                          + " data points\n");
 
     // Normal estimation
     pcl::NormalEstimation<PointType, Normal> normEst;
@@ -190,7 +195,21 @@ void MeshReconstruction::meshReconstruction(LogWindow *logWin)
     str2.append(filePath).append("-cloud_with_normals.pcd");
     writer.write (str2, *cwn, Eigen::Vector4f::Zero(),
             Eigen::Quaternionf::Identity(), false);
-    logWin->appendMessage("Finshed - reconstruct_mesh() with Poisson\n");
+    logWin->appendMessage("Finshed - reconstruct_mesh() with Poisson");
+
+    logWin->appendMessage
+            ("Using these parameters: \n"
+            "Depth: " + QString::number(psn.getDepth()) + "\n"
+            "Min Depth: " + QString::number(psn.getMinDepth()) + "\n"
+            "Solver Divde: " + QString::number(psn.getSolverDivide()) + "\n"
+            "Iso Divide: " + QString::number(psn.getIsoDivide()) + "\n"
+            "Samples per Node: " + QString::number(psn.getSamplesPerNode()) +
+            "\nScale: " + QString::number(psn.getScale()) + "\n"
+            "Confidence: " + QString::number(psn.getConfidence()) + "\n"
+            "Degree: " + QString::number(psn.getDegree()) + "\n"
+            "Mainfold: " + QString::number(psn.getManifold()) + "\n"
+            "Output Polygons: " + QString::number(psn.getOutputPolygons()) +
+            "\n" );
 }
 
 void MeshReconstruction::showMesh(LogWindow *logWin)

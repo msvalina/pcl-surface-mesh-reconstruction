@@ -29,8 +29,8 @@ public:
     void downsample(LogWindow *logWin);
     void removeOutliers(LogWindow *logWin);
     void setPoissonParams(int depth = 8, int solverDivide = 8,
-                          int isoDivide = 8, int samplesPerNode = 3,
-                          float scale = 1.25, bool confidence = true);
+                          int isoDivide = 8, int samplesPerNode = 1,
+                          float scale = 1.1, bool confidence = false);
     void meshReconstruction(LogWindow *logWin);
     void showMesh(LogWindow *logWin);
 
