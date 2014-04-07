@@ -45,11 +45,11 @@ Zbog nesavršenosti odometrije robota nije dobro osloniti se samo na nju
 kako bi se pronašla pozicija robota. Već se može koristiti lasersko
 skeniranje okoline ili kao u slučaju RGBDSlam programa Kinect 3D kamera
 kako bi pronašli pravu poziciju robota/kamere. To se postiže
-izvlačenjem značjaki iz okoline i promatranjem tih značajki kada se
+izvlačenjem značajki iz okoline i promatranjem tih značajki kada se
 robot pomakne. EKF (\textit{Extended Kalman Filter}) prošireni Kalmanov
 filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
 na kojoj robot misli da se nalazi koristeći izvučene značajke. Takve
-značajke se još nazivaju i orjentiri. EKF prati estimaciju nesigurnosti
+značajke se još nazivaju i orijentiri. EKF prati estimaciju nesigurnosti
 pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
 procesa~\footnotemark[1] se nalazi na grafikonu~\ref{fig:slam-overview.pdf}  
 
@@ -72,8 +72,41 @@ pozicije. Robot tada pokušava asocirati te orijentire s prije zapaženim
 orijentirima. Ponovno zapaženi orijentiri se tada koriste za ažuriranje
 pozicije robota u EKFu. Orijentiri koji prije nisu zapaženi se dodaju u
 EKF kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
-računa estimaciju robotove trenutne pozicije.
+računa estimaciju robotove trenutne pozicije. 
 
+\subsubsection{Proširen Kalmanov filter - EKF} % (fold)
+\label{ssub:Proširen Kalmanov filter - EKF}
+
+Kalmanov filter je algoritam koji koristi niz mjerenja pribavljenih
+tijekom vremena, koja sadržavaju šum i ostale netočnosti, te računa
+estimacije nepoznatih varijabli koje imaju tendenciju biti preciznije od
+računa baziranom samo na jednom mjerenju. Konkretnije, Kalmanov filter
+se izvršava rekurzivno na nizu šumovith ulaznih podataka i računa
+statistički optimalnu estimaciju sustava stanja. Filter je nazvan po
+Rudolfu E. Kalmanu~\cite{Kalman} koji je jedan od primarnih
+razvijatelja teorije.
+
+
+Algoritam je podijeljen u dva koraka kao što se vidi na
+grafikonu~\ref{fig:basic-kalman}. U prvom predikcijskom koraku Kalmanov
+filter računa estimaciju trenutnih varijabla stanja s njihovim
+nesigurnostima. U drugom korekcijskom koraku, kada je promotren rezultat
+sljedećeg mjerenja (koje isto ima greške pri mjerenju i šum mjerenja)
+izračunata estimacija se korigira upotrebom težinske sredine gdje se
+više težine daje estimaciji s većom vjerojatnošću.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.35]{figures/basic-kalman.pdf}
+\caption{Osnova Kalmanovog filtra}
+\label{fig:basic-kalman}
+\end{figure}
+
+\textbf{Prošireni Kalmanov filter} je nelinearna verzija Kalmanovog
+filtra gdje promjena stanja i promatrani model ne moraju biti linearne
+funkcije.
+
+% subsubsection Proširen Kalmanov filter - EKF (end)
 
 % subsubsection Osnovna ideja  (end)
 % subsection Slam (end)
