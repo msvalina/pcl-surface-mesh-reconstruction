@@ -34,7 +34,7 @@ here is a screenshot of GUI written in Qt 4.8
 [3]: http://openslam.org/rgbdslam.html
 [4]: http://wiki.ros.org/rgbdslam/
 [5]: http://wiki.ros.org/
-[6]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/msvalina-thesis-draft-03.pdf?raw=true
+[6]: https://github.com/msvalina/pcl-surface-mesh-reconstruction/blob/master/latex/draft/last-draft.pdf?raw=true
 
 
 
