@@ -8,10 +8,69 @@
 \subsection{Microsof Kinect 3D kamera} % (fold)
 \label{sub:Microsof Kinect 3D kamera}
 
+Kinect je RGB-D senzor koji daje sliku u boji sinkroniziranu s dubinskom
+slikom. Inicijalno je korišten kao ulazni uređaj za Microsoft Xbox
+igračku konzolu. Algoritmima za prepoznavanje ljudskih pokreta omogućava
+interakciju između igre i igrača bez potrebe za korištenjem kontrolera.
+Nakon pojave senzora zajednica znanstvenika koji proučavaju računalni
+vidi otkrila je da tehnologija korištena za dohvaćanje dubine može biti
+upotrebljena za puno više od igranja za puno manje cijenu nego
+tradicionalne 3D kamere kao što su stereo i Time-of-flight kamere.
+
+Dodatno, komplementarna priroda informacije o dubine na slici koju pruža
+Kinect olakšava nova potencijalna rješenja klasičnih problema računalnog
+vida. U samo dvije godine nakon puštanja u prodaju Kinecta, velik broj
+znanstvenih članaka i demonstracija se pojavio na raznim konferencijama.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.15]{figures/kinect.png}
+\caption{Shematski prikaz Kinect kamere, izvor:~\cite{HanSXS13}}
+\label{fig:kinect.png}
+\end{figure}
+
+\subsubsection{Tehničke specifikacije} % (fold)
+\label{ssub:Tehničke specifikacije}
+
+Slika~\ref{fig:kinect.png} prikazuje raspored Kinect senzora. Kinect se
+sastoji od infracrevnog (IR) projektora, IR kamere i RGB kamere.
+Dubinski senzor se sastoji od IR projektora i IR kamere. IR projektor
+projicira IR uzorak točkastih mrlja na 3D scenu dok IR kamera hvata
+reflektirane IR mrlje. Kinect radi na principu strukturirane svjetlosti.
+Geometrijska veza između IR projektora i IR kamere se ostvaruje offline
+kalibracijskom procedurom. IR projektor projicira poznat uzorak
+svjetlosnih mrlja na scenu. IR svjetlost je nevidljiva RGB kameri ali
+je vidljiva IR kameri. Kako je svaki lokalni uzorak projiciranih točaka
+jedinstven, spajanje promatranih lokalnih uzoraka točaka sa slike
+s kalibriranim projektorovim uzorkom točaka je ostvarivo. Više o
+principu strukturirane svjetlosti u~\cite{structured:light}.\\
+
+Tehničke informacije o kameri:
+\begin{itemize}
+    \item \textbf{RGB kamera} daje sliku rezolucije \(640\times480\)
+        piksela pri osvježavanju slike od 30Hz. Postoji i opcija davanja
+        slike rezolucije \(1280 \times 1024\) piksela ali se dobije samo 10
+        sličica po sekundi.
+    \item \textbf{3D Dubinski senzor} se sastoji od IR laserskog
+        projektora i IR kamere. Zajedno, projektor i kamera kreiraju
+        dubinsku mapu, koja pruža informaciju o udaljenosti između
+        objekta i kamere. Senzor ima praktično ograničenje u dometu 
+        0.8m - 3.5m. Kamera daje video od 30 sličica po sekundi s
+        rezolucijom \(640 \times 480\) piksela. Vidno polje senzora je
+        \(57\,^{\circ}\) horizontalno i \(43\,^{\circ}\) vertikalno.
+    \item \textbf{Motorni nagib} upravlja nagibom Kinecta. Nagib može
+        biti pomaknuti \(27\,^{\circ}\) gore ili dolje.
+\end{itemize}
+
+% subsubsection Tehničke specifikacije (end)
+
 % subsection Microsof Kinect 3D kamera (end)
 
+\newpage
 \subsection{ROS biblioteka i alati} % (fold)
 \label{sub:ROS biblioteka i alati}
+
+napisat da s ROSom dolazi \textbf{ openni driver} 
 
 % subsection ROS biblioteka i alati (end)
 
@@ -97,6 +156,7 @@ više težine daje estimaciji s većom vjerojatnošću.
 
 \begin{figure}[h]
 \centering
+\renewcommand{\figurename}{Grafikon}
 \includegraphics[scale=0.35]{figures/basic-kalman.pdf}
 \caption{Osnova Kalmanovog filtra}
 \label{fig:basic-kalman}
