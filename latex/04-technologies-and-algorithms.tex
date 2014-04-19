@@ -4,7 +4,6 @@
 \section{Pregled korištenih tehnologija i algoritama} % (fold)
 \label{sec:Tehnologija i teorija}
 
-
 \subsection{Microsof Kinect 3D kamera} % (fold)
 \label{sub:Microsof Kinect 3D kamera}
 
@@ -70,12 +69,63 @@ Tehničke informacije o kameri:
 \subsection{ROS biblioteka i alati} % (fold)
 \label{sub:ROS biblioteka i alati}
 
-napisat da s ROSom dolazi \textbf{ openni driver} 
+ROS~\cite{ros} (engl. \textit{Robot Operating System}) je set programskih
+biblioteka i alata koji pomažu programerima kreirati aplikacije za
+robote. Pruža hardversku abstrakciju, upravljačke programe, biblioteke,
+vizualizaciju, komunikaciju, upravljanje paketima i dr. ROS je
+licenciran BSD licencom, koja spada pod licence otvorenog koda.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{figures/ros.png}
+\caption{Shematski prikaz ROSa}
+\label{fig:ros.png}
+\end{figure}
+
+U ovom radu ROS se dotiče kroz program RGBDSlam koji je opisan u
+potpoglavlju~\ref{sub:Snimanje scene 3D kamerom i RGBDSlam programom} te se oslanja na
+njegove biblioteke, upravljačke programe i alate. Tako RGBDSlam koristi
+OpenNI upravljački program za komunikaciju s Kinect kamerom u obliku ros
+programskog paketa (\texttt{ros-fuerte-openni-launch}). Također, RGBDSlam
+koristi i niz drugih paketa iz ROS biblioteke~\cite{web:rgbdslam}
 
 % subsection ROS biblioteka i alati (end)
 
 \subsection{Biblioteka Pointcloud} % (fold)
 \label{sub:Biblioteka Pointcloud}
+
+PCL~\cite{pcl} (engl. \textit{Point Cloud Library}
+slika~\ref{fig:pcl.png}) je otvoren projekt za procesiranje 2D/3D slika
+i oblaka točaka. PCL biblioteka sadržava niz najsuvremenijih algoritama
+za filtriranje, estimaciju značajki, rekonstrukciju površina,
+registraciju, uklapanje modela i segmentaciju.  Ti algoritmi se mogu
+koristiti npr. za izbacivanje odudarajućih vrijednosti iz šumovith
+podataka, spajanje 3D oblaka točaka, segementiranje relevantnih dijelova
+scene, izvlačenje ključnih točaka i računanje deskriptora za
+prepoznavanje objekata na temelju njihove geometrije, kreiranje i
+prikazivanje površina iz oblaka točaka itd.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.15]{figures/pcl.png}
+\caption{PCL logo}
+\label{fig:pcl.png}
+\end{figure}
+
+PCL je objavljen pod BSD licencom i softver je otvorenog koda. Što znači
+da je slobodan za upotrebu u komercijalne i akademske svrhe.
+
+PCL se uspješno prevodi na GNU/Linux, MacOS, Windows i Android/iOS
+platformama. Zbog olakšanog razvijanja podijeljen je na više manjh
+biblioteka koje se mogu prevoditi zasebno. PCL se može prikazati kao
+graf biblioteka kao što je prikazano na slici~\ref{fig:pcl-graph.png}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.40]{figures/pcl-graph.png}
+\caption{Graf PCL biblioteka}
+\label{fig:pcl-graph.png}
+\end{figure}
 
 % subsection Biblioteka Pointcloud (end)
 
@@ -83,31 +133,32 @@ napisat da s ROSom dolazi \textbf{ openni driver}
 \newpage
 \subsection{Istovremena lokalizacija i mapiranje} % (fold)
 \label{sub:Slam}
-Istovremena lokalizacija i mapiranje dolazi od engleske skraćenice
-SLAM \textit{Simultaneous Localization and Mapping}. SLAM su
+Jedno od najznačajnijih područja istraživanja na polju mobilne robotike
+su metode istovremene lokalizacije i mapiranja
+(engl.\textit{Simultaneous Localization and Mapping} - SLAM). SLAM su
 originalno razvili Hugh Durrant-Whyte i John J.
 Leonard~\cite{Durrant:91b} koji su rad bazirali na prethodnom radu
 Smitha, Selfa and Cheesemana~\cite{Smith86}. SLAM se bavi rješavanjem
 problema izgradnje mape nepoznate okoline mobilnog robota te istovremeno
 navigiranje robota okolinom koristeći tu mapu.
 
-SLAM se sastoji iz nekoliko koraka: izvlačenje orijentira, asociranje
+SLAM se sastoji iz nekoliko koraka: izvlačenja orijentira, pridruživanja
 podataka, estimiranja stanja, ažuriranja stanja i ažuriranja orijentira.
-Postoji više načina kako riješiti svaki od tih koraka. SLAM se može
+Postoji više načina kako realizirati svaki od tih koraka. SLAM se može
 primjeniti na 2D i 3D kretanje.
 
 \subsubsection{Osnovna ideja i kratak pregled koraka} % (fold)
 \label{ssub:Osnovna ideja }
 Proces istovremene lokalizacije i mapiranja se sastoji iz nekoliko
-koraka. Cilj procesa je koristiti okolinu za ažuriranje pozicije robota.
+koraka. Cilj procesa je koristiti precepciju okolinu za ažuriranje pozicije robota.
 Zbog nesavršenosti odometrije robota nije dobro osloniti se samo na nju
-kako bi se pronašla pozicija robota. Već se može koristiti lasersko
-skeniranje okoline ili kao u slučaju RGBDSlam programa Kinect 3D kamera
+kako bi se pronašla pozicija robota već se može koristiti lasersko
+skeniranje okoline ili, kao u slučaju RGBDSlam programa, Kinect 3D kamera
 kako bi pronašli pravu poziciju robota/kamere. To se postiže
-izvlačenjem značajki iz okoline i promatranjem tih značajki kada se
+detekcijom značajki u okolini i promatranjem tih značajki kada se
 robot pomakne. EKF (\textit{Extended Kalman Filter}) prošireni Kalmanov
 filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
-na kojoj robot misli da se nalazi koristeći izvučene značajke. Takve
+na kojoj robot ``misli'' da se nalazi koristeći izvučene značajke. Takve
 značajke se još nazivaju i orijentiri. EKF prati estimaciju nesigurnosti
 pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
 procesa~\footnotemark[1] se nalazi na grafikonu~\ref{fig:slam-overview.pdf}  
@@ -119,18 +170,18 @@ Dummies~\cite{web:slam} }
 \begin{figure}[h]
 \renewcommand{\figurename}{Grafikon}
 \centering
-\includegraphics[scale=0.43]{figures/slam-overview.pdf}
+\includegraphics[scale=0.4]{figures/slam-overview.pdf}
 \caption{Pregled SLAM procesa}
 \label{fig:slam-overview.pdf}
 \end{figure}
 
-Kad se odometrija promjeni zato što se robot pomakao nesigurnost koja se
+Kad se odometrija promijeni zato što se robot pomakao, nesigurnost koja se
 tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
-odometrije. Orijentiri se tada izvlače iz okoline zbog robotove nove
-pozicije. Robot tada pokušava asocirati te orijentire s prije zapaženim
-orijentirima. Ponovno zapaženi orijentiri se tada koriste za ažuriranje
+odometrije. Orijentiri se tada detektiraju u okoline iz robotove nove
+pozicije. Robot tada pokušava asocirati detektirane orijentire s prije zapaženim
+orijentirima spremljenim u kratu. Ponovno zapaženi orijentiri se tada koriste za ažuriranje
 pozicije robota u EKFu. Orijentiri koji prije nisu zapaženi se dodaju u
-EKF kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
+kartu kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
 računa estimaciju robotove trenutne pozicije. 
 
 \subsubsection{Proširen Kalmanov filter - EKF} % (fold)
@@ -138,21 +189,22 @@ računa estimaciju robotove trenutne pozicije.
 
 Kalmanov filter je algoritam koji koristi niz mjerenja pribavljenih
 tijekom vremena, koja sadržavaju šum i ostale netočnosti, te računa
-estimacije nepoznatih varijabli koje imaju tendenciju biti preciznije od
-računa baziranom samo na jednom mjerenju. Konkretnije, Kalmanov filter
-se izvršava rekurzivno na nizu šumovith ulaznih podataka i računa
-statistički optimalnu estimaciju sustava stanja. Filter je nazvan po
-Rudolfu E. Kalmanu~\cite{Kalman} koji je jedan od primarnih
-razvijatelja teorije.
+estimacije nepoznatih varijabli koje su, u slučaju zadovoljenja
+pretpostavki algoritma, preciznije od računa baziranom samo na jednom
+mjerenju. Konkretnije, Kalmanov filter se izvršava rekurzivno na nizu
+šumovith ulaznih podataka i računa statistički optimalnu estimaciju
+sustava stanja. Filter je nazvan po Rudolfu E. Kalmanu~\cite{Kalman}
+koji je jedan od primarnih razvijatelja teorije.
 
 
 Algoritam je podijeljen u dva koraka kao što se vidi na
 grafikonu~\ref{fig:basic-kalman}. U prvom predikcijskom koraku Kalmanov
 filter računa estimaciju trenutnih varijabla stanja s njihovim
-nesigurnostima. U drugom korekcijskom koraku, kada je promotren rezultat
-sljedećeg mjerenja (koje isto ima greške pri mjerenju i šum mjerenja)
-izračunata estimacija se korigira upotrebom težinske sredine gdje se
-više težine daje estimaciji s većom vjerojatnošću.
+nesigurnostima na temelju modela kretanja robota. U drugom korekcijskom
+koraku, kada je promotren rezultat sljedećeg mjerenja (koje isto ima
+greške pri mjerenju i šum mjerenja), izračunata estimacija se korigira
+upotrebom težinske sredine gdje se više težine daje estimaciji s većom
+vjerojatnošću.
 
 \begin{figure}[h]
 \centering
@@ -271,22 +323,12 @@ Kahzdana~\cite{Kazhdan:2007}
 \label{ssub:Ograničenje Poisson algoritma}
 
 Ograničenje implementacije Poisson algoritma je u tome što ne uzima u
-obzir informacije asocirane s načinom stjecanja oblaka točaka.
+obzir informacije vezane uz način snimanja oblaka točaka.
 Slika~\ref{fig:poisson-buddha.png} pokazuje kip Bude i vidi se primjer takvog
 ograničenja. Budući da nema točaka između Budinih nogu, Poisson
 algoritam spaja te dvije regije. Algoritam se može unaprijediti
 ugradnjom dodatne informacije poput vidokruga i na taj način izbjeći to
 ograničenje.
-
-**A limitation of our method
-is that it does not incorporate information associated with
-the acquisition modality. Figure 6 shows an example of this
-in the reconstruction at the base of the Buddha. Since there
-are no samples between the two feet, our method (right)
-connects the two regions. In contrast, the ability to use sec-
-ondary information such as line of sight allows VRIP (left)
-to perform the space carving necessary to disconnect the two
-feet, resulting in a more accurate reconstruction.**
 
 
 \begin{figure}[h]
