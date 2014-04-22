@@ -516,6 +516,7 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
 
 % section Izgradnja 3D modela scene (end)
 
+\newpage
 \subsubsection{Grafičko sučelje programa} % (fold)
 \label{ssub:Grafičko sučelje programa}
 
@@ -533,20 +534,20 @@ sučelja. Na slici~\ref{fig:mesh-gui} se vidi izgled programa.
 
 Sučelje programa je jednostavno i jasno te se sastoji od četiri sekcije
 i dva prozora. Glavni prozor \texttt{Mesh Reconstruction Gui} prikazan
-je na slici~\ref{fig:mesh-gui}, prozor za prikazivanje mreže trokuta
-\texttt{Visualisation} prikazan je na 
+je na slici~\ref{fig:mesh-gui}, a prozor za prikazivanje mreže trokuta
+\texttt{Visualisation} prikazan je na slici~\ref{fig:gui-2.png}. \\
 
 \textbf{Prozor \texttt{Mesh Reconstruction Gui}} 
 \begin{itemize}
     \item \textbf{Info} sekcija sadrži kratak opis i dugmad:
         \begin{itemize}
             \item \texttt{Open} za odabir datoteke s oblakom točaka
-                \texttt{.pcd} odnosno datoteke s mrežom trokuta
-                \texttt{.vtk}.
+                (\texttt{.pcd}) odnosno datoteke s mrežom trokuta
+                (\texttt{.vtk}).
             \item \texttt{Run All} za pokretanje svih akcija nad
                 odabranim oblakom točaka.
         \end{itemize}
-    \item \textbf{Choose Action} sekcija sadrži dugmad:
+    \item \textbf{Choose action} sekcija sadrži dugmad:
         \begin{itemize}
             \item \texttt{Downsample} za reduciranje oblaka točaka.
             \item \texttt{Remove Outliers} za izbacivanje odudarajućih
@@ -555,17 +556,23 @@ je na slici~\ref{fig:mesh-gui}, prozor za prikazivanje mreže trokuta
                 trokuta.
             \item \texttt{Show Mesh} za prikaz izrađene mreže trokuta.
         \end{itemize}
-    \item \textbf{Poisson Parameters} sekcija prikazuje parametre za
+    \item \textbf{Poisson parameters} sekcija prikazuje parametre za
         Poisson algoritma za rekonstrukciju površine. Parametri i
         njihove vrijednosti su opisani u
         podpoglavlju~\ref{ssub:Parametri Poisson algoritma}
-    \item \textbf{Action Output} sekcija prikazuje ispis informacija
+    \item \textbf{Action output} sekcija prikazuje ispis informacija
         pojedinih akcija te ima dugme \texttt{Save Output} za spremanje
         tektsa.
 \end{itemize}
 \textbf{Prozor Visualisation} 
 \begin{itemize}
-    \item 
+    \item Vizualizira kreiranu mrežu trokuta. Sadrži dva dugma:
+        \begin{itemize}
+            \item \texttt{Surfce representation} prikazuje mrežu trokuta
+                pomoću površine.
+            \item \texttt{Wireframe representation} prikazuje mrežu
+                trokuta upotrebom trokutića.
+        \end{itemize}
 \end{itemize}
 
 \begin{figure}[h]
