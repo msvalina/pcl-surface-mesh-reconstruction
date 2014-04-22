@@ -515,3 +515,64 @@ void show_mesh (const pcl::PolygonMesh& mesh_of_triangles)
 % subsection Izgradnja 3D modela scene pomoću mreže trokuta (end)
 
 % section Izgradnja 3D modela scene (end)
+
+\subsubsection{Grafičko sučelje programa} % (fold)
+\label{ssub:Grafičko sučelje programa}
+
+Osim komandno linijske verzije programa izrađena je i verzija s
+grafičkim sučeljem. Grafičko sučelje je napravljeno upotrebom Qt okvira.
+Qt je C++ više platforski okvir za razvijanje aplikacija i korisničkih
+sučelja. Na slici~\ref{fig:mesh-gui} se vidi izgled programa.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/mesh-reconstruction-gui.png}
+\caption{Prikaz glavnog prozora programa \texttt{mesh-reconstruction} }
+\label{fig:mesh-gui}
+\end{figure}
+
+Sučelje programa je jednostavno i jasno te se sastoji od četiri sekcije
+i dva prozora. Glavni prozor \texttt{Mesh Reconstruction Gui} prikazan
+je na slici~\ref{fig:mesh-gui}, prozor za prikazivanje mreže trokuta
+\texttt{Visualisation} prikazan je na 
+
+\textbf{Prozor \texttt{Mesh Reconstruction Gui}} 
+\begin{itemize}
+    \item \textbf{Info} sekcija sadrži kratak opis i dugmad:
+        \begin{itemize}
+            \item \texttt{Open} za odabir datoteke s oblakom točaka
+                \texttt{.pcd} odnosno datoteke s mrežom trokuta
+                \texttt{.vtk}.
+            \item \texttt{Run All} za pokretanje svih akcija nad
+                odabranim oblakom točaka.
+        \end{itemize}
+    \item \textbf{Choose Action} sekcija sadrži dugmad:
+        \begin{itemize}
+            \item \texttt{Downsample} za reduciranje oblaka točaka.
+            \item \texttt{Remove Outliers} za izbacivanje odudarajućih
+                vrijednosti.
+            \item \texttt{Mesh Reconstruction} za izgradnju mreže
+                trokuta.
+            \item \texttt{Show Mesh} za prikaz izrađene mreže trokuta.
+        \end{itemize}
+    \item \textbf{Poisson Parameters} sekcija prikazuje parametre za
+        Poisson algoritma za rekonstrukciju površine. Parametri i
+        njihove vrijednosti su opisani u
+        podpoglavlju~\ref{ssub:Parametri Poisson algoritma}
+    \item \textbf{Action Output} sekcija prikazuje ispis informacija
+        pojedinih akcija te ima dugme \texttt{Save Output} za spremanje
+        tektsa.
+\end{itemize}
+\textbf{Prozor Visualisation} 
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{figures/gui-2.png}
+\caption{Prikaz prozora za vizualizaciju mreže trokuta}
+\label{fig:gui-2.png}
+\end{figure}
+
+% subsubsection Grafičko sučelje programa (end)
