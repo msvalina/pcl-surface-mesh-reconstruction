@@ -16,8 +16,8 @@ vidi otkrila je da tehnologija korištena za dohvaćanje dubine može biti
 upotrebljena za puno više od igranja za puno manje cijenu nego
 tradicionalne 3D kamere kao što su stereo i Time-of-flight kamere.
 
-Dodatno, komplementarna priroda informacije o dubine na slici koju pruža
-Kinect olakšava nova potencijalna rješenja klasičnih problema računalnog
+Dodatno, komplementarna priroda informacije o dubini na slici koju pruža
+Kinect, olakšava nova potencijalna rješenja klasičnih problema računalnog
 vida. U samo dvije godine nakon puštanja u prodaju Kinecta, velik broj
 znanstvenih članaka i demonstracija se pojavio na raznim konferencijama.
 
@@ -44,6 +44,7 @@ jedinstven, spajanje promatranih lokalnih uzoraka točaka sa slike
 s kalibriranim projektorovim uzorkom točaka je ostvarivo. Više o
 principu strukturirane svjetlosti u~\cite{structured:light}.\\
 
+\newpage
 Tehničke informacije o kameri:
 \begin{itemize}
     \item \textbf{RGB kamera} daje sliku rezolucije \(640\times480\)
@@ -91,6 +92,7 @@ koristi i niz drugih paketa iz ROS biblioteke~\cite{web:rgbdslam}
 
 % subsection ROS biblioteka i alati (end)
 
+\newpage
 \subsection{Biblioteka Pointcloud} % (fold)
 \label{sub:Biblioteka Pointcloud}
 
@@ -99,7 +101,7 @@ slika~\ref{fig:pcl.png}) je otvoren projekt za procesiranje 2D/3D slika
 i oblaka točaka. PCL biblioteka sadržava niz najsuvremenijih algoritama
 za filtriranje, estimaciju značajki, rekonstrukciju površina,
 registraciju, uklapanje modela i segmentaciju.  Ti algoritmi se mogu
-koristiti npr. za izbacivanje odudarajućih vrijednosti iz šumovith
+koristiti za: izbacivanje odudarajućih vrijednosti iz šumovith
 podataka, spajanje 3D oblaka točaka, segementiranje relevantnih dijelova
 scene, izvlačenje ključnih točaka i računanje deskriptora za
 prepoznavanje objekata na temelju njihove geometrije, kreiranje i
@@ -120,7 +122,9 @@ platformama. Zbog olakšanog razvijanja podijeljen je na više manjh
 biblioteka koje se mogu prevoditi zasebno. PCL se može prikazati kao
 graf biblioteka kao što je prikazano na slici~\ref{fig:pcl-graph.png}
 
+\setcounter{figure}{0}
 \begin{figure}[h]
+\renewcommand{\figurename}{Grafikon}
 \centering
 \includegraphics[scale=0.40]{figures/pcl-graph.png}
 \caption{Graf PCL biblioteka}
@@ -184,6 +188,7 @@ pozicije robota u EKFu. Orijentiri koji prije nisu zapaženi se dodaju u
 kartu kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
 računa estimaciju robotove trenutne pozicije. 
 
+\newpage
 \subsubsection{Proširen Kalmanov filter - EKF} % (fold)
 \label{ssub:Proširen Kalmanov filter - EKF}
 
@@ -206,7 +211,7 @@ greške pri mjerenju i šum mjerenja), izračunata estimacija se korigira
 upotrebom težinske sredine gdje se više težine daje estimaciji s većom
 vjerojatnošću.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \renewcommand{\figurename}{Grafikon}
 \includegraphics[scale=0.35]{figures/basic-kalman.pdf}
@@ -366,7 +371,7 @@ Postoji nekoliko parametara koji utječu na rezultat rekonstrukcije.
         rekonstrukciju i promjera kocke koja omeđuje uzorke. Pretpostavljena
         vrijednost 1.25.
     \item \texttt{Confidence:} postavljanje zastavice govori
-        rekonstruktorciji da koristi veličinu normala kao informaciju o
+        rekonstrukciji da koristi veličinu normala kao informaciju o
         pouzdanosti. Ako nije postavljena sve normale se normaliziraju
         prije rekonstrukcije.
 \end{itemize}

@@ -134,7 +134,7 @@ skripta\footnotemark[1] koja umjesto korisnika šalje signal Enter
 programu nakon proizvoljnog broja sekudni. Tijekom snimanja trebalo je
 obratiti pozornost na značajke scene koja se snima kako bih program
 mogao spariti značajke s prethodnom scenom. Tijekom izrade diplomskog
-rada snimljeno je osam scena odnosno prostorija koje su obrađene u
+rada snimljeno je šest scena odnosno prostorija koje su obrađene u
 poglavlju~\ref{sec:Rezultati} Snimljene scene su spremane u
 \texttt{.pcd} formatu i kao takve korištene za daljnju obradu u
 diplomskom radu.
@@ -218,15 +218,16 @@ Kao što se vidi iz ispisa koda~\ref{lstMain} ideja je da funkcija bude
 
 \subsubsection{Učitavanje oblaka točaka} % (fold)
 \label{ssub:Učitavanje oblaka točaka}
-Program se sastoji od funkcija downsample, remove\_outliers,
-reconstruct\_mesh i show\_mesh. Na početku svake funkcije program
-učitava oblak točaka, obrađuje ga i zapisuje na izlazu iz funkcije kako
-bi prije i poslije svake operacije bio dostupan. Za to koristi
-\texttt{PCDReader} i \texttt{PCDWriter} klase. Predložak takvog koda se
-nalazi u ispisu koda~\ref{lstUcitavanjeOblaka} Nakon učitavanja oblaka
-točaka \texttt{reader} objektom, nad njim se vrše operacije npr.
-reduciranje oblaka točaka. Nakon toga kreiranjem i korištenjem
-\texttt{writer} objekta promjenji oblak se zapisuje u datoteku.
+Program se sastoji od funkcija \texttt{downsample},
+\texttt{remove\_outliers}, \texttt{reconstruct\_mesh} i
+\texttt{show\_mesh}. Na početku svake funkcije program učitava oblak
+točaka, obrađuje ga i zapisuje na izlazu iz funkcije kako bi prije i
+poslije svake operacije bio dostupan. Za to koristi \texttt{PCDReader} i
+\texttt{PCDWriter} klase. Predložak takvog koda se nalazi u ispisu
+koda~\ref{lstUcitavanjeOblaka} Nakon učitavanja oblaka točaka
+\texttt{reader} objektom, nad njim se vrše operacije npr.  reduciranje
+oblaka točaka. Nakon toga kreiranjem i korištenjem \texttt{writer}
+objekta promjenji oblak se zapisuje u datoteku.
 
 \begin{lstlisting}[label=lstUcitavanjeOblaka, caption={Predložak izvornog
 koda za učitavanje oblaka točaka}]
@@ -440,7 +441,7 @@ PoissonRecon/Version5.5/}}
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.5]{figures/tablescene-normals.png}
+\includegraphics[scale=0.4]{figures/tablescene-normals.png}
 \caption{Prikaz oblaka točaka \texttt{tablescene} s estimiranim
 normalama }
 \label{fig:tablescene-normals}
@@ -481,9 +482,9 @@ interaktivnost s mrežom. Klikom na tipku \texttt{q} izlazi se iz petlje
 i program završava. Slika~\ref{fig:tablesecne-mesh-perspectives}
 prikazuje izgled mreže iz četiri pogleda.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.25]{figures/tablescene-mesh-perspectives.png}
+\includegraphics[scale=0.24]{figures/tablescene-mesh-perspectives.png}
 \caption{Prikaz mreže trokuta funkcijom \texttt{show\_mesh()} }
 \label{fig:tablesecne-mesh-perspectives}
 \end{figure}
