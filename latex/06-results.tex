@@ -43,13 +43,54 @@ izgradnje modela.
 \subsection{Prikaz izgrađenih modela scena i objekata} % (fold)
 \label{sub:Prikaz izgradenih modela scena i objekata}
 
-\textbf{Snimka: Etfos ured 2013-07-30} 
+Za prikazivanje izrađenih modela scena i oblaka točaka upotrebljen je
+komandnolinijski program \texttt{pcl\_viewer} koji ima opciju usporednog
+prikazivanja više izgrađenih modela i oblaka točaka iz istog kuta
+gledanja. Također program ima mogućnost predočavanja izgrađenih modela
+površinom (svi modeli na slici~\ref{fig:etfos-ured}) kao i mrežom
+trokuta.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.25]{figures/02-etfos-ured-vtk-pcd-all.png}
-\caption{Prikaz izrađenog modela i snimljenog oblaka točaka}
-\label{fig:02-etfos-ured-vtk-pcd.png}
+\caption{Prikaz izrađenog modela (lijevo) i snimljenog oblaka točaka
+(desno) \texttt{etfos-ured-2013-07-30}}
+\label{fig:etfos-ured}
+\end{figure}
+
+Slika~\ref{fig:etfos-ured} prikazuje izgrađeni model i snimljeni oblak
+točaka iz tri različita kuta. Oblak točaka u okolini stola ima veliku
+količinu rupa odnosno regija bez točaka. Ta mjesta u izgrađenom modelu
+su popunjena ali zbog nedostatka informacije ne prikazuju stvarno
+stanje. Predmeti poput zida, ormara, stola i stolice u prostoriji koji
+su adekvatno predočeni u oblaku točaka su isto tako prepoznatljivi u
+izgrađenom modelu scene.
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/03-etfos-hol-vtk-pcd-all.png}
+\caption{Prikaz izrađenog modela (lijevo) i snimljenog obalka točaka
+(desno) \texttt{etfos-hol-2013-11-20}}
+\label{fig:etfos-hol}
+\end{figure}
+
+Stjecanje oblaka točaka na sceni sa slike~\ref{fig:etfos-hol} obilježeno
+je neuspješnim zatvaranjem petlje koje je rezultiralo krivim
+preklapanjem istih snimki (označeno plavim pravokutnikom). Razlog tome
+neuspješno je povezivanje zapaženih orijentira jer je scena "monotona",
+s malom količinom detalja, s jednoličnim stepeništem na visinskoj
+razlici i fraktalnim uzorkom pločica. Takav oblak točaka iskorišten je
+za izgradnju modela što se jasno vidi po odstupanju nivoa poda.
+Preostali dio scene uspješno je snimljen i izgrađen.
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/04-etfos-hodnik1-vtk-pcd-all.png}
+\caption{Prikaz izrađenog modela (lijevo) i snimljenog oblaka točaka
+(desno) \texttt{etfos-hodnik-11-27}} 
+\label{fig:04-etfos-hodnik-vtk-pcd-all.png}
 \end{figure}
 
 % subsection Prikaz izgrađenih modela scena i objekata (end)
