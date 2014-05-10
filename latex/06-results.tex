@@ -4,13 +4,13 @@
 \section{Rezultati} % (fold)
 \label{sec:Rezultati}
 
-Tijekom izrade diplomskog rada snimljeno je šest scena upotrebom
-programa RGBDSlam i iz tih snimaka (slika~\ref{fig:01-all.png}) 
-izgrađeni su 3D modeli objekata i scena pomoću programa
-\texttt{mesh-reconstruction}. Sve snimke i izrađeni modeli nalaze se na
-priloženom DVDu. U ovom poglavlju su prikazani rezultati izgradnje i
-ispitana je funkcionalnost izgradnje 3D modela scena pomoću 3D kamere.
-Za ispitivanje funkcionalnosti metode odabrane su tri scene:
+Tijekom izrade diplomskog rada snimljeno je šest scena RGBDSlam
+programom i iz tih snimaka (slika~\ref{fig:01-all.png}) izgrađeni su 3D
+modeli objekata i scena upotrebom \texttt{mesh-reconstruction} programa.
+Sve snimke i izrađeni modeli nalaze se na priloženom DVDu. U ovom
+poglavlju su prikazani rezultati izgradnje i ispitana je funkcionalnost
+izgradnje 3D modela scena pomoću 3D kamere.  Za ispitivanje
+funkcionalnosti metode odabrane su tri scene:
 \texttt{etfos-ured-2013-07-30}, \texttt{etfos-hol-2013-11-20},
 \texttt{etfos-hodnik-11-27}. Prije prikaza rezultata potrebno je
 istaknuti nekoliko problema odnosno ograničenja ove metode.
@@ -89,9 +89,20 @@ Preostali dio scene uspješno je snimljen i izgrađen.
 \centering
 \includegraphics[scale=0.25]{figures/04-etfos-hodnik1-vtk-pcd-all.png}
 \caption{Prikaz izrađenog modela (lijevo) i snimljenog oblaka točaka
-(desno) \texttt{etfos-hodnik-11-27}} 
-\label{fig:04-etfos-hodnik-vtk-pcd-all.png}
+(desno) \texttt{etfos-hodnik-2013-11-27}} 
+\label{fig:etfos-hodnik}
 \end{figure}
+
+Snimanje scene \texttt{etfos-hodnik-2013-11-27} uspješno je izvršeno i
+program je izradio oblak točaka. Kao što je i očekivano staklene
+površine nisu prikazane jer nereflektiraju IR zrake. Izrađeni model sa
+slike~\ref{fig:etfos-hodnik} dobro prikazuje ograničenja Poisson
+algoritma. Prvi primjer ograničenja je izrađivanje mreže trokuta po
+stropu hodnika. Iako očekivano takav rezultat je nepoželjan. Moguće
+poboljšanje algoritma bi bilo da ne izrađuje mrežu troukuta na velikim
+rupama. Drugi primjer ograničenja izrađivanje je mreže trokuta po
+prozorima i drugim manjim rupama bez točka. Takvo zatvaranje površina je
+poželjno i na ovoj sceni uspješno odrađeno.
 
 % subsection Prikaz izgrađenih modela scena i objekata (end)
 
