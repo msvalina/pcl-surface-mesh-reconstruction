@@ -4,11 +4,12 @@
 \section{Rezultati} % (fold)
 \label{sec:Rezultati}
 
-U ovom poglavlju su prikazani rezultati izgradnje i ispitana je
-funkcionalnost izgradnje 3D modela scena pomoću 3D kamere.  Tijekom
-izrade diplomskog rada snimljeno je šest scena RGBDSlam programom i iz
-tih snimaka (slika~\ref{fig:01-all.png}) izgrađeni su 3D modeli objekata
-i scena upotrebom \texttt{mesh-reconstruction} programa.  Sve snimke i
+U ovom poglavlju prikazani su rezultati izgradnje, ispitana je
+funkcionalnost izgradnje 3D modela scena pomoću 3D kamere te su dani
+podaci o snimljenim scenama i korištenim parametrima. Tijekom izrade
+diplomskog rada snimljeno je šest scena RGBDSlam programom i iz tih
+snimaka (slika~\ref{fig:01-all.png}) izgrađeni su 3D modeli objekata i
+scena upotrebom \texttt{mesh-reconstruction} programa.  Sve snimke i
 izrađeni modeli nalaze se na priloženom DVDu.  Za ispitivanje
 funkcionalnosti metode odabrane su tri scene:
 \texttt{etfos-ured-2013-07-30}, \texttt{etfos-hol-2013-11-20},
@@ -37,7 +38,7 @@ izgradnje modela.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.20]{figures/01-all-pcd.png}
+\includegraphics[scale=0.19]{figures/01-all-pcd.png}
 \caption{Prikaz svih snimljenih scena}
 \label{fig:01-all.png}
 \end{figure}
@@ -110,6 +111,48 @@ bez točka. Takvo zatvaranje površina je poželjno i na ovoj sceni
 uspješno odrađeno.
 
 % subsection Prikaz izgrađenih modela scena i objekata (end)
+
+\newpage
+\subsection{Korišteni parametri i podaci o izrađenim modelima} % (fold)
+\label{sub:Koristeni parametri i podaci o izradenim modelima}
+
+
+\begin{table}[h]
+\caption{Prikaz osnovnih podataka o snimljenim scenama i izgrađenim modelima}
+\label{tab:1}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccc}
+\hline
+                                                                                                                            & etfos-ured-2013-07-30     & etfos-hol-2013-11-10      & etfos-hodnik-2013-11-27   \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Veličina datoteke \\ {[}MByte{]}\end{tabular}}                              & \multicolumn{1}{c|}{373}  & \multicolumn{1}{c|}{211}  & \multicolumn{1}{c|}{175}  \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Broj točaka\\ snimljenog oblaka {[}*10\textsuperscript{3}{]}\end{tabular}}                  & \multicolumn{1}{c|}{9042} & \multicolumn{1}{c|}{5197} & \multicolumn{1}{c|}{4253} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Broj točaka poslije\\ downsample() {[}*10\textsuperscript{3}{]}\end{tabular}}               & \multicolumn{1}{c|}{1709} & \multicolumn{1}{c|}{3336} & \multicolumn{1}{c|}{1027} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Broj točaka poslije\\  remove\_outliers() {[}*10\textsuperscript{3}{]}\end{tabular}}        & \multicolumn{1}{c|}{1506} & \multicolumn{1}{c|}{2963} & \multicolumn{1}{c|}{938}  \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Veličina datoteke poslije \\ remove\_outliers() {[}MByte{]}\end{tabular}} & \multicolumn{1}{c|}{67}   & \multicolumn{1}{c|}{132}  & \multicolumn{1}{c|}{42}   \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Broj trokuta \\ u mreži {[}*10\textsuperscript{3}{]}\end{tabular}}                    & \multicolumn{1}{c|}{167}  & \multicolumn{1}{c|}{79}   & \multicolumn{1}{c|}{25}   \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Veličina datoteke \\ mreže trokuta {[}MByte{]}\end{tabular}} & \multicolumn{1}{c|}{11.9}   & \multicolumn{1}{c|}{5.31}  & \multicolumn{1}{c|}{1.65}   \\ \hline
+\end{tabular}
+}
+\end{table}
+
+Kao što se vidi iz tablice~\ref{tab:1} snimke su reda veličine stotinu
+megabajta, a njihov broj točaka reda je veličine nekoliko milijona iz
+tog razloga korištene su funkcije \texttt{downsample} i
+\texttt{remove\_outliers} prije izgradnje mreže trokuta. Te funkcije
+znatno utječu na veličinu oblaka točaka upotrebljenog za izgradnju mreže
+trokuta. Iz tablice se isto vidi da koeficijent smanjivanja veličine
+datoteka prije i poslije funkcija nije konzistentan između snimki. To je
+očekivano zbog načina na koji funkcije reduciraju oblak točaka i
+uklanjaju odudarajuće vrijednosti odnosno snimke su imale različitu
+količinu redundantnih točaka. Količina redudantnih točaka ovisi o načinu
+snimanja i o broju snimki od kojih je oblak točaka sastavljen.  Tablica
+još prikazuje broj trokuta u mreži i veličinu datoteke mreže trokuta.
+Veličina datoteke je znatno manja jer izrađena mreža ne sadržava
+informacije o boji već samo koordinate točaka trokuta koje čine mrežu
+trokuta.
+
+
+% subsection Korišteni parametri i podaci o izrađenim modelima (end)
 
 % section Rezultati (end)
 
