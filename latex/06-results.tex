@@ -116,6 +116,23 @@ uspješno odrađeno.
 \subsection{Korišteni parametri i podaci o izrađenim modelima} % (fold)
 \label{sub:Koristeni parametri i podaci o izradenim modelima}
 
+Izgradnja mreže trokuta snimljenih scena izvedena je upotrebom
+pretpostavljenih vrijednosti Poisson algoritma kao što se vidi iz 
+ispisa~\ref{psnParams} Pretpostavljene vrijednosti daju optimalne
+rezultate u pogledu detalja, glatkoće i brzine izrade mreže trokuta. 
+
+\begin{lstlisting}[label=psnParams,caption={Ispis korištenih paramatera
+iz aplikacije \texttt{mesh-reconstruction} }]
+Writing reconstructed mesh and cloud with normals
+Finshed - reconstruct_mesh() with Poisson
+Using these parameters: 
+Depth: 8
+Solver Divde: 8
+Iso Divide: 8
+Samples per Node: 1
+Scale: 1.1
+Confidence: 0
+\end{lstlisting}
 
 \begin{table}[h]
 \caption{Prikaz osnovnih podataka o snimljenim scenama i izgrađenim modelima}
