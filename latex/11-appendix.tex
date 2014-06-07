@@ -1,4 +1,5 @@
 \newpage
+\thispagestyle{empty}
 
 \section*{Prilozi} % (fold)
 \addcontentsline{toc}{section}{Prilozi}
@@ -6,6 +7,45 @@
 
 \subsection*{Prevođenje i instalacija RGBDSlam programa} % (fold)
 \label{sub:RGBDSlam prilog}
+
+Prevođenje i instalacije programa rađena je na Ubuntu 12.04 GNU/Linux
+distribuciji pomoću skripte prikazane u ispisu~\ref{skripta} Upute za
+ostale distribucije se nalaze na \url{http://wiki.ros.org/rgbdslam}.
+Skripta automatizira dodavanje ROS repozitorija i poziva instalaciju
+svih potrebinh paketa. Zatim postvlja ROS varijable okruženja potrebne za
+pokretanje RGBDSlam programa. Tada se klonira izvorni kod programa i
+pozivaju naredbe za instaliranje i prevođenje programa.
+
+\begin{lstlisting}[language=bash,label=skripta, keywords={sudo, wget, 
+    echo, apt-get, rosdep, roscd, rosmake}, caption={Ispis shell skripte 
+    za instalaciju rgbdslam programa}]
+# Better pick a mirror close to you. 
+# See http://ros.org/wiki/ROS/Installation/UbuntuMirrors
+sudo sh -c '. /etc/lsb-release && echo "deb http://packages.ros.org/ros/ubuntu $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list' 
+
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+
+sudo aptitude update
+
+# This will draw gigabytes from the network:
+sudo apt-get install ros-fuerte-perception-pcl ros-fuerte-vision-opencv ros-fuerte-octomap-mapping python-rosdep 
+sudo apt-get install ros-fuerte-openni-launch
+
+echo 'source /opt/ros/fuerte/setup.bash' >> ~/.bashrc
+echo 'export ROS_PACKAGE_PATH=~/ros:$ROS_PACKAGE_PATH' >> ~/.bashrc
+. ~/.bashrc
+
+svn co http://alufr-ros-pkg.googlecode.com/svn/trunk/rgbdslam_freiburg ~/ros/rgbdslam_freiburg
+
+sudo rosdep init
+rosdep update
+rosdep install rgbdslam_freiburg
+roscd rgbdslam
+
+# This will take a while:
+rosmake rgbdslam_freiburg
+\end{lstlisting}
+
 
 % subsection RGBDSlam prilog (end)
 
