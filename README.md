@@ -8,10 +8,9 @@ pointcloud obtained with Microsoft Kineckt camera and [RGBDSlam][3]
 program. [RGBDSlam][4] is installed as part of ROS [Robot operating
 system][5]
 
-This is a draft version of thesis and working version of program.
+This is a last version of thesis and working version of program.
 
-*Last* *draft* version of thesis after 135 days and 133 commits can be
-[downloaded here][6]
+*Last* version of thesis after can be [downloaded here][6]
 
 ### Graphical project description 
 ![alt text][project-description]
