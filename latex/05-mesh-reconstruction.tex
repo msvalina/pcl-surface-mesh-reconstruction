@@ -69,25 +69,25 @@ biblioteku u kojoj su implementirani SURF~\cite{Bay06surf:speeded},
 SIFT~\cite{Lowe04distinctiveimage} i ORB~\cite{1302} algoritmi za
 pronalazak značajki. Zatim se te značajke sparuju sa značajkama iz
 prethodnih slika. Drugi dio ispituje dubinu slika na lokacijama
-izračunatih značajki. Usporedbom lokalnih deskriptora dobiveno je znanje
-o mogućim 3D korespondencijama točaka između bilo koje dvije sličice.
-Zatim je na temelju tih korespondencija estimirana relativna
+izračunatih značajki. Usporedbom lokalnih deskriptora dobiva se
+informacija o mogućim 3D korespondencijama točaka između bilo koje dvije
+sličice.  Zatim je na temelju tih korespondencija estimirana relativna
 transformacija između sličica upotrebom RANSACa. RANSAC Random Sample
 Consensus~\cite{AICPub836:1981} je iterativna metoda estimiranja
 parametara matematičkog modela iz promatranih mjerenja koja sadržavaju
 šum i odudarajuće vrijednosti. RANSAC postupkom se uklanjaju netočne
 korespodencije ostvarne na temelju lokalnih deskriptora. Kako parovi
-estimiranih poza između sličica nisu globalno konzistentni treći dio
+estimiranih položaja između sličica nisu globalno konzistentni treći dio
 programa optimizira graf položaja upotrebom g\textsuperscript{2}o
 algoritma. {g\textsuperscript{2}o} General Framework for Graph
 Optimization~\cite{kuemmerle11icra} je okvir otvorenog koda za
-optimiziranje nelinearnih funkcija pogreške zasnovanih na grafu. 
+optimiziranje nelinearnih funkcija pogreške zasnovanih na grafu.
 Algoritam u ovoj fazi daje globalno konzistentni 3D model promatrane
 okoline predstavljen oblakom točaka u boji. Takav oblak točaka je
-upotrebljen u diplomskom radu za stvaranje mreže trokuta.
-RGBDSlam je dizajniran da osim oblaka točaka generira i volumetrijski
-prikaz okoline upotrebljavajući {OctoMap}~\cite{hornung13auro}
-biblioteku ali takav prikaz nije korišten za potrebe ovog rada.
+upotrebljen u diplomskom radu za stvaranje mreže trokuta.  RGBDSlam je
+dizajniran da osim oblaka točaka generira i volumetrijski prikaz okoline
+upotrebljavajući {OctoMap}~\cite{hornung13auro} biblioteku ali takav
+prikaz nije korišten za potrebe ovog rada.
 
 % subsubsection Sažet opis rada RGBDSlam programa (end)
 
@@ -254,7 +254,7 @@ koda za učitavanje oblaka točaka}]
 \newpage
 \subsubsection{Reduciranje oblaka točaka} % (fold)
 \label{ssub:Reduciranje oblaka točaka}
-Reduciranje obalaka ne unosi bitne gubitake informacija, a izvodi se
+Reduciranje obalaka točaka ne unosi bitne gubitake informacije, a izvodi se
 zbog lakše daljnje obrade oblaka. Izvodi se pomoću \texttt{VoxelGrid}
 klase i implementirano je u \texttt{downsample()} funkciji. Dijelovi
 funkcije prikazani su u ispisu koda~\ref{lstReduciranje}
@@ -556,7 +556,7 @@ je na slici~\ref{fig:mesh-gui}, a prozor za prikazivanje mreže trokuta
                 trokuta.
             \item \texttt{Show Mesh} za prikaz izrađene mreže trokuta.
         \end{itemize}
-    \item \textbf{Poisson parameters} sekcija prikazuje parametre za
+    \item \textbf{Poisson parameters} sekcija prikazuje parametre 
         Poisson algoritma za rekonstrukciju površine. Parametri i
         njihove vrijednosti su opisani u
         podpoglavlju~\ref{ssub:Parametri Poisson algoritma}

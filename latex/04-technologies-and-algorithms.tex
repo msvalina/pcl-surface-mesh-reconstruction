@@ -10,16 +10,16 @@
 Kinect je RGB-D senzor koji daje sliku u boji sinkroniziranu s dubinskom
 slikom. Inicijalno je korišten kao ulazni uređaj za Microsoft Xbox
 igračku konzolu. Algoritmima za prepoznavanje ljudskih pokreta omogućava
-interakciju između igre i igrača bez potrebe za korištenjem kontrolera.
-Nakon pojave senzora zajednica znanstvenika koji proučavaju računalni
-vidi otkrila je da tehnologija korištena za dohvaćanje dubine može biti
-upotrebljena za puno više od igranja za puno manje cijenu nego
+interakciju između igre i igrača bez potrebe za korištenjem upravljačkog
+uređaja.  Nakon pojave senzora zajednica znanstvenika koji proučavaju
+računalni vid otkrila je da tehnologija korištena za dohvaćanje dubine
+može biti upotrebljena za puno više od igranja za puno nižu cijenu od
 tradicionalne 3D kamere kao što su stereo i Time-of-flight kamere.
 
 Dodatno, komplementarna priroda informacije o dubini na slici koju pruža
 Kinect, olakšava nova potencijalna rješenja klasičnih problema računalnog
 vida. U samo dvije godine nakon puštanja u prodaju Kinecta, velik broj
-znanstvenih članaka i demonstracija se pojavio na raznim konferencijama.
+znanstvenih članaka i demonstracija pojavio se na raznim konferencijama.
 
 \begin{figure}[h]
 \centering
@@ -31,18 +31,18 @@ znanstvenih članaka i demonstracija se pojavio na raznim konferencijama.
 \subsubsection{Tehničke specifikacije} % (fold)
 \label{ssub:Tehničke specifikacije}
 
-Slika~\ref{fig:kinect.png} prikazuje raspored Kinect senzora. Kinect se
-sastoji od infracrevnog (IR) projektora, IR kamere i RGB kamere.
-Dubinski senzor se sastoji od IR projektora i IR kamere. IR projektor
-projicira IR uzorak točkastih mrlja na 3D scenu dok IR kamera hvata
-reflektirane IR mrlje. Kinect radi na principu strukturirane svjetlosti.
-Geometrijska veza između IR projektora i IR kamere se ostvaruje offline
-kalibracijskom procedurom. IR projektor projicira poznat uzorak
-svjetlosnih mrlja na scenu. IR svjetlost je nevidljiva RGB kameri ali
-je vidljiva IR kameri. Kako je svaki lokalni uzorak projiciranih točaka
-jedinstven, spajanje promatranih lokalnih uzoraka točaka sa slike
-s kalibriranim projektorovim uzorkom točaka je ostvarivo. Više o
-principu strukturirane svjetlosti u~\cite{structured:light}.\\
+Slika~\ref{fig:kinect.png} prikazuje osnovne komponente Kinect senzora.
+Kinect se sastoji od infracrevnog (IR) projektora, IR kamere i RGB
+kamere. Dubinski senzor se sastoji od IR projektora i IR kamere. Kinect
+radi na principu strukturirane svjetlosti. IR projektor projicira IR
+uzorak točkastih mrlja na 3D scenu dok IR kamera hvata reflektirane IR
+mrlje. Geometrijska veza između IR projektora i IR kamere se ostvaruje
+offline kalibracijskom procedurom. IR projektor projicira poznati uzorak
+svjetlosnih mrlja na scenu. IR svjetlost je nevidljiva RGB kameri ali je
+vidljiva IR kameri. Kako je svaki lokalni uzorak projiciranih točaka
+jedinstven, spajanje promatranih lokalnih uzoraka točaka sa slike s
+kalibriranim projektorovim uzorkom točaka je ostvarivo. Više o principu
+strukturirane svjetlosti u~\cite{structured:light}.\\
 
 \newpage
 Tehničke informacije o kameri:
@@ -58,8 +58,8 @@ Tehničke informacije o kameri:
         0.8m - 3.5m. Kamera daje video od 30 sličica po sekundi s
         rezolucijom \(640 \times 480\) piksela. Vidno polje senzora je
         \(57\,^{\circ}\) horizontalno i \(43\,^{\circ}\) vertikalno.
-    \item \textbf{Motorni nagib} upravlja nagibom Kinecta. Nagib može
-        biti pomaknuti \(27\,^{\circ}\) gore ili dolje.
+    \item \textbf{Motor} upravlja nagibom Kinecta. Kinect može biti
+        nagnut \(27\,^{\circ}\) prema gore ili prema dolje.
 \end{itemize}
 
 % subsubsection Tehničke specifikacije (end)
@@ -72,23 +72,24 @@ Tehničke informacije o kameri:
 
 ROS~\cite{ros} (engl. \textit{Robot Operating System}) je set programskih
 biblioteka i alata koji pomažu programerima kreirati aplikacije za
-robote. Pruža hardversku abstrakciju, upravljačke programe, biblioteke,
+robote. Pruža hardversku apstrakciju, upravljačke programe, biblioteke,
 vizualizaciju, komunikaciju, upravljanje paketima i dr. ROS je
 licenciran BSD licencom, koja spada pod licence otvorenog koda.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{figures/ros.png}
-\caption{Shematski prikaz ROSa}
+\caption[]{Shematski prikaz ROSa, izvor:~\cite{web:ros}}
 \label{fig:ros.png}
 \end{figure}
 
 U ovom radu ROS se dotiče kroz program RGBDSlam koji je opisan u
-potpoglavlju~\ref{sub:Snimanje scene 3D kamerom i RGBDSlam programom} te se oslanja na
-njegove biblioteke, upravljačke programe i alate. Tako RGBDSlam koristi
-OpenNI upravljački program za komunikaciju s Kinect kamerom u obliku ros
-programskog paketa (\texttt{ros-fuerte-openni-launch}). Također, RGBDSlam
-koristi i niz drugih paketa iz ROS biblioteke~\cite{web:rgbdslam}
+potpoglavlju~\ref{sub:Snimanje scene 3D kamerom i RGBDSlam programom} te
+se oslanja na njegove biblioteke, upravljačke programe i alate. Tako
+RGBDSlam koristi OpenNI upravljački program za komunikaciju s Kinect
+kamerom u obliku ros programskog paketa
+(\texttt{ros-fuerte-openni-launch}). Također, RGBDSlam koristi i niz
+drugih paketa iz ROS biblioteke~\cite{web:rgbdslam}.
 
 % subsection ROS biblioteka i alati (end)
 
@@ -110,14 +111,14 @@ prikazivanje površina iz oblaka točaka itd.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.15]{figures/pcl.png}
-\caption{PCL logo}
+\caption{PCL logo, izvor:~\cite{web:pcl}}
 \label{fig:pcl.png}
 \end{figure}
 
-PCL je objavljen pod BSD licencom i softver je otvorenog koda. Što znači
+PCL objavljen je pod BSD licencom i softver je otvorenog koda. Što znači
 da je slobodan za upotrebu u komercijalne i akademske svrhe.
 
-PCL se uspješno prevodi na GNU/Linux, MacOS, Windows i Android/iOS
+PCL uspješno se prevodi na GNU/Linux, MacOS, Windows i Android/iOS
 platformama. Zbog olakšanog razvijanja podijeljen je na više manjh
 biblioteka koje se mogu prevoditi zasebno. PCL se može prikazati kao
 graf biblioteka kao što je prikazano na slici~\ref{fig:pcl-graph.png}
@@ -127,7 +128,7 @@ graf biblioteka kao što je prikazano na slici~\ref{fig:pcl-graph.png}
 \renewcommand{\figurename}{Grafikon}
 \centering
 \includegraphics[scale=0.40]{figures/pcl-graph.png}
-\caption{Graf PCL biblioteka}
+\caption{Graf PCL biblioteka, izvor:~\cite{web:pcl}}
 \label{fig:pcl-graph.png}
 \end{figure}
 
@@ -143,29 +144,32 @@ su metode istovremene lokalizacije i mapiranja
 originalno razvili Hugh Durrant-Whyte i John J.
 Leonard~\cite{Durrant:91b} koji su rad bazirali na prethodnom radu
 Smitha, Selfa and Cheesemana~\cite{Smith86}. SLAM se bavi rješavanjem
-problema izgradnje mape nepoznate okoline mobilnog robota te istovremeno
-navigiranje robota okolinom koristeći tu mapu.
+problema izgradnje karte nepoznate okoline mobilnog robota te istovremene
+navigacije robota okolinom korištenjem te karte.
 
-SLAM se sastoji iz nekoliko koraka: izvlačenja orijentira, pridruživanja
+SLAM se sastoji iz nekoliko koraka: detekcije orijentira, pridruživanja
 podataka, estimiranja stanja, ažuriranja stanja i ažuriranja orijentira.
 Postoji više načina kako realizirati svaki od tih koraka. SLAM se može
-primjeniti na 2D i 3D kretanje.
+primjeniti na kreiranje 2D i 3D karti.
 
 \subsubsection{Osnovna ideja i kratak pregled koraka} % (fold)
-\label{ssub:Osnovna ideja }
+\label{ssub:Osnovna ideja } 
+
 Proces istovremene lokalizacije i mapiranja se sastoji iz nekoliko
-koraka. Cilj procesa je koristiti precepciju okolinu za ažuriranje pozicije robota.
-Zbog nesavršenosti odometrije robota nije dobro osloniti se samo na nju
-kako bi se pronašla pozicija robota već se može koristiti lasersko
-skeniranje okoline ili, kao u slučaju RGBDSlam programa, Kinect 3D kamera
-kako bi pronašli pravu poziciju robota/kamere. To se postiže
-detekcijom značajki u okolini i promatranjem tih značajki kada se
-robot pomakne. EKF (\textit{Extended Kalman Filter}) prošireni Kalmanov
-filter je jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije
-na kojoj robot ``misli'' da se nalazi koristeći izvučene značajke. Takve
-značajke se još nazivaju i orijentiri. EKF prati estimaciju nesigurnosti
-pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
-procesa~\footnotemark[1] se nalazi na grafikonu~\ref{fig:slam-overview.pdf}  
+koraka. Cilj procesa je koristiti precepciju okoline za ažuriranje
+pozicije robota.  Zbog nesavršenosti odometrije robota nije dobro
+osloniti se samo na nju kako bi se pronašla pozicija robota već se može
+koristiti lasersko skeniranje okoline ili, kao u slučaju RGBDSlam
+programa, Kinect 3D kamera kako bi pronašli pravu poziciju
+robota/kamere. To se postiže detekcijom značajki u okolini i
+promatranjem tih značajki kada se robot pomakne. EKF (\textit{Extended
+Kalman Filter}) prošireni Kalmanov filter je jezgra SLAM procesa. EKF je
+odgovoran za ažuriranje pozicije na kojoj robot ``misli'' da se nalazi
+koristeći detektirane značajke. Takve značajke se još nazivaju i
+orijentiri. EKF prati estimaciju nesigurnosti pozicije robota i
+nesigurnosti orijentira iz okoline. Pregled SLAM
+procesa~\footnotemark[1] se nalazi na
+grafikonu~\ref{fig:slam-overview.pdf}  
 
 \footnotetext[1]{%
 Grafikon je inspiriran sličnim grafikonom iz rada SLAM for
@@ -179,36 +183,37 @@ Dummies~\cite{web:slam} }
 \label{fig:slam-overview.pdf}
 \end{figure}
 
-Kad se odometrija promijeni zato što se robot pomakao, nesigurnost koja se
-tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
-odometrije. Orijentiri se tada detektiraju u okoline iz robotove nove
-pozicije. Robot tada pokušava asocirati detektirane orijentire s prije zapaženim
-orijentirima spremljenim u kratu. Ponovno zapaženi orijentiri se tada koriste za ažuriranje
-pozicije robota u EKFu. Orijentiri koji prije nisu zapaženi se dodaju u
-kartu kako bih se mogli koristiti kasnije. U svakom od opisanih koraka EKF
-računa estimaciju robotove trenutne pozicije. 
+Kad se odometrija promijeni zato što se robot pomakao, nesigurnost koja
+se tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
+odometrije. Orijentiri se tada detektiraju u okolini iz robotove nove
+pozicije. Robot tada pokušava asocirati detektirane orijentire s prije
+zapaženim orijentirima spremljenim u kratu. Ponovno zapaženi orijentiri
+se tada koriste za ažuriranje pozicije robota u EKFu. Orijentiri koji
+prije nisu zapaženi se dodaju u kartu kako bih se mogli koristiti
+kasnije. U svakom od opisanih koraka EKF računa estimaciju robotove
+trenutne pozicije. 
 
 \newpage
 \subsubsection{Proširen Kalmanov filter - EKF} % (fold)
 \label{ssub:Proširen Kalmanov filter - EKF}
 
 Kalmanov filter je algoritam koji koristi niz mjerenja pribavljenih
-tijekom vremena, koja sadržavaju šum i ostale netočnosti, te računa
-estimacije nepoznatih varijabli koje su, u slučaju zadovoljenja
-pretpostavki algoritma, preciznije od računa baziranom samo na jednom
-mjerenju. Konkretnije, Kalmanov filter se izvršava rekurzivno na nizu
-šumovith ulaznih podataka i računa statistički optimalnu estimaciju
-sustava stanja. Filter je nazvan po Rudolfu E. Kalmanu~\cite{Kalman}
-koji je jedan od primarnih razvijatelja teorije.
+tijekom vremena, koja sadržavaju šum i ostale netočnosti, te 
+estimira nepoznate varijabli koje su, u slučaju zadovoljenja
+pretpostavki algoritma, preciznije od računa temeljenog samo na jednom
+mjerenju. Ukratko, Kalmanov filter se izvršava rekurzivno na nizu
+šumovitih ulaznih podataka i računa statistički optimalnu estimaciju
+stanja sustava. Filter je nazvan po Rudolfu E. Kalmanu~\cite{Kalman}
+koji je jedan od prvih razvijatelja te teorije.
 
 
 Algoritam je podijeljen u dva koraka kao što se vidi na
-grafikonu~\ref{fig:basic-kalman}. U prvom predikcijskom koraku Kalmanov
+grafikonu~\ref{fig:basic-kalman} U prvom predikcijskom koraku Kalmanov
 filter računa estimaciju trenutnih varijabla stanja s njihovim
 nesigurnostima na temelju modela kretanja robota. U drugom korekcijskom
 koraku, kada je promotren rezultat sljedećeg mjerenja (koje isto ima
 greške pri mjerenju i šum mjerenja), izračunata estimacija se korigira
-upotrebom težinske sredine gdje se više težine daje estimaciji s većom
+upotrebom težinske sredine, gdje se više težine daje estimaciji s većom
 vjerojatnošću.
 
 \begin{figure}[H]
@@ -220,8 +225,8 @@ vjerojatnošću.
 \end{figure}
 
 \textbf{Prošireni Kalmanov filter} je nelinearna verzija Kalmanovog
-filtra gdje promjena stanja i promatrani model ne moraju biti linearne
-funkcije.
+filtra gdje promjena stanja i promatrani model ne moraju biti opisani
+linearnim funkcijama.
 
 % subsubsection Proširen Kalmanov filter - EKF (end)
 
@@ -231,6 +236,7 @@ funkcije.
 \newpage
 \subsection{Poisson algoritam za rekonstrukciju površine} % (fold)
 \label{sub:Poisson}
+
 Poisson algoritam za rekonstrukciju površine~\cite{Kazhdan:2006}
 razvijen je suradnjom Michaela Kazhdana i Matthewa Bolitha s Johns
 Hopkins sveučilišta u Baltimoru i Huguesa Hoppea iz Microsoft Researcha
@@ -385,7 +391,7 @@ točaka Marchin Cubes algoritma staviti u jedan čvor rezultantnog octree
 stabla. Ako algoritam radi s podacima punim šuma velik uzorak točaka (15
 - 20) po čvoru pruža glađenje ali se gube detalji. Dok rad s malim
 vrijednostima (1 - 5) održava razinu detalja visokom. Velike vrijednosti
-reduciraju kranji broj vrhova poligona, dok male održavaju broj vrhova
+reduciraju krajnji broj vrhova poligona, dok male održavaju broj vrhova
 visokim.
 
 % subsubsection Parametri Poisson algoritma (end)

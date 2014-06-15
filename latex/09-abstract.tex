@@ -16,43 +16,44 @@ program za izgradnju mreže trokuta iz snimljenog oblaka točaka te je
 ispitana kvalteta i funkcionalnost razvijene metode izgradnjom nekoliko
 3D modela objekata i scena.  Snimanje scena se izvršava upotrebom
 RGBDSlam programa i Microsoft Kinect kamere. RGBDSlam program kontrolira
-uzimanje slika s kamere i od njih sastavlja oblak točaka koji prikazuje
-3D scenu upotrebom tehnike istovremene lokalizacije i mapiranja - SLAM.
-Program je baziran na ROS programskom okviru i OpenCV biblioteci. Takav
-oblak točaka se koristi za izgradnju 3D mreže trokuta razvijenim
-programom mesh-reconstruction. mesh-reconstruction se oslanja na PCL
-biblioteku u kojoj je implementiran Poisson algoritam za izgradnju mreže
-trokuta. Program ima grafičko sučelje razvijeno pomoću Qt okvira koje
-omogućava reduciranje i uklanjanje odudarajućih vrijednosti iz
-snimljenog oblaka, podešavanje Poisson parametara te izgradnju i prikaz
-mreže trokuta.  \\
+uzimanje dubinskih slika s kamere i od njih sastavlja oblak točaka koji
+prikazuje 3D scenu primjenom tehnike istovremene lokalizacije i
+mapiranja - SLAM.  Program je baziran na ROS programskom okviru i OpenCV
+biblioteci.  Dobiveni oblak točaka se koristi za izgradnju 3D mreže
+trokuta razvijenim programom mesh-reconstruction. mesh-reconstruction se
+oslanja na PCL biblioteku u kojoj je implementiran Poisson algoritam za
+izgradnju mreže trokuta. Program ima grafičko sučelje razvijeno pomoću
+Qt okvira koje omogućava reduciranje i uklanjanje odudarajućih
+vrijednosti iz snimljenog oblaka, podešavanje Poisson parametara te
+izgradnju i prikaz mreže trokuta.  \\
 
-\noindent\textbf{Ključne riječi:} Kinect, RGBDSlam, ROS, OpenCV, SLAM, PCL,
-Poisson, Qt
+\noindent\textbf{Ključne riječi:} Kinect, oblak točaka, 3D modeliranje,
+RGBDSlam, ROS, OpenCV, SLAM, PCL, Poisson, Qt
 % section Sažetak (end)
 
 \section*{Abstract} % (fold)
 \label{sec:Abstract}
 \textbf{Title:} 3D model reconstruction with 3D camera \\
 
-3D model reconstruction with 3D camera is a process that uses a few
-complementary technologies. This masters thesis presents developed
+3D model reconstruction using 3D camera is a process that relies on a
+few complementary technologies. This thesis presents a developed
 application for triangle mesh reconstruction from acquired point cloud.
-Thesis also examines quality and functionality of developed method by
-reconstructing few 3D models of objects and scenes. Scene recording is
-done by using RGBDSlam application with Microsoft Kinect camera.
-RGBDSlam controls picture capturing and from them it assemblies point
-cloud which presents 3D scene using SLAM technique. Program is based on
-ROS framework and OpenCV library. Acquired point cloud is used for
-3D mesh reconstruction with developed program mesh-reconstruction.
-Program is based on PCL library in which there is implementation of
-Poisson algorithm for mesh reconstruction. It has graphical user
-interface developed in Qt which features functions for down sampling and
-removing outliers from captured point cloud, also it offers Poisson
+The thesis also examines quality and functionality of the developed
+method by reconstructing few 3D models of objects and scenes. Scene
+recording is performed using RGBDSlam application with a Microsoft
+Kinect camera.  RGBDSlam controls acquisition of RGB-D images and
+assembles point cloud representing the observed 3D scene by fusion of
+the acquired images using SLAM technique. The Program is based on ROS
+framework and OpenCV library. The obtained point cloud is used for 3D
+mesh reconstruction using developed program mesh-reconstruction.  The
+program is based on PCL library which contains an implementation of
+Poisson algorithm for mesh reconstruction. It has a graphical user
+interface developed in Qt which features functions for downsampling and
+removing outliers from captured point clouds, it also offers Poisson
 parameters configuration and has functions for reconstruction and
-visualisation of constructed mesh of triangles.  \\
+visualisation of constructed triangle mesh.  \\
 
-\noindent\textbf{Keywords:} Kinect, RGBDSlam, ROS, OpenCV, SLAM, PCL,
-Poisson, Qt
+\noindent\textbf{Keywords:} Kinect, point cloud, 3D modelling, RGBDSlam,
+ROS, OpenCV, SLAM, PCL, Poisson, Qt
 
 % section Abstract (end)

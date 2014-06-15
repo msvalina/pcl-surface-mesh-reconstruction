@@ -13,37 +13,38 @@ udaljenosti od kamere. Time omogućava da se na prirodniji način pristupi
 rješavanju osnovnih problema računalnog vida.  Upravo to se i dogodilo
 te su znanstvenici, programeri i hakeri razvili upravljačke programa,
 alate i algoritme za korištenje Kinect senzora i sličnih uređaja za
-prikupljanje oblaka točaka. Većina izrađenog softvera je objavljena pod
+snimanje 3D oblaka točaka. Većina izrađenog softvera je objavljena pod
 slobodnim licencama koje omogućavaju slobodu upotrebe programa u bilo
 koje svrhe, slobodu proučavanja i primjenjivanja stečenog znanja,
 slobodu distribuiranja kopija u cijelosti ili u dijelovima te slobodu
 mijenjanja, poboljšavanja i distribuiranja derivacijskih programa.
 Upravo ti programi su postavili temlje za ovaj diplomski rad.
 
-Osim Kinect kamere u radu se koristi jos niz suvremenih tehnologija i
+Osim Kinect kamere u radu se koristi još niz suvremenih tehnologija i
 algoritama: ROS (Robot Operating System) biblioteka i alati, biblioteka
 Pointcloud, istovremena lokalizacija i mapiranje te Poisson algoritam za
 rekonstrukciju površine.
 
 Rad se sastoji iz tri dijela. Prvi dio odnosi se na pregled korištenih
-tehnologija i algoritama. Drugi dio je praktični dio i govori o
+tehnologija i algoritama. Slijedi praktični dio koji govori o
 izgradnji 3D modela scene. Prvo je objašnjen postupak snimanja scene 3D
 kamerom i RGBDSlam programom, a zatim je dan pregled izgradnje 3D modela
-scene mrežom trokuta. Treći dio rada prikazuje rezultate snimanja i
-izrade te ispituje funkcionalnost i kvalitetu postupka.
+scene u obliku mreže trokuta. Treći dio rada prikazuje rezultate pokusa
+snimanja i izrade 3D modela te ispituje funkcionalnost i kvalitetu
+postupka.
 
 \newpage
 \subsection{Zadatak diplomskog rada} % (fold)
 \label{sub:Zadatak diplomskog rada}
 
 Program RGBDSLAM raspoloživ u okviru incijative dijeljenja algoritama
-OpenSLAM omogućava izgradnju 3D modela objekata i scena pomoću 3D
-kamere. Zadatak ovog rada je razviti program za izgradnju 3D modela u
-obliku mreže trokuta koristeći programsku biblioteku PointCloud Library.
-Kombinacijom ova dva programa mogu se izgraditi 3D modeli objekata i
-scena snimljenih iz više pogleda. Zadatak je ispitati funkcionalnost
-navedenog postupka kao i kvalitetu dobivenog rezultata izgradnjom
-nekoliko 3D modela objekata i scena. Na
+OpenSLAM \hypenation{omo-gućava} izgradnju 3D modela objekata i scena
+pomoću 3D kamere. Zadatak ovog rada je razviti program za izgradnju 3D
+modela u obliku mreže trokuta koristeći programsku biblioteku PointCloud
+Library.  Kombinacijom ova dva programa mogu se izgraditi 3D modeli
+objekata i scena snimljenih iz više pogleda. Zadatak je ispitati
+funkcionalnost navedenog postupka kao i kvalitetu dobivenog rezultata
+izgradnjom nekoliko 3D modela objekata i scena. Na
 slici~\ref{fig:project-description} grafički je prikazan zadatak
 diplomskog rada.
 
