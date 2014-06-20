@@ -22,7 +22,8 @@ računarstva}
 \end{frame}
 
 % Prije pregleda zadatka rada govoriti ću o tehnologiji i zajednici koja
-% je omogućila postojanje ovog rada.
+% je omogućila postojanje ovog rada. Sav softvere korišten je slobodan
+% softver
 
 \section{Uvod} 
 \begin{frame}{Uvod, priznanja i temelji rada}
@@ -39,7 +40,15 @@ računarstva}
 
 \subsection{Zadatak i opis projekta}
 \begin{frame}{Grafički prikaz zadatka projekta}
-    \includegraphics[width=\linewidth]{../figures/project-description.jpeg}
+    \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
+    \begin{itemize}
+        \item <2-> Razviti program za izradnju 3D modela u obliku mreže
+            trokuta koristeći PCL biblioteku.
+        \item <3-> Ispitati funkcionalnost i kvalitetu postupka kao i
+            kvaliteto dobivenog 3D modela izgradnjom nekoliko 3D modela
+            objekata i scena.
+    \end{itemize}
+
 \end{frame}
 
 
@@ -50,22 +59,32 @@ računarstva}
 
 \subsection{Microsoft Kinect kamera}
 \begin{frame}{Kinect 3D kamera}
-    \includegraphics[width=\linewidth]{../figures/kinect.png}
+    \includegraphics<1->[width=\linewidth]{../figures/kinect.png}
+    \begin{itemize}
+        \item<2-> RGB kamera - 640*480 piksela pri 30Hz.
+        \item<3-> Dubinski senzor - 
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Kinect 3D kamera - princip rada strukturirane svjetlosti}
     \begin{itemize}
         \item <1-> IR projektor projicira \alert{jedinstven} uzorak točkastih mrlja.
         \item <2-> IR kamera hvata reflektirane IR mrlje.
-        \item <3-> Geometrijska veza ostvaruje se offline kalibracijskom
-            procedurom
+        \item <3-> Geometrijska veza između IR projektora i IR kamere
+            ostvaruje se offline kalibracijskom procedurom.
     \end{itemize}
     
 \end{frame}
 
 \subsection{ROS biblioteka i alati}
 \begin{frame}{ROS - Operacijski sustav za robote}
-    
+    \includegraphics <1->[width=\linewidth]{../figures/ros.png}
+    \begin{itemize}
+        \item <2-> "Meta" OS - biblioteke i alati.
+        \item <3-> Hardverska apstrakcija, upravljački programi,
+            komunikacija, paketi...
+        \item <4-> RGBDSlam - baziran na ROSu.
+    \end{itemize}
 \end{frame}
 
 \subsection{PointCloud biblioteka}
