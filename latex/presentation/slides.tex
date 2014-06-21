@@ -21,34 +21,36 @@ računarstva}
     \tableofcontents[pausesections]
 \end{frame}
 
-% Prije pregleda zadatka rada govoriti ću o tehnologiji i zajednici koja
-% je omogućila postojanje ovog rada. Sav softvere korišten je slobodan
-% softver
-
 \section{Uvod} 
 \begin{frame}{Uvod, priznanja i temelji rada}
-    \minipage{0.38\textwidth}
+    \minipage{0.38\linewidth}
         \includegraphics<1->[width=\linewidth]{../figures/kinect2.png}
     \endminipage
-    \minipage{0.32\textwidth}
-        \includegraphics<2->[width=\linewidth]{../figures/gpl.png}
+    \minipage{0.32\linewidth}
+        \includegraphics<1->[width=\linewidth]{../figures/gpl.png}
     \endminipage
-    \minipage{0.26\textwidth}%
-        \includegraphics<3->[width=\linewidth]{../figures/bsd.png}
+    \minipage{0.23\linewidth}%
+        \includegraphics<1->[width=\linewidth]{../figures/bsd.png}
     \endminipage
+    \begin{itemize}
+        \item <2-> 2010. godina, Xbox igračka konzola, \alert{Kinect}
+            kamera.
+        \item <3-> VGA rezolucija, 30Hz, \alert{dubina}.
+        \item <4-> Prirodniji način rješavanja problema računalnog vida.
+        \item <5-> \alert{Slobodan softver}.
+    \end{itemize}
 \end{frame}
 
 \subsection{Zadatak i opis projekta}
 \begin{frame}{Grafički prikaz zadatka projekta}
     \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
-        \item <2-> Razviti program za izradnju 3D modela u obliku mreže
+        \item <2-> Razviti program za izgradnju 3D modela u obliku mreže
             trokuta koristeći PCL biblioteku.
         \item <3-> Ispitati funkcionalnost i kvalitetu postupka kao i
-            kvaliteto dobivenog 3D modela izgradnjom nekoliko 3D modela
+            kvalitetu dobivenog 3D modela izgradnjom nekoliko 3D modela
             objekata i scena.
     \end{itemize}
-
 \end{frame}
 
 
@@ -61,8 +63,13 @@ računarstva}
 \begin{frame}{Kinect 3D kamera}
     \includegraphics<1->[width=\linewidth]{../figures/kinect.png}
     \begin{itemize}
-        \item<2-> RGB kamera - 640*480 piksela pri 30Hz.
-        \item<3-> Dubinski senzor - 
+        \item <2-> Slika u boju sinkronizirana s dubinskom slikom.
+        \item <3-> RGB kamera - 640*480 piksela pri 30Hz.
+        \item <4-> Dubinski senzor:
+            \begin{itemize}
+                \item <5-> Laserski IR projektor i IR kamera.
+                \item <6-> Ograničenje dometa na 0.8m - 3.5m.
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -73,7 +80,6 @@ računarstva}
         \item <3-> Geometrijska veza između IR projektora i IR kamere
             ostvaruje se offline kalibracijskom procedurom.
     \end{itemize}
-    
 \end{frame}
 
 \subsection{ROS biblioteka i alati}
@@ -90,7 +96,16 @@ računarstva}
 \subsection{PointCloud biblioteka}
 \begin{frame}{Biblioteka funkcija i algoritama za rad s oblakom
     točaka}
-    
+    \includegraphics<1->[width=\linewidth]{../figures/pcl.png}
+    \begin{itemize}
+        \item <1-> \alert{Oblak točaka} - 3D skup točaka dobiven
+            spajanjem RGB slike i dubinske slike.
+        \item <2-> PCL biblioteka - otvoren projekt za procesiranje oblaka
+            točaka.
+        \item <3-> Uključena u ROS.
+        \item <4-> Korištena za razvoj \alert{\texttt{mesh-reconstruction}}
+            programa.
+    \end{itemize}
 \end{frame}
 
 \subsection{Istovremena lokalizacija i mapiranje}
