@@ -12,29 +12,20 @@
 
 ### 2. Slajd
 * Slijedi pregled prezentacije, prezentacija je podijeljna u pet poglava:
-* Uvod u kojem su prikazani temelji rada i dan je zadatak DR
+* Uvod u kojem je opisan zadatak DR
 * zatim pregled upotrebljenih tehnologija i algoritama
 * pa snimanje i izgradanja 3D modela scene
 * te rezultati pokusa i zaključak.
 **Pa idemo redom.** 
 
-### 3. Slajd
-* Dostupnost jeftinog 3D senzora, Kineck kamere 2010. godine uvelike
-  pridonosi razvoju računalnog vida. 
-* Kamera je došla na tržište kao dio Microsoft Xbox igračke konzole.
-* Frekvencijom od 30Hz daje sliku u boji sinkroniziranu s **dubinskom**
-  slikom.
-* Time omogućava na prirodniji način riješavanje problema računalnog
-  vida. 
-* To se i dogodilo te su znanstvenici, programeri i hakeri razvili
-  upravljačke programe, alate i algoritme za korištenje Kinecta.
-* Većina tog softvera je objavljena pod slobodnim licencama, te su ti
-  programi temelj ovog diplomskog rada.
-
 ### 4. Slajd
-* Ova slika grafički prikazuje zadatak diplomskog rada.
-* Upotrebom Kinect kamere i RGBDSlam programa potrebno je bilo snimiti
-  scenu i objekte (zec) i dobiti 3D oblak točaka.
+* Ova slika grafički prikazuje zadatak diplomskog rada. 
+* Rad se može podjeliti u dva dijela *snimanje* i *izgradanju*.
+* U prvom djelu je bilo potrebno upotrebom Kinect kamere i RGBDSlam
+  programa snimiti scenu i objekte i dobiti 3D oblak točaka.
+* Točnije, svaka snimka je jedan oblak točaka i taj oblak točaka je dio
+  globalnog oblaka točaka sastavljenog od više snimki uzetih iz različitih
+  pogleda odnosno položaja kamere.
 * Zatim koristeći PCL biblioteku razviti program kojeg sam nazvao
   mesh-reconstruction koji će od 3D oblaka točaka izgraditi 3D model
   pomoću mreže trokuta.
@@ -87,8 +78,10 @@
 
 ### 11. Slajd
 * Pristupa problemu rekonstrukcije površine rješavanjem Poissonove
-  jednadžbe
-* Jednadžba opisuje odnosno algoritam se oslanja na ideju da postoji
+  jednadžbe.
+* Koja kaže da je divergencija orjentiranih normala s površine modela
+  jednaka divergenciji gradijenta indikacijske funkcije chi.
+* Odnosno algoritam se oslanja na ideju da postoji
   veza između orjentiranih normala uzetih s površine modela i
   indikacijske funkcije modela.
 * Točnije gradijent indikacijske funkcije je polje vektora koje je
@@ -101,4 +94,18 @@
 
 ### 13. Slajd
 * 
+
+
+### 3. Slajd
+* Dostupnost jeftinog 3D senzora, Kineck kamere 2010. godine uvelike
+  pridonosi razvoju računalnog vida. 
+* Kamera je došla na tržište kao dio Microsoft Xbox igračke konzole.
+* Frekvencijom od 30Hz daje sliku u boji sinkroniziranu s **dubinskom**
+  slikom.
+* Time omogućava na prirodniji način riješavanje problema računalnog
+  vida. 
+* To se i dogodilo te su znanstvenici, programeri i hakeri razvili
+  upravljačke programe, alate i algoritme za korištenje Kinecta.
+* Većina tog softvera je objavljena pod slobodnim licencama, te su ti
+  programi temelj ovog diplomskog rada.
 

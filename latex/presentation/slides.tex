@@ -4,6 +4,12 @@
 \usetheme{Luebeck}
 \setbeamercovered{transparent}
 
+\newcommand*\oldmacro{}%
+\let\oldmacro\insertshorttitle%
+\renewcommand*\insertshorttitle{%
+  \oldmacro\hfill%
+  \insertframenumber\,/\,\inserttotalframenumber}
+
 \title[Izgradnja 3D modela scene pomoću 3D kamere]{Izgradnja 3D modela
 scene pomoću 3D kamere}
 \author{Marijan Svalina}
@@ -25,34 +31,54 @@ računarstva}
 
 %%% 3. Slide %%%
 \section{Uvod} 
-\begin{frame}{Uvod i temelji rada}
-    \minipage{0.38\linewidth}
-        \includegraphics<1->[width=\linewidth]{../figures/kinect2.png}
-    \endminipage
-    \minipage{0.32\linewidth}
-        \includegraphics<1->[width=\linewidth]{../figures/gpl.png}
-    \endminipage
-    \minipage{0.23\linewidth}%
-        \includegraphics<1->[width=\linewidth]{../figures/bsd.png}
-    \endminipage
+% \begin{frame}{Uvod i temelji rada}
+%     \minipage{0.38\linewidth}
+%         \includegraphics<1->[width=\linewidth]{../figures/kinect2.png}
+%     \endminipage
+%     \minipage{0.32\linewidth}
+%         \includegraphics<1->[width=\linewidth]{../figures/gpl.png}
+%     \endminipage
+%     \minipage{0.23\linewidth}%
+%         \includegraphics<1->[width=\linewidth]{../figures/bsd.png}
+%     \endminipage
+%     \begin{itemize}
+%         \item <2-> 2010. godina, \alert{Kinect} kamera, Xbox.
+%         \item <3-> 30Hz, slika u boji sinkronizirana s \alert{dubinskom}
+%             slikom.
+%         \item <4-> Prirodniji način rješavanja problema računalnog vida.
+%         \item <5-> \alert{Slobodan softver}.
+%     \end{itemize}
+% \end{frame}
+
+%%% 4. Slide %%%
+\subsection{Zadatak i opis diplomskog rada}
+\begin{frame}{Grafički prikaz zadatka diplomskog rada - snimanje}
+    \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
-        \item <2-> 2010. godina, \alert{Kinect} kamera, Xbox.
-        \item <3-> 30Hz, slika u boji sinkronizirana s \alert{dubinskom}
-            slikom.
-        \item <4-> Prirodniji način rješavanja problema računalnog vida.
-        \item <5-> \alert{Slobodan softver}.
+        \item <2-> Snimanje, izgradnja i ispitivanje kvalitete.
+        \item <3-> Snimiti scenu i objekte Kinect 3D kamerom i RGBDSlam
+            programom.
+        \item <4-> Svaka snimka je jedan oblak točaka.
+        \item <5-> Globalni oblaka točaka sastavljen od
+            više snimki uzetih iz različitih pogleda.
     \end{itemize}
 \end{frame}
 
-%%% 4. Slide %%%
-\subsection{Zadatak i opis projekta}
-\begin{frame}{Grafički prikaz zadatka projekta}
+\begin{frame}{Grafički prikaz zadatka diplomskog rada - izgradnja}
     \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
-        \item <2-> Razviti program za izgradnju 3D modela u obliku mreže
+        \item <2-> Dobiven oblak točaka koristi za izgradnju 3D modele
+            pomoću mreže trokuta.
+        \item <3-> Razviti program za izgradnju 3D modela u obliku mreže
             trokuta koristeći PCL biblioteku.
-        \item <3-> Ispitati funkcionalnost i kvalitetu postupka kao i
-        \item <4-> kvalitetu dobivenog 3D modela izgradnjom nekoliko 3D
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Grafički prikaz zadatka diplomskog rada - ispitivanje}
+    \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
+    \begin{itemize}
+        \item <2-> Ispitati funkcionalnost i kvalitetu postupka kao i
+        \item <3-> kvalitetu dobivenog 3D modela izgradnjom nekoliko 3D
             modela objekata i scena. 
     \end{itemize}
 \end{frame}
@@ -73,13 +99,14 @@ računarstva}
         \item <4-> Dubinski senzor:
             \begin{itemize}
                 \item <4-> Laserski IR projektor i IR kamera.
-                \item <5-> Ograničenje dometa na 0.8m - 3.5m.
+                \item <5-> Ograničenje dometa od 0.8m do 3.5m.
             \end{itemize}
     \end{itemize}
 \end{frame}
 
 %%% 7. Slide %%%
 \begin{frame}{Kinect 3D kamera - princip rada dubinskog senzora}
+    \includegraphics<1->[width=\linewidth]{../figures/kinect.png}
     \begin{itemize}
         \item <1-> Princip struktrirane svjetlosti.
         \item <2-> IR projektor projicira \alert{jedinstven} uzorak
@@ -104,8 +131,7 @@ računarstva}
 
 %%% 9. Slide %%%
 \subsection{PointCloud biblioteka}
-\begin{frame}{Biblioteka funkcija i algoritama za rad s oblakom
-    točaka}
+\begin{frame}{PointCloud biblioteka funkcija i algoritama}
     \includegraphics<1->[width=\linewidth]{../figures/pcl.png}
     \begin{itemize}
         \item <2-> \alert{Oblak točaka} - 3D skup točaka dobiven
@@ -118,17 +144,17 @@ računarstva}
 
 %%% 10. Slide %%%
 \subsection{Istovremena lokalizacija i mapiranje}
-\begin{frame}{SLAM - istovremena lokalizacija i mapiranje }
+\begin{frame}{Metoda istovremene lokalizacije i mapiranja - SLAM}
     \begin{itemize}
         \item <2-> Izgradnja karte nepoznatne okoline i istovremena
-    navigacija upotrebom te karte.
+            navigacija upotrebom te karte.
         \item <3-> Cilj procesa je korištenje percepcije okoline za
             pozicioniranje robota/kamere.
         \item <4-> To se postiže detektiranjem orijentira/značajki.
         \item <5-> Jezgra procesa je EKF - odgovoran za ažuriranje
             pozicije na kojoj robot "misli" da se nalazi.
         \item <6-> EKF rekurzivni je algoritam koji se izvršava na nizu
-            šumovitih podataka te računa statistički optimalnu
+            zašumljenih podataka te računa statistički optimalnu
             estimaciju sustava.
     \end{itemize}
 \end{frame}
@@ -220,7 +246,6 @@ računarstva}
 \end{frame}
 
 %%% 20. Slide %%%
-\section{Zaključak} 
 \begin{frame}{Pitanja?}
     \begin{itemize}
         \item <1-> Hvala na pažnji!
