@@ -25,7 +25,7 @@ računarstva}
 
 
 %%% 2. Slide %%%
-\begin{frame}{Pregled prezentacije}
+\begin{frame}
     \tableofcontents[currentsubsection, pausesections]
 \end{frame}
 
@@ -165,10 +165,11 @@ računarstva}
     \includegraphics<1->[width=\linewidth]{../figures/poisson-reconstruction.png}
     \begin{itemize}
         \item <2-> Poissonova jednadžba $\Delta \chi \equiv \nabla \cdot
-            \nabla\chi = \nabla \cdot \vec{V}.$
-        \item <3-> Postoji veza između normala i indikacijske funkcije.
-        \item <4-> Gradijent indikacijske funkcije jednak je unutrašnjim
+            \nabla \chi = \nabla \cdot \vec{V}.$
+        \item <3-> Gradijent indikacijske funkcije jednak je unutrašnjim
             normalama površine.
+        \item <4-> Dohvaćanje izopovršine dobivene iz indikacijske
+            funkcije odvija se upotrebom Marching cubes algoritma.
     \end{itemize}
     
 \end{frame}
@@ -183,24 +184,37 @@ računarstva}
 \subsection{Snimanje scene RGBDSlam programom} 
 \begin{frame}{Opis rada RGBDSlam programa}
     \begin{center}
-        \includegraphics <1->[scale=0.16]{../figures/rgbdslam.png}
+        \includegraphics <1->[scale=0.15]{../figures/rgbdslam.png}
     \end{center}
     \begin{itemize}
-        \item <2-> Računanje i sparivanje značajki.
-        \item <3-> 3D korespodencije između sličica.
-        \item <4-> Estimiranje poza - RANSAC.
-        \item <5-> Optimiziranje grafa poza.
+        \item <2-> Dohvaćanje vizualnih značajke iz ulaznih slika u
+            boji i sparivanje s prethodno pronađenim značajkama - SIFT,
+            SURF.
+        \item <3-> Evaluacijom dubinskih slika na lokacijama pronađenih
+            značajki ostvarje se 3D korespodencije između slika.
+        \item <4-> Estimiranje položaj kamere - RANSAC.
     \end{itemize}
 \end{frame}
 
 %%% 14. Slide %%%
+\begin{frame}{Opis rada RGBDSlam programa}
+    \begin{center}
+        \includegraphics <1->[scale=0.15]{../figures/rgbdslam.png}
+    \end{center}
+    \begin{itemize}
+        \item <2-> Optimiziranje grafa položaja - g\textsuperscript{2}o
+        \item <3-> Globalno konzistentan oblak točaka u boji.
+    \end{itemize}
+\end{frame}
+
+%%% 15. Slide %%%
 \begin{frame}[plain]{Prikaz RGBDSlam programa}
     \begin{center}
         \includegraphics <1->[scale=0.30]{../figures/rgbdslamSS.jpeg}
     \end{center}
 \end{frame}
 
-%%% 15. Slide %%%
+%%% 16. Slide %%%
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} 
 \begin{frame}{Pregled razvijenog programa mesh-reconstruction}
     \begin{center}
@@ -208,7 +222,7 @@ računarstva}
     \end{center}
 \end{frame}
 
-%%% 16. Slide %%%
+%%% 17. Slide %%%
 \begin{frame}[plain]{Grafičko sučelje programa mesh-reconstruction}
     \begin{center}
         \includegraphics
@@ -216,15 +230,19 @@ računarstva}
     \end{center}
 \end{frame}
 
-%%% 17. Slide %%%
+%%% 18. Slide %%%
 \begin{frame}[plain]{Grafičko sučelje programa mesh-reconstruction}
     \begin{center}
         \includegraphics <1->[scale=0.27]{../figures/gui-2.png}
     \end{center}
 \end{frame}
 
-%%% 18. Slide %%%
+%%% 19. Slide %%%
 \section{Rezultati pokusa} 
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
 \subsection{Prikaz izgrađenih modela scena i objekata}
 \begin{frame}{Ispitivanje funkcionalnosti snimanjem nekoliko scena}
     \begin{center}
