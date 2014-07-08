@@ -55,25 +55,28 @@ računarstva}
 \begin{frame}{Grafički prikaz zadatka diplomskog rada - snimanje}
     \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
-        \item <2-> Snimanje, izgradnja i ispitivanje kvalitete.
+        \item <2-> Snimiti, izgraditi i ispitati kvalitetu.
         \item <3-> Snimiti scenu i objekte Kinect 3D kamerom i RGBDSlam
-            programom.
+            programom iz više pogleda i dobiti oblak točaka.
         \item <4-> Svaka snimka je jedan oblak točaka.
-        \item <5-> Globalni oblaka točaka sastavljen od
-            više snimki uzetih iz različitih pogleda.
+        \item <5-> Globalni oblaka točaka sastavljen od više snimki
+            uzetih iz različitih pogleda.
     \end{itemize}
 \end{frame}
 
+%%% 5. Slide %%%
 \begin{frame}{Grafički prikaz zadatka diplomskog rada - izgradnja}
     \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
-        \item <2-> Dobiven oblak točaka koristi za izgradnju 3D modele
-            pomoću mreže trokuta.
-        \item <3-> Razviti program za izgradnju 3D modela u obliku mreže
-            trokuta koristeći PCL biblioteku.
+        \item <2-> Razviti program za izgradnju 3D modela u obliku mreže
+            trokuta upotrebom PCL bibliotke.
+        \item <3-> Program se zove \alert{mesh-reconstruction}
+        \item <4-> Snimljeni oblak točaka iskoristiti za izgradnju 3D
+            modela scene u obliku mreže trokuta.
     \end{itemize}
 \end{frame}
 
+%%% 6. Slide %%%
 \begin{frame}{Grafički prikaz zadatka diplomskog rada - ispitivanje}
     \includegraphics<1->[width=\linewidth]{../figures/project-description.jpeg}
     \begin{itemize}
@@ -83,13 +86,13 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 5. Slide %%%
+%%% 7. Slide %%%
 \section{Pregled upotrebljenih tehnologija i algoritama} 
 \begin{frame}
     \tableofcontents[currentsection]
 \end{frame}
 
-%%% 6. Slide %%%
+%%% 8. Slide %%%
 \subsection{Microsoft Kinect kamera}
 \begin{frame}{Kinect 3D kamera}
     \includegraphics<1->[width=\linewidth]{../figures/kinect.png}
@@ -104,7 +107,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 7. Slide %%%
+%%% 9. Slide %%%
 \begin{frame}{Kinect 3D kamera - princip rada dubinskog senzora}
     \includegraphics<1->[width=\linewidth]{../figures/kinect.png}
     \begin{itemize}
@@ -117,7 +120,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 8. Slide %%%
+%%% 10. Slide %%%
 \subsection{ROS biblioteka i alati}
 \begin{frame}{ROS - Operacijski sustav za robote}
     \includegraphics <1->[width=\linewidth]{../figures/ros.png}
@@ -129,7 +132,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 9. Slide %%%
+%%% 11. Slide %%%
 \subsection{PointCloud biblioteka}
 \begin{frame}{PointCloud biblioteka funkcija i algoritama}
     \includegraphics<1->[width=\linewidth]{../figures/pcl.png}
@@ -142,7 +145,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 10. Slide %%%
+%%% 12. Slide %%%
 \subsection{Istovremena lokalizacija i mapiranje}
 \begin{frame}{Metoda istovremene lokalizacije i mapiranja - SLAM}
     \begin{itemize}
@@ -159,7 +162,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 11. Slide %%%
+%%% 13. Slide %%%
 \subsection{Poisson algoritam za rekonstrukciju površine}
 \begin{frame}{Poisson algoritam za rekonstrukciju površine}
     \includegraphics<1->[width=\linewidth]{../figures/poisson-reconstruction.png}
@@ -174,20 +177,20 @@ računarstva}
     
 \end{frame}
 
-%%% 12. Slide %%%
+%%% 14. Slide %%%
 \section{Snimanje i izgradnja 3D modela scene} 
 \begin{frame}
     \tableofcontents[currentsection]
 \end{frame}
 
-%%% 13. Slide %%%
+%%% 15. Slide %%%
 \subsection{Snimanje scene RGBDSlam programom} 
 \begin{frame}{Opis rada RGBDSlam programa}
     \begin{center}
         \includegraphics <1->[scale=0.15]{../figures/rgbdslam.png}
     \end{center}
     \begin{itemize}
-        \item <2-> Dohvaćanje vizualnih značajke iz ulaznih slika u
+        \item <2-> Dohvaćanje značajke/orjentire iz ulaznih slika u
             boji i sparivanje s prethodno pronađenim značajkama - SIFT,
             SURF.
         \item <3-> Evaluacijom dubinskih slika na lokacijama pronađenih
@@ -196,7 +199,7 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 14. Slide %%%
+%%% 16. Slide %%%
 \begin{frame}{Opis rada RGBDSlam programa}
     \begin{center}
         \includegraphics <1->[scale=0.15]{../figures/rgbdslam.png}
@@ -207,14 +210,14 @@ računarstva}
     \end{itemize}
 \end{frame}
 
-%%% 15. Slide %%%
+%%% 17. Slide %%%
 \begin{frame}[plain]{Prikaz RGBDSlam programa}
     \begin{center}
         \includegraphics <1->[scale=0.30]{../figures/rgbdslamSS.jpeg}
     \end{center}
 \end{frame}
 
-%%% 16. Slide %%%
+%%% 18. Slide %%%
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} 
 \begin{frame}{Pregled razvijenog programa mesh-reconstruction}
     \begin{center}
@@ -222,7 +225,7 @@ računarstva}
     \end{center}
 \end{frame}
 
-%%% 17. Slide %%%
+%%% 19. Slide %%%
 \begin{frame}[plain]{Grafičko sučelje programa mesh-reconstruction}
     \begin{center}
         \includegraphics
@@ -230,40 +233,53 @@ računarstva}
     \end{center}
 \end{frame}
 
-%%% 18. Slide %%%
+%%% 20. Slide %%%
 \begin{frame}[plain]{Grafičko sučelje programa mesh-reconstruction}
     \begin{center}
         \includegraphics <1->[scale=0.27]{../figures/gui-2.png}
     \end{center}
 \end{frame}
 
-%%% 19. Slide %%%
+%%% 21. Slide %%%
 \section{Rezultati pokusa} 
 \begin{frame}
     \tableofcontents[currentsection]
 \end{frame}
 
-\subsection{Prikaz izgrađenih modela scena i objekata}
-\begin{frame}{Ispitivanje funkcionalnosti snimanjem nekoliko scena}
+%%% 23. Slide %%%
+\subsection{Prikaz izrađenih modela scena i objekata}
+\begin{frame}{Prikaz snimljenih scena}
     \begin{center}
         \includegraphics <1->[width=\linewidth]{../figures/01-all-pcd.png}
     \end{center}
     \begin{itemize}
-        \item <2-> demo...
+        \item <2-> demo prikaz snimljenog modela
+        \item <3-> demo prikaz izrađenog modela
     \end{itemize}
 \end{frame}
 
-%%% 19. Slide %%%
+%%% 24. Slide %%%
 \section{Zaključak} 
+\subsection{Još malo i gotovo :)}
 \begin{frame}{Nedostatci, prednosti, poboljšanja}
+    Nedostatci/ograničenja:
     \begin{itemize}
-        \item <1-> Ograničenja tehnologija, Kinect, RGBDSlam, Poisson. 
-        \item <2-> Skeniranje, 3D printeri, FPS.
-        \item <3-> Poisson, boja, rupe, zatvaranje petlje.
+        \item <2-> Kinect - mali domet i ne može raditi u vanjskim
+            uvjetima zbog Sunčevo IR zračenja.
+        \item <3-> RGBDSlam - \alert{zatvaranje petlje} - najzahtjevniji problem.
+        \item <4-> Poisson - ne čuva informaciju o boji i izrađuje model
+            na mjestima bez točaka.
+    \end{itemize}
+    Prednosti:
+    \begin{itemize}
+        \item <5-> Cijena kamere < 1000 kn
+        \item <6-> Slobodne - open source - licence.
+        \item <7-> Dostupnost 3D printera traži jednostavno i jefitno
+            rješenje 3D skeniranja.
     \end{itemize}
 \end{frame}
 
-%%% 20. Slide %%%
+%%% 25. Slide %%%
 \begin{frame}{Pitanja?}
     \begin{itemize}
         \item <1-> Hvala na pažnji!

@@ -18,47 +18,53 @@
 * te rezultati pokusa i zaključak.
 **Pa idemo redom.** 
 
-### 4. Slajd - Grafički prikaz projekta
+### 4. Slajd - Grafički prikaz projekta - snimanje
 * Ova slika grafički prikazuje zadatak diplomskog rada. 
-* Rad se može podjeliti u dva dijela *snimanje* i *izgradanju*.
-* U prvom djelu je bilo potrebno upotrebom Kinect kamere i RGBDSlam
+* Ukratko zadatak je bio *snimti* scenu, *izgradati* model i
+  *ispitati kvalitetu*.
+* Konkretnije trebalo je upotrebom Kinect kamere i RGBDSlam
   programa snimiti scenu i objekte i dobiti 3D oblak točaka.
 * Točnije, svaka snimka je jedan oblak točaka i taj oblak točaka je dio
   globalnog oblaka točaka sastavljenog od više snimki uzetih iz različitih
   pogleda odnosno položaja kamere.
-* Zatim koristeći PCL biblioteku razviti program kojeg sam nazvao
-  mesh-reconstruction koji će od 3D oblaka točaka izgraditi 3D model
-  pomoću mreže trokuta.
+
+### 5. Slajd - Grafički prikaz projekta - izgradnja
+* Zatim je trebalo dobiveni oblak točaka iskoristiti za izgradnju 3D
+  modela scene pomoću mreže trokuta.
+* Odnosno razviti program upotrebom PCL biblioteke izgraditi 3D model iz
+  snimljenog oblaka točaka.
+
+### 6. Slajd - Grafički prikaz projekta - ispitivanje
 * Potrebno je ispitati funkcionalnosti i kvaltetu opisanog postupka
   kao i kvalitetu dobivenog 3D modela izgradnjom nekoliko 3D modela
   objekta i scena.
 
-### 5. Slajd - Sadržaj
+### 7. Slajd - Sadržaj
 * Gotovi smo s uvodom sada slijedi poglavlje pregled upotrebljenih
-  tehnologija i algoritama u kojem ću **ukratko** objasniti nabrojane
+  tehnologija i algoritama u kojem ću **ukratko** objasniti najvažnije
   tehnologije.
 
-### 6. Slajd - Kinect 3D kamera
+### 8. Slajd - Kinect 3D kamera
 * Kineckt 3D kamera sastoji se od 3D dubinskog senzora i RGB kamere.
 * Ona daje sliku u boji sinkroniziranu s dubinskom slikom.
 * Radi se o VGA rezoluciji i osvježavanju od 30 Hz.
 * Dubinski senzor sastoji se od IR projektora i IR kamere te ima
   ograničenje u dometu na 0.8m - 3.5m.
 
-### 7. Slajd - Kinect 3D kmaera - princip rada dubinskog senzora
+### 9. Slajd - Kinect 3D kmaera - princip rada dubinskog senzora
 * Zasniva se na principu strukturirane svjetlosti.
 * IR projektor projicira jedinstven uzorak točkastih mrlja.
 * IR kamera hvata reflektirane IR mrlje te se računanje
   dubine odvija na kameri stereo triangulacijom.
 
-### 8. Slajd - ROS - Operacijski sustav za robote
+### 10. Slajd - ROS - Operacijski sustav za robote
 * ROS - Robot operating system je meta operacijski sustav za robote
   zamišljen da olakšava razvijanje aplikacija za robote.
 * ROS pruža hardversku apstrakciju, upravljačke programe, biblioteke,
   alate, komunikaciju, pakete...
 * RGBDSlam program korišten za snimanje scene je baziran na ROSu
 
-### 9. Slajd - PointCloud biblioteka funkcija i algoritama 
+### 11. Slajd - PointCloud biblioteka funkcija i algoritama 
 * Sljdeće potpoglavlje je o PCL biblioteci, PCL je biblioteka funkcija i
   algoritama za rad s oblakom točaka.
 * Oblak točaka je 3D skup točka dobiven spajanje slike u boji s
@@ -66,7 +72,7 @@
 * PCL biblioteka je također dio ROSa
 * te je upotrebljena za razvoj mesh-reconstruction programa.
 
-### 10. Slajd - Metoda istovremene lokalizacije i mapiranja - SLAM
+### 12. Slajd - Metoda istovremene lokalizacije i mapiranja - SLAM
 * Metoda istovremene lokalizacije i mapiranja se bavi rješavanjem
   problema izgradnje karte nepoznate okoline i istovremene navigacije
   upotrebom te karte.
@@ -76,7 +82,7 @@
 * Jezgra procesa je EKF - on je odgovoran za ažuriranje pozicije na
   kojoj robot misli da se nalazi 
 
-### 11. Slajd - Poisson algoritam za rekonstrukciju površine 
+### 13. Slajd - Poisson algoritam za rekonstrukciju površine 
 * Pristupa problemu rekonstrukcije površine rješavanjem Poissonove
   jednadžbe.
 * Koja kaže da je divergencija orjentiranih normala s površine modela
@@ -85,11 +91,11 @@
   uglavnom popunjeno nulama osim na mjestima blizu površine modela gdje
   je jednako unutrašnjim normalama površine
 
-### 12. Slajd - Sadržaj
+### 14. Slajd - Sadržaj
 * Gotovo je poglavlje o korištenim tehnologijama i algoritama i slijedi
   poglavlje o snimanju i izgradnji 3D modela scene.
 
-### 13. Slajd - Opis rada RGBDSlam programa
+### 15. Slajd - Opis rada RGBDSlam programa
 * RGBDSlam program procesira snimke u četiri koraka:
 * Prvo se dohvaćaju vizualne značajke iz ulaznih slika u boji i
   spraviaju s prethodno pronađenim značajkama - SURF, SIFT
@@ -98,12 +104,12 @@
 * Tada se upotrebom tih korespodencija estimira položaj kamere RANSAC
   algoritmom.
 
-### 14. Slajd - Opis rada RGBDSlam programa
+### 16. Slajd - Opis rada RGBDSlam programa
 * Kako estimirani položaju kamera nisu globalno konzistentni vrši se
   optimiziranje grafa položaja g2o 
 * I tada program daje globalno konzistentan oblak točaka u boji.
 
-### 15. Slajd - Prikaz RGBDSlam programa
+### 17. Slajd - Prikaz RGBDSlam programa
 * Na ovom slajdu vidimo prikaz RGBDSlam programa koji se sastoji od
   četiri prozora. 
 * Donji lijevi prozor prikazuje ulaznu sliku s rgb kamere.
@@ -111,7 +117,7 @@
 * Donji desni prikazuje pronađene značajke nad ulaznom slikom.
 * Gornji prozor je rezerviran za prikaz sastavljenog oblaka točaka.
 
-### 16. Slajd - Pregled razvijenog programa mesh-reconstruction
+### 18. Slajd - Pregled razvijenog programa mesh-reconstruction
 * Izgradnja 3D modela scene pomoću mreže trokuta se odvija pomoću
   programa mesh-reconstruction
 * Program je podijeljen u pet logičkih cijelina. 
@@ -120,7 +126,7 @@
   odbacivanje odudarajućih vrijednosti, izrađivanje mreže trokuta i
   prikazivanje mreže trokuta.
 
-### 17. Slajd - Grafičko sučelje programa mesh-reconstruction
+### 19. Slajd - Grafičko sučelje programa mesh-reconstruction
 * Osim komandno linijske verzije mesh-reconstruction programa razvijena
   je i verzija s grafičkim sučeljem.
 * Program je napravljen korištenjem Qt frameworka za razvoj više
@@ -130,14 +136,20 @@
 * Razlika u odnosnu na komandno linijsku verziju je u mogućnosti
   podešavanja parametara Poisson algoritma.
 
-### 18. Slajd - mesh-reconstruction GUI - prikaz izrađene mreže
+### 20. Slajd - mesh-reconstruction GUI - prikaz izrađene mreže
 * Osim glavnog prozora za izradu mreže postoji i prozor za vizualizaciju
   u kojem je moguće pregledati izrađeni model.
 * Moguće je mjenjati prezentaciju modela, trenutno je prikazan model
   površinskom prezentacijom, a moguće je i odabrat wireframe
   representation sto omogućava prikaz mrežom trokutića
 
-### 19. Slajd - sadržaj
+### 21. Slajd - sadržaj
+* Znači sada slijedi prikaz izgrađeni modela scena 
+
+### 22. Slajd - Prikaz snimljenih scena
+* Tijekom diplomskog rada snimljeno i izrađeno je šest scena koje su
+  prikazane na ovoj slici.
+
  
 ### 3. Slajd
 * Dostupnost jeftinog 3D senzora, Kineck kamere 2010. godine uvelike
