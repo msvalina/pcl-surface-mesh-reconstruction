@@ -72,15 +72,16 @@ prethodnih slika. Drugi dio ispituje dubinu slika na lokacijama
 izračunatih značajki. Usporedbom lokalnih deskriptora dobiva se
 informacija o mogućim 3D korespondencijama točaka između bilo koje dvije
 sličice.  Zatim je na temelju tih korespondencija estimirana relativna
-transformacija između sličica upotrebom RANSACa. RANSAC Random Sample
-Consensus~\cite{AICPub836:1981} je iterativna metoda estimiranja
-parametara matematičkog modela iz promatranih mjerenja koja sadržavaju
-šum i odudarajuće vrijednosti. RANSAC postupkom se uklanjaju netočne
-korespodencije ostvarne na temelju lokalnih deskriptora. Kako parovi
-estimiranih položaja između sličica nisu globalno konzistentni treći dio
-programa optimizira graf položaja upotrebom g\textsuperscript{2}o
-algoritma. {g\textsuperscript{2}o} General Framework for Graph
-Optimization~\cite{kuemmerle11icra} je okvir otvorenog koda za
+transformacija između sličica upotrebom RANSACa. RANSAC (engl.
+\textit{Random Sample Consensus})~\cite{AICPub836:1981} je iterativna
+metoda estimiranja parametara matematičkog modela iz promatranih
+mjerenja koja sadržavaju šum i odudarajuće vrijednosti. RANSAC postupkom
+se uklanjaju netočne korespodencije ostvarne na temelju lokalnih
+deskriptora. Kako parovi estimiranih položaja između sličica nisu
+globalno konzistentni treći dio programa optimizira graf položaja
+upotrebom g\textsuperscript{2}o algoritma. {g\textsuperscript{2}o}
+(engl. \textit{General Framework for Graph
+Optimization})~\cite{kuemmerle11icra} je okvir otvorenog koda za
 optimiziranje nelinearnih funkcija pogreške zasnovanih na grafu.
 Algoritam u ovoj fazi daje globalno konzistentni 3D model promatrane
 okoline predstavljen oblakom točaka u boji. Takav oblak točaka je
@@ -131,12 +132,12 @@ uzetih s kamere. Nedostatak je što je nezgodno jednoj osobi baratati s
 kamerom, gledati u računalo i pritiskati Enter za slikanje. Zato je pri
 snimanju scena sudjelovalo više osoba ili je korištena
 skripta\footnotemark[1] koja umjesto korisnika šalje signal Enter
-programu nakon proizvoljnog broja sekudni. Tijekom snimanja trebalo je
+programu nakon proizvoljnog broja sekundi. Tijekom snimanja trebalo je
 obratiti pozornost na značajke scene koja se snima kako bih program
 mogao spariti značajke s prethodnom scenom. Tijekom izrade diplomskog
 rada snimljeno je šest scena odnosno prostorija koje su obrađene u
-poglavlju~\ref{sec:Rezultati} Snimljene scene su spremane u
-\texttt{.pcd} formatu i kao takve korištene za daljnju obradu u
+poglavlju~\ref{sec:Rezultati} Snimljene scene spremane su u formatu PCL
+biblioteke \texttt{.pcd} i kao takve korištene za daljnju obradu u
 diplomskom radu.
 
 \footnotetext[1]{%

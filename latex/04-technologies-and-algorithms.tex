@@ -35,14 +35,14 @@ Slika~\ref{fig:kinect.png} prikazuje osnovne komponente Kinect senzora.
 Kinect se sastoji od infracrevnog (IR) projektora, IR kamere i RGB
 kamere. Dubinski senzor se sastoji od IR projektora i IR kamere. Kinect
 radi na principu strukturirane svjetlosti. IR projektor projicira IR
-uzorak točkastih mrlja na 3D scenu dok IR kamera hvata reflektirane IR
-mrlje. Geometrijska veza između IR projektora i IR kamere se ostvaruje
-offline kalibracijskom procedurom. IR projektor projicira poznati uzorak
-svjetlosnih mrlja na scenu. IR svjetlost je nevidljiva RGB kameri ali je
-vidljiva IR kameri. Kako je svaki lokalni uzorak projiciranih točaka
-jedinstven, spajanje promatranih lokalnih uzoraka točaka sa slike s
-kalibriranim projektorovim uzorkom točaka je ostvarivo. Više o principu
-strukturirane svjetlosti u~\cite{structured:light}.\\
+uzorak točkastih mrlja (engl. \textit{speckle} na 3D scenu dok IR kamera
+hvata reflektirane IR mrlje. Geometrijska veza između IR projektora i IR
+kamere se ostvaruje offline kalibracijskom procedurom. IR svjetlost je
+nevidljiva RGB kameri ali je vidljiva IR kameri. Kako je svaki lokalni
+uzorak projiciranih točaka jedinstven, spajanje promatranih lokalnih
+uzoraka točaka sa slike s kalibriranim projektorovim uzorkom točaka je
+ostvarivo. Više o principu strukturirane svjetlosti
+u~\cite{structured:light}.\\
 
 \newpage
 Tehničke informacije o kameri:
@@ -70,11 +70,12 @@ Tehničke informacije o kameri:
 \subsection{ROS biblioteka i alati} % (fold)
 \label{sub:ROS biblioteka i alati}
 
-ROS~\cite{ros} (engl. \textit{Robot Operating System}) je set programskih
-biblioteka i alata koji pomažu programerima kreirati aplikacije za
-robote. Pruža hardversku apstrakciju, upravljačke programe, biblioteke,
-vizualizaciju, komunikaciju, upravljanje paketima i dr. ROS je
-licenciran BSD licencom, koja spada pod licence otvorenog koda.
+ROS~\cite{ros} (engl. \textit{Robot Operating System}) je skup
+programskih biblioteka i alata koji pomažu programerima kreirati
+aplikacije za robote. Pruža hardversku apstrakciju, upravljačke
+programe, biblioteke, vizualizaciju, komunikaciju, upravljanje paketima
+i dr. ROS je licenciran BSD licencom, koja spada pod licence otvorenog
+koda.
 
 \begin{figure}[h]
 \centering
@@ -98,15 +99,15 @@ drugih paketa iz ROS biblioteke~\cite{web:rgbdslam}.
 \label{sub:Biblioteka Pointcloud}
 
 PCL~\cite{pcl} (engl. \textit{Point Cloud Library}
-slika~\ref{fig:pcl.png}) je otvoren projekt za procesiranje 2D/3D slika
-i oblaka točaka. PCL biblioteka sadržava niz najsuvremenijih algoritama
-za filtriranje, estimaciju značajki, rekonstrukciju površina,
-registraciju, uklapanje modela i segmentaciju.  Ti algoritmi se mogu
-koristiti za: izbacivanje odudarajućih vrijednosti iz šumovith
-podataka, spajanje 3D oblaka točaka, segementiranje relevantnih dijelova
-scene, izvlačenje ključnih točaka i računanje deskriptora za
-prepoznavanje objekata na temelju njihove geometrije, kreiranje i
-prikazivanje površina iz oblaka točaka itd.
+slika~\ref{fig:pcl.png}) je otvoren projekt za obradu 2D/3D slika i
+oblaka točaka. PCL biblioteka sadržava niz najsuvremenijih algoritama za
+filtriranje, estimaciju značajki, rekonstrukciju površina, registraciju,
+uklapanje modela i segmentaciju.  Ti algoritmi se mogu koristiti za:
+izbacivanje odudarajućih vrijednosti iz šumovith podataka, spajanje 3D
+oblaka točaka, segementiranje relevantnih dijelova scene, izvlačenje
+ključnih točaka i računanje deskriptora za prepoznavanje objekata na
+temelju njihove geometrije, kreiranje i prikazivanje površina iz oblaka
+točaka itd.
 
 \begin{figure}[h]
 \centering
@@ -136,7 +137,7 @@ graf biblioteka kao što je prikazano na slici~\ref{fig:pcl-graph.png}
 
 
 \newpage
-\subsection{Istovremena lokalizacija i mapiranje} % (fold)
+\subsection{Metoda istovremene lokalizacije i mapiranja} % (fold)
 \label{sub:Slam}
 Jedno od najznačajnijih područja istraživanja na polju mobilne robotike
 su metode istovremene lokalizacije i mapiranja
@@ -162,13 +163,13 @@ osloniti se samo na nju kako bi se pronašla pozicija robota već se može
 koristiti lasersko skeniranje okoline ili, kao u slučaju RGBDSlam
 programa, Kinect 3D kamera kako bi pronašli pravu poziciju
 robota/kamere. To se postiže detekcijom značajki u okolini i
-promatranjem tih značajki kada se robot pomakne. EKF (\textit{Extended
-Kalman Filter}) prošireni Kalmanov filter je jezgra SLAM procesa. EKF je
-odgovoran za ažuriranje pozicije na kojoj robot ``misli'' da se nalazi
-koristeći detektirane značajke. Takve značajke se još nazivaju i
-orijentiri. EKF prati estimaciju nesigurnosti pozicije robota i
-nesigurnosti orijentira iz okoline. Pregled SLAM
-procesa~\footnotemark[1] se nalazi na
+promatranjem tih značajki kada se robot pomakne. EKF (engl.
+\textit{Extended Kalman Filter}) odnosno prošireni Kalmanov filter je
+jezgra SLAM procesa. EKF je odgovoran za ažuriranje pozicije na kojoj
+robot ``misli'' da se nalazi koristeći detektirane značajke. Takve
+značajke se još nazivaju i orijentiri. EKF prati estimaciju nesigurnosti
+pozicije robota i nesigurnosti orijentira iz okoline. Pregled SLAM
+procesa\footnotemark[1] se nalazi na
 grafikonu~\ref{fig:slam-overview.pdf}  
 
 \footnotetext[1]{%
@@ -187,7 +188,7 @@ Kad se odometrija promijeni zato što se robot pomakao, nesigurnost koja
 se tiče robotove nove pozicije se ažurira u EKF koristeći ažuriranje
 odometrije. Orijentiri se tada detektiraju u okolini iz robotove nove
 pozicije. Robot tada pokušava asocirati detektirane orijentire s prije
-zapaženim orijentirima spremljenim u kratu. Ponovno zapaženi orijentiri
+zapaženim orijentirima spremljenim u kartu. Ponovno zapaženi orijentiri
 se tada koriste za ažuriranje pozicije robota u EKFu. Orijentiri koji
 prije nisu zapaženi se dodaju u kartu kako bih se mogli koristiti
 kasnije. U svakom od opisanih koraka EKF računa estimaciju robotove
@@ -344,19 +345,19 @@ ograničenje.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.20]{figures/poisson-buddha.png}
+\includegraphics[scale=0.18]{figures/poisson-buddha.png}
 \caption[]{Rekonstrukcija modela ``Happy Buddha'' 
 VRIP\footnotemark[2] algoritam (lijevo) i Poisson algoritma (desno),
 izvor:~\cite{Kazhdan:2006}}
 \label{fig:poisson-buddha.png}
 \end{figure}
 
+\newpage
 \footnotetext[2]{%
 VRIP - Volumetric Range Image Processing~\cite{Curless:1996VRIP}}
 
 % subsubsection Ograničenje Poisson algoritma (end)
 
-\newpage
 \subsubsection{Parametri Poisson algoritma} % (fold)
 \label{ssub:Parametri Poisson algoritma}
 Postoji nekoliko parametara koji utječu na rezultat rekonstrukcije.
