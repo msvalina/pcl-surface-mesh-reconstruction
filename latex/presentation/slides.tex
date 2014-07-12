@@ -156,9 +156,6 @@ računarstva}
         \item <4-> To se postiže detektiranjem orijentira/značajki.
         \item <5-> Jezgra procesa je EKF - odgovoran za ažuriranje
             pozicije na kojoj robot "misli" da se nalazi.
-        \item <6-> EKF rekurzivni je algoritam koji se izvršava na nizu
-            zašumljenih podataka te računa statistički optimalnu
-            estimaciju sustava.
     \end{itemize}
 \end{frame}
 
@@ -195,7 +192,8 @@ računarstva}
             SURF.
         \item <3-> Evaluacijom dubinskih slika na lokacijama pronađenih
             značajki ostvarje se 3D korespodencije između slika.
-        \item <4-> Estimiranje položaj kamere - RANSAC.
+        \item <4-> Upotrebom korespodenicija estimira se položaj kamere
+            - RANSAC.
     \end{itemize}
 \end{frame}
 
@@ -205,8 +203,11 @@ računarstva}
         \includegraphics <1->[scale=0.15]{../figures/rgbdslam.png}
     \end{center}
     \begin{itemize}
-        \item <2-> Optimiziranje grafa položaja - g\textsuperscript{2}o
-        \item <3-> Globalno konzistentan oblak točaka u boji.
+        \item <2-> Kako estimirani položaji kamera nisu globalno
+            konzistentni.         
+        \item <3-> Program vrši optimiziranje grafa položaja odnosno
+            zatvaranje petlje.
+        \item <4-> Globalno konzistentan oblak točaka u boji.
     \end{itemize}
 \end{frame}
 
@@ -219,7 +220,7 @@ računarstva}
 
 %%% 18. Slide %%%
 \subsection{Izgradnja 3D modela scene pomoću mreže trokuta} 
-\begin{frame}{Pregled razvijenog programa mesh-reconstruction}
+\begin{frame}{Dijagram toka razvijenog programa mesh-reconstruction}
     \begin{center}
         \includegraphics <1->[scale=0.28]{../figures/flowchart.pdf}
     \end{center}
@@ -253,8 +254,8 @@ računarstva}
         \includegraphics <1->[width=\linewidth]{../figures/01-all-pcd.png}
     \end{center}
     \begin{itemize}
-        \item <2-> demo prikaz snimljenog modela
-        \item <3-> demo prikaz izrađenog modela
+        \item <2-> Postupak daje funkcionalne rezultate ako se uzmu u
+            obizr ograničenja korištenih tehnologija.
     \end{itemize}
 \end{frame}
 
@@ -265,15 +266,15 @@ računarstva}
     Nedostatci/ograničenja:
     \begin{itemize}
         \item <2-> Kinect - mali domet i ne može raditi u vanjskim
-            uvjetima zbog Sunčevo IR zračenja.
+            uvjetima zbog Sunčevog zračenja.
         \item <3-> RGBDSlam - \alert{zatvaranje petlje} - najzahtjevniji problem.
         \item <4-> Poisson - ne čuva informaciju o boji i izrađuje model
             na mjestima bez točaka.
     \end{itemize}
     Prednosti:
     \begin{itemize}
-        \item <5-> Cijena kamere < 1000 kn
-        \item <6-> Slobodne - open source - licence.
+        \item <5-> Slobodne - open source - licence.
+        \item <6-> Cijena kamere < 1000 kn
         \item <7-> Dostupnost 3D printera traži jednostavno i jefitno
             rješenje 3D skeniranja.
     \end{itemize}

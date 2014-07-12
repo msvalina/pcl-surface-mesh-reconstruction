@@ -97,16 +97,16 @@
 
 ### 15. Slajd - Opis rada RGBDSlam programa
 * RGBDSlam program procesira snimke u četiri koraka:
-* Prvo se dohvaćaju vizualne značajke iz ulaznih slika u boji i
+* Prvo se dohvaćaju značajke iz ulaznih slika u boji i
   spraviaju s prethodno pronađenim značajkama - SURF, SIFT
-* Zatim se vrši evalucija dubinskih slika na lokacijama pronađenih
+* Zatim se radi evalucija dubinskih slika na lokacijama pronađenih
   značajki čime se ostvaruju 3D korespodencije između slika
 * Tada se upotrebom tih korespodencija estimira položaj kamere RANSAC
   algoritmom.
 
 ### 16. Slajd - Opis rada RGBDSlam programa
-* Kako estimirani položaju kamera nisu globalno konzistentni vrši se
-  optimiziranje grafa položaja g2o 
+* Kako estimirani položaju kamera nisu globalno konzistentni ako program
+  može izvršiti zatvaranje petlje onda vrši optimiziranje grafa položaja 
 * I tada program daje globalno konzistentan oblak točaka u boji.
 
 ### 17. Slajd - Prikaz RGBDSlam programa
@@ -144,23 +144,28 @@
   representation sto omogućava prikaz mrežom trokutića
 
 ### 21. Slajd - sadržaj
-* Znači sada slijedi prikaz izgrađeni modela scena 
+* Sada slijedi prikaz snimljenih i izgrađenih modela scena 
 
 ### 22. Slajd - Prikaz snimljenih scena
 * Tijekom diplomskog rada snimljeno i izrađeno je šest scena koje su
   prikazane na ovoj slici.
+* Od toga su tri snimljene ovdje na fakultetu i sad ću prikzati snimku
+  hodnika, na kojoj cu i objasniti ograničenja tehnologija 
+* Sam postupak daje funkcionalne rezultate ako se uzmu u obzir
+  ograničenja tehnologija
+* Na snimci vidimo da na prozoru
+* nema točka i to je zbog ograničenja dubinskog senzora na
+  kinect kameri jer senzora ima problema s staklenim i reflektirajucim
+  površinama
+* Na podu postoji velika rupa bez točaka, to je zato što program nije
+  uspio pronaći značajke na snimci poda koje je mogao uspješno spariti
+  prethodno pronađenim značajkama
+* Isto tako se na oglasnoj ploči može vidjeti da program nije uspio
+  optimalno zatvoriti petlju i ispraviti estimacije položaja kamere
 
+* Što se tiče izgrdnje 3 modela pomoću mreže trokutu važno je spomenuti
+  dva ograničenja:
+* Algoritam izrađuje mrežu trokuta i na mjestima gdje nema točaka, što
+  je kod malih rupa poželjno, a kod velikih nepoželjno
+* Također program ne zadržava informaciju o boji prilikom izgradnje 
  
-### 3. Slajd
-* Dostupnost jeftinog 3D senzora, Kineck kamere 2010. godine uvelike
-  pridonosi razvoju računalnog vida. 
-* Kamera je došla na tržište kao dio Microsoft Xbox igračke konzole.
-* Frekvencijom od 30Hz daje sliku u boji sinkroniziranu s **dubinskom**
-  slikom.
-* Time omogućava na prirodniji način riješavanje problema računalnog
-  vida. 
-* To se i dogodilo te su znanstvenici, programeri i hakeri razvili
-  upravljačke programe, alate i algoritme za korištenje Kinecta.
-* Većina tog softvera je objavljena pod slobodnim licencama, te su ti
-  programi temelj ovog diplomskog rada.
-
